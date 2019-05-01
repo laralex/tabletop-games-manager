@@ -1,0 +1,12 @@
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.csprojAssemblyReference.cache
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.Properties.Resources.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.csproj.GenerateResource.cache
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
+W:\@WORK\C#\LocalNetGame\Player\bin\Debug\Player.exe
+W:\@WORK\C#\LocalNetGame\Player\bin\Debug\Player.pdb
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.exe
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.pdb
+W:\@WORK\C#\LocalNetGame\Player\bin\Debug\en-US\Player.resources.dll
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\en-US\Player.resources.dll
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginForm.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginForm.en-US.resources
