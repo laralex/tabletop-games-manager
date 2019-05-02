@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\IFieldsOwner.cs" />
+    <Compile Include="GUI\ITextOwner.cs" />
     <Compile Include="GUI\Login\LoginFields.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -63,6 +65,30 @@
     <Compile Include="GUI\Login\RegistrationFields.Designer.cs">
       <DependentUpon>RegistrationFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Server Manager\CommonServerOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Server Manager\CommonServerOptions.Designer.cs">
+      <DependentUpon>CommonServerOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Server Manager\DiceServerOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Server Manager\DiceServerOptions.Designer.cs">
+      <DependentUpon>DiceServerOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Server Manager\ServerCreationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Server Manager\ServerCreationForm.Designer.cs">
+      <DependentUpon>ServerCreationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Server Manager\ServersList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Server Manager\ServersList.Designer.cs">
+      <DependentUpon>ServersList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\Login\LoginFields.resx">
       <DependentUpon>LoginFields.cs</DependentUpon>
@@ -76,6 +102,18 @@
     <EmbeddedResource Include="GUI\Login\RegistrationFields.resx">
       <DependentUpon>RegistrationFields.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Server Manager\CommonServerOptions.resx">
+      <DependentUpon>CommonServerOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Server Manager\DiceServerOptions.resx">
+      <DependentUpon>DiceServerOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Server Manager\ServerCreationForm.resx">
+      <DependentUpon>ServerCreationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Server Manager\ServersList.resx">
+      <DependentUpon>ServersList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -84,6 +122,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -96,8 +135,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="GUI\Application\" />
     <Folder Include="GUI\Dice Game\" />
-    <Folder Include="GUI\Server Manager\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

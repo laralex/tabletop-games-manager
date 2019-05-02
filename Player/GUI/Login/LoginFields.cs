@@ -9,9 +9,28 @@ using System.Windows.Forms;
 
 namespace Player.GUI.Login
 {
-    public partial class LoginFields : UserControl
+    public partial class LoginFields : UserControl, IFieldsOwner
     {
+        private bool fields_filled;
+        public bool FieldsFilled {
+            get => fields_filled;
+            private set
+            {
+                btnLogin.Enabled = fields_filled = value;
+                if (value)
+                {
+                    FieldsFilledEvent?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    FieldsNotFilledEvent?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+
         public event EventHandler ChangeToRegisterUi;
+        public event EventHandler FieldsFilledEvent;
+        public event EventHandler FieldsNotFilledEvent;
 
         public LoginFields()
         {
@@ -23,8 +42,8 @@ namespace Player.GUI.Login
         {
             txtLoginUsername.ResetText();
             txtLoginPassword.ResetText();
-            btnLogin.Enabled = false;
-            lblErrorMessage.Text = "";
+            lblErrorMessage.Text = null;
+            FieldsFilled = false;
         }
 
         // Press on "Login" - try sign in 
@@ -42,14 +61,14 @@ namespace Player.GUI.Login
         // Press on "Register" - change UI on register form
         private void OnRegister(object sender, EventArgs e)
         {
-            ChangeToRegisterUi.Invoke(this, EventArgs.Empty);
+            ChangeToRegisterUi?.Invoke(this, EventArgs.Empty);
         }
 
         // Change of login textboxes' text - check if basic requirements are complied
         private void OnLoginFormFilling(object sender, EventArgs e)
         {
-            btnLogin.Enabled =
-                txtLoginUsername.Text != "" && txtLoginPassword.Text != "";
+            FieldsFilled = txtLoginUsername.Text != "" && txtLoginPassword.Text != "";
         }
+
     }
 }

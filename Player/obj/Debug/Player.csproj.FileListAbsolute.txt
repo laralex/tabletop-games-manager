@@ -12,3 +12,7 @@ W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginForm.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginForm.en-US.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginFields.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.RegistrationFields.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.ServerManager.ServersList.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.ServerManager.CommonServerOptions.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.ServerManager.DiceServerOptions.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.ServerManager.ServerCreationForm.resources

@@ -117,8 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDefaultFont" xml:space="preserve">
-    <value>Segoe UI; 9.75pt</value>
-    <comment>Uniform font for UI</comment>
-  </data>
 </root>

@@ -43,20 +43,6 @@
             btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lblErrorMessage
-            // 
-            this.lblErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblErrorMessage.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblErrorMessage.ForeColor = System.Drawing.Color.Crimson;
-            this.lblErrorMessage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblErrorMessage.Location = new System.Drawing.Point(3, 138);
-            this.lblErrorMessage.Name = "lblErrorMessage";
-            this.lblErrorMessage.Size = new System.Drawing.Size(394, 52);
-            this.lblErrorMessage.TabIndex = 16;
-            this.lblErrorMessage.Text = "ERR_MSG";
-            this.lblErrorMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // lblRegisterRepeat
             // 
             lblRegisterRepeat.AutoSize = true;
@@ -68,20 +54,6 @@
             lblRegisterRepeat.TabIndex = 15;
             lblRegisterRepeat.Text = "Repeat";
             // 
-            // txtRegisterRepeat
-            // 
-            this.txtRegisterRepeat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRegisterRepeat.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtRegisterRepeat.Location = new System.Drawing.Point(85, 80);
-            this.txtRegisterRepeat.Name = "txtRegisterRepeat";
-            this.txtRegisterRepeat.Size = new System.Drawing.Size(275, 25);
-            this.txtRegisterRepeat.TabIndex = 14;
-            this.txtRegisterRepeat.UseSystemPasswordChar = true;
-            this.txtRegisterRepeat.Click += new System.EventHandler(this.OnTextBoxFocus);
-            this.txtRegisterRepeat.TextChanged += new System.EventHandler(this.OnRegisterFormFilling);
-            this.txtRegisterRepeat.Enter += new System.EventHandler(this.OnTextBoxFocus);
-            // 
             // lblRegisterUsername
             // 
             lblRegisterUsername.AutoSize = true;
@@ -92,33 +64,6 @@
             lblRegisterUsername.Size = new System.Drawing.Size(67, 17);
             lblRegisterUsername.TabIndex = 10;
             lblRegisterUsername.Text = "Username";
-            // 
-            // txtRegisterUsername
-            // 
-            this.txtRegisterUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRegisterUsername.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtRegisterUsername.Location = new System.Drawing.Point(85, 20);
-            this.txtRegisterUsername.Name = "txtRegisterUsername";
-            this.txtRegisterUsername.Size = new System.Drawing.Size(275, 25);
-            this.txtRegisterUsername.TabIndex = 11;
-            this.txtRegisterUsername.Click += new System.EventHandler(this.OnTextBoxFocus);
-            this.txtRegisterUsername.TextChanged += new System.EventHandler(this.OnRegisterFormFilling);
-            this.txtRegisterUsername.Enter += new System.EventHandler(this.OnTextBoxFocus);
-            // 
-            // txtRegisterPassword
-            // 
-            this.txtRegisterPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRegisterPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtRegisterPassword.Location = new System.Drawing.Point(85, 50);
-            this.txtRegisterPassword.Name = "txtRegisterPassword";
-            this.txtRegisterPassword.Size = new System.Drawing.Size(275, 25);
-            this.txtRegisterPassword.TabIndex = 13;
-            this.txtRegisterPassword.UseSystemPasswordChar = true;
-            this.txtRegisterPassword.Click += new System.EventHandler(this.OnTextBoxFocus);
-            this.txtRegisterPassword.TextChanged += new System.EventHandler(this.OnRegisterFormFilling);
-            this.txtRegisterPassword.Enter += new System.EventHandler(this.OnTextBoxFocus);
             // 
             // lblRegisterPassword
             // 
@@ -142,6 +87,60 @@
             btnBack.Text = "Back to login";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += new System.EventHandler(this.OnBackToLogin);
+            // 
+            // lblErrorMessage
+            // 
+            this.lblErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblErrorMessage.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblErrorMessage.ForeColor = System.Drawing.Color.Crimson;
+            this.lblErrorMessage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblErrorMessage.Location = new System.Drawing.Point(3, 138);
+            this.lblErrorMessage.Name = "lblErrorMessage";
+            this.lblErrorMessage.Size = new System.Drawing.Size(394, 37);
+            this.lblErrorMessage.TabIndex = 16;
+            this.lblErrorMessage.Text = "ERR_MSG";
+            this.lblErrorMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txtRegisterRepeat
+            // 
+            this.txtRegisterRepeat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegisterRepeat.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtRegisterRepeat.Location = new System.Drawing.Point(85, 80);
+            this.txtRegisterRepeat.Name = "txtRegisterRepeat";
+            this.txtRegisterRepeat.Size = new System.Drawing.Size(275, 25);
+            this.txtRegisterRepeat.TabIndex = 14;
+            this.txtRegisterRepeat.UseSystemPasswordChar = true;
+            this.txtRegisterRepeat.Click += new System.EventHandler(this.OnTextBoxFocus);
+            this.txtRegisterRepeat.TextChanged += new System.EventHandler(this.OnRegisterFormFilling);
+            this.txtRegisterRepeat.Enter += new System.EventHandler(this.OnTextBoxFocus);
+            // 
+            // txtRegisterUsername
+            // 
+            this.txtRegisterUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegisterUsername.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtRegisterUsername.Location = new System.Drawing.Point(85, 20);
+            this.txtRegisterUsername.Name = "txtRegisterUsername";
+            this.txtRegisterUsername.Size = new System.Drawing.Size(275, 25);
+            this.txtRegisterUsername.TabIndex = 11;
+            this.txtRegisterUsername.TextChanged += new System.EventHandler(this.OnRegisterFormFilling);
+            this.txtRegisterUsername.Enter += new System.EventHandler(this.OnTextBoxFocus);
+            // 
+            // txtRegisterPassword
+            // 
+            this.txtRegisterPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegisterPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtRegisterPassword.Location = new System.Drawing.Point(85, 50);
+            this.txtRegisterPassword.Name = "txtRegisterPassword";
+            this.txtRegisterPassword.Size = new System.Drawing.Size(275, 25);
+            this.txtRegisterPassword.TabIndex = 13;
+            this.txtRegisterPassword.UseSystemPasswordChar = true;
+            this.txtRegisterPassword.Click += new System.EventHandler(this.OnTextBoxFocus);
+            this.txtRegisterPassword.TextChanged += new System.EventHandler(this.OnRegisterFormFilling);
+            this.txtRegisterPassword.Enter += new System.EventHandler(this.OnTextBoxFocus);
             // 
             // btnRegisterConfirm
             // 

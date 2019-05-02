@@ -16,6 +16,7 @@ namespace Player
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Player.GUI.Login.LoginForm());
+            Application.Run(new Player.GUI.ServerManager.ServerCreationForm());
         }
     }
 }

@@ -10,12 +10,31 @@ using System.Text.RegularExpressions;
 
 namespace Player.GUI.Login
 {
-    public partial class RegistrationFields : UserControl
+    public partial class RegistrationFields : UserControl, IFieldsOwner
     {
-        Regex username_valid_chars = new Regex("^[a-zA-Z0-9_.-]+$", RegexOptions.Compiled);
-        Regex password_valid_chars = new Regex("^[a-zA-Z0-9]+$", RegexOptions.Compiled);
+        private Regex username_valid_chars = new Regex("^[a-zA-Z0-9_.-]+$", RegexOptions.Compiled);
+        private Regex password_valid_chars = new Regex("^[a-zA-Z0-9]+$", RegexOptions.Compiled);
+        private bool fields_filled;
+        public bool FieldsFilled
+        {
+            get => fields_filled;
+            private set
+            {
+                btnRegisterConfirm.Enabled = fields_filled = value;
+                if (value)
+                {
+                    FieldsFilledEvent?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    FieldsNotFilledEvent?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
 
         public event EventHandler ChangeToLoginUi;
+        public event EventHandler FieldsFilledEvent;
+        public event EventHandler FieldsNotFilledEvent;
 
         public RegistrationFields()
         {
@@ -28,8 +47,8 @@ namespace Player.GUI.Login
             txtRegisterUsername.ResetText();
             txtRegisterPassword.ResetText();
             txtRegisterRepeat.ResetText();
-            btnRegisterConfirm.Enabled = false;
             lblErrorMessage.Text = "";
+            FieldsFilled = false;
         }
 
 
@@ -48,13 +67,13 @@ namespace Player.GUI.Login
         // Press on "Back to login" - change UI on login form
         private void OnBackToLogin(object sender, EventArgs e)
         {
-            ChangeToLoginUi.Invoke(this, EventArgs.Empty);
+            ChangeToLoginUi?.Invoke(this, EventArgs.Empty);
         }
 
         // Change of registration textboxes' text - check if basic requirements are complied
         private void OnRegisterFormFilling(object sender, EventArgs e)
         {
-            btnRegisterConfirm.Enabled = false;
+            FieldsFilled = false;
 
             if (txtRegisterUsername.Text == ""
                  || txtRegisterPassword.Text == ""
@@ -94,8 +113,8 @@ namespace Player.GUI.Login
                 return;
             }
 
-            btnRegisterConfirm.Enabled = true;
             lblErrorMessage.Text = "";
+            FieldsFilled = false;
         }
 
         private void OnTextBoxFocus(object sender, EventArgs e)

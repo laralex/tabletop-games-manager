@@ -40,32 +40,17 @@
             lblLoginPassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // lblErrorMessage
-            // 
-            this.lblErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblErrorMessage.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblErrorMessage.ForeColor = System.Drawing.Color.Crimson;
-            this.lblErrorMessage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblErrorMessage.Location = new System.Drawing.Point(0, 109);
-            this.lblErrorMessage.Name = "lblErrorMessage";
-            this.lblErrorMessage.Size = new System.Drawing.Size(400, 41);
-            this.lblErrorMessage.TabIndex = 17;
-            this.lblErrorMessage.Text = "ERR_MSG";
-            this.lblErrorMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // btnRegister
             // 
             btnRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             btnRegister.FlatAppearance.BorderSize = 0;
             btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            btnRegister.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Underline);
             btnRegister.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             btnRegister.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            btnRegister.Location = new System.Drawing.Point(244, 81);
+            btnRegister.Location = new System.Drawing.Point(227, 81);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new System.Drawing.Size(116, 25);
+            btnRegister.Size = new System.Drawing.Size(133, 25);
             btnRegister.TabIndex = 16;
             btnRegister.Text = "Not registered yet ?";
             btnRegister.UseVisualStyleBackColor = true;
@@ -82,9 +67,36 @@
             lblLoginUsername.TabIndex = 11;
             lblLoginUsername.Text = "Username";
             // 
+            // lblLoginPassword
+            // 
+            lblLoginPassword.AutoSize = true;
+            lblLoginPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblLoginPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            lblLoginPassword.Location = new System.Drawing.Point(14, 53);
+            lblLoginPassword.Name = "lblLoginPassword";
+            lblLoginPassword.Size = new System.Drawing.Size(64, 17);
+            lblLoginPassword.TabIndex = 13;
+            lblLoginPassword.Text = "Password";
+            // 
+            // lblErrorMessage
+            // 
+            this.lblErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblErrorMessage.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblErrorMessage.ForeColor = System.Drawing.Color.Crimson;
+            this.lblErrorMessage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblErrorMessage.Location = new System.Drawing.Point(0, 109);
+            this.lblErrorMessage.Name = "lblErrorMessage";
+            this.lblErrorMessage.Size = new System.Drawing.Size(400, 41);
+            this.lblErrorMessage.TabIndex = 17;
+            this.lblErrorMessage.Text = "ERR_MSG";
+            this.lblErrorMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // btnLogin
             // 
             this.btnLogin.Enabled = false;
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.btnLogin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnLogin.Location = new System.Drawing.Point(85, 81);
             this.btnLogin.Name = "btnLogin";
@@ -117,17 +129,6 @@
             this.txtLoginPassword.UseSystemPasswordChar = true;
             this.txtLoginPassword.TextChanged += new System.EventHandler(this.OnLoginFormFilling);
             // 
-            // lblLoginPassword
-            // 
-            lblLoginPassword.AutoSize = true;
-            lblLoginPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            lblLoginPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            lblLoginPassword.Location = new System.Drawing.Point(14, 53);
-            lblLoginPassword.Name = "lblLoginPassword";
-            lblLoginPassword.Size = new System.Drawing.Size(64, 17);
-            lblLoginPassword.TabIndex = 13;
-            lblLoginPassword.Text = "Password";
-            // 
             // LoginFields
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,8 +150,8 @@
         #endregion
 
         private System.Windows.Forms.Label lblErrorMessage;
-        private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.TextBox txtLoginUsername;
         private System.Windows.Forms.TextBox txtLoginPassword;
+        internal System.Windows.Forms.Button btnLogin;
     }
 }
