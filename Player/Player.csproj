@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\Login\LoginFields.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Login\LoginFields.Designer.cs">
+      <DependentUpon>LoginFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -51,12 +57,24 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="GUI\Login\RegistrationFields.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Login\RegistrationFields.Designer.cs">
+      <DependentUpon>RegistrationFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\Login\LoginFields.resx">
+      <DependentUpon>LoginFields.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Login\LoginForm.en-US.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Login\RegistrationFields.resx">
+      <DependentUpon>RegistrationFields.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -10,3 +10,5 @@ W:\@WORK\C#\LocalNetGame\Player\bin\Debug\en-US\Player.resources.dll
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\en-US\Player.resources.dll
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginForm.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginForm.en-US.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.LoginFields.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Login.RegistrationFields.resources
