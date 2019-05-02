@@ -10,15 +10,14 @@ using System.Windows.Forms;
 namespace Player.GUI.Login
 {
     public partial class LoginFields : UserControl, IFieldsOwner
-    {
-        private bool fields_filled;
+    { 
         public bool FieldsFilled {
             get => fields_filled;
             private set
             {
                 btnLogin.Enabled = fields_filled = value;
                 if (value)
-                {
+                { 
                     FieldsFilledEvent?.Invoke(this, EventArgs.Empty);
                 }
                 else
@@ -50,16 +49,16 @@ namespace Player.GUI.Login
         private void OnLogin(object sender, EventArgs e)
         {
             // TODO: get user's hash from DB
-
             // TODO: check passwords hashes
-
-            // TODO: login, pass to a next form
+            // TODO: login, provide user info to app
+            // TODO: pass to a next form
             // Change state, not explicit close
             this.ParentForm.Close();
+
         }
 
-        // Press on "Register" - change UI on register form
-        private void OnRegister(object sender, EventArgs e)
+        // Press on "Not registered yet" - change UI on register form
+        private void OnRegistrationRequest(object sender, EventArgs e)
         {
             ChangeToRegisterUi?.Invoke(this, EventArgs.Empty);
         }
@@ -70,5 +69,6 @@ namespace Player.GUI.Login
             FieldsFilled = txtLoginUsername.Text != "" && txtLoginPassword.Text != "";
         }
 
+        private bool fields_filled;
     }
 }

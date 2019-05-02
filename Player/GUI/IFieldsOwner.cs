@@ -5,17 +5,27 @@ using System.Text;
 
 namespace Player.GUI
 {
-    // This object has controls, which are user input fields
+    /// <summary>
+    /// This object has controls, which are user input fields to be filled
+    /// </summary>
     interface IFieldsOwner
     {
-        // Rollback all fields to initial state
+        /// <summary>
+        /// Rolls back all fields to initial state
+        /// </summary>
         void ResetFields();
 
-        // Returns true, when crucial fields are filled with data
+        /// <summary>
+        /// Returns true, when crucial fields are filled with data
+        /// </summary>
         bool FieldsFilled { get; }
-        // Is invoked, when form is complete
+        /// <summary>
+        /// Is invoked, when form is complete
+        /// </summary>
         event EventHandler FieldsFilledEvent;
-        // Is invoked, when form is not complete
+        /// <summary>
+        /// Is invoked, when form is not complete
+        /// </summary>
         event EventHandler FieldsNotFilledEvent;
     }
 }

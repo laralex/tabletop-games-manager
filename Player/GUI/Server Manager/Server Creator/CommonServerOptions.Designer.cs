@@ -1,4 +1,4 @@
-﻿namespace Player.GUI.ServerManager
+﻿namespace Player.GUI.ServerManager.ServerCreator
 {
     partial class CommonServerOptions
     {

@@ -3,10 +3,15 @@ using System.Drawing;
 
 namespace Player.GUI
 {
-    // This object contains drawable text, which appearence must be overridden
+    /// <summary>
+    /// This object contains drawable text, which appearence must be overridden
+    /// </summary>
     interface ITextOwner
     {
-        // Overrides font of all text
+        /// <summary>
+        /// Overrides font of all text
+        /// </summary>
+        /// <param name="font">New font</param>
         void SetFont(Font font);
     }
 }

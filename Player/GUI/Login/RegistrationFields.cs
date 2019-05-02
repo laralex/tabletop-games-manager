@@ -12,9 +12,6 @@ namespace Player.GUI.Login
 {
     public partial class RegistrationFields : UserControl, IFieldsOwner
     {
-        private Regex username_valid_chars = new Regex("^[a-zA-Z0-9_.-]+$", RegexOptions.Compiled);
-        private Regex password_valid_chars = new Regex("^[a-zA-Z0-9]+$", RegexOptions.Compiled);
-        private bool fields_filled;
         public bool FieldsFilled
         {
             get => fields_filled;
@@ -55,13 +52,11 @@ namespace Player.GUI.Login
         // Press on "Register" on register form - try to create a user
         private void OnRegisterConfirm(object sender, EventArgs e)
         {
-            // TODO: if user not exists ...
+            // TODO: if user does not exist ...
 
             // TODO: add in DB
 
-            // TODO: login, pass to a next form
-            // Change state, not explicit close
-            this.ParentForm.Close();
+            // TODO: login action 
         }       
 
         // Press on "Back to login" - change UI on login form
@@ -121,7 +116,10 @@ namespace Player.GUI.Login
         {
             (sender as TextBox).SelectAll();
         }
-    }
 
-    
+        private Regex username_valid_chars = new Regex("^[a-zA-Z0-9_.-]+$", RegexOptions.Compiled);
+        private Regex password_valid_chars = new Regex("^[a-zA-Z0-9]+$", RegexOptions.Compiled);
+        private bool fields_filled;
+
+    }
 }

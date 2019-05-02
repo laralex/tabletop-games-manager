@@ -1,4 +1,4 @@
-﻿namespace Player.GUI.ServerManager
+﻿namespace Player.GUI.ServerManager.ServerCreator
 {
     partial class ServerCreationForm
     {
@@ -32,8 +32,8 @@
             System.Windows.Forms.Panel pnlButtons;
             System.Windows.Forms.TableLayoutPanel tableLayout;
             this.btnOK = new System.Windows.Forms.Button();
-            this.serverSubform = new Player.GUI.ServerManager.CommonServerOptions();
-            this.dicegameSubform = new Player.GUI.ServerManager.DiceServerOptions();
+            this.serverSubform = new Player.GUI.ServerManager.ServerCreator.CommonServerOptions();
+            this.dicegameSubform = new Player.GUI.ServerManager.ServerCreator.DiceServerOptions();
             btnToDefaults = new System.Windows.Forms.Button();
             pnlButtons = new System.Windows.Forms.Panel();
             tableLayout = new System.Windows.Forms.TableLayoutPanel();

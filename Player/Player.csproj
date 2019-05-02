@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\Debug\Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Debug\Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\IFieldsOwner.cs" />
     <Compile Include="GUI\ITextOwner.cs" />
     <Compile Include="GUI\Login\LoginFields.cs">
@@ -65,22 +71,22 @@
     <Compile Include="GUI\Login\RegistrationFields.Designer.cs">
       <DependentUpon>RegistrationFields.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\CommonServerOptions.cs">
+    <Compile Include="GUI\Server Manager\Server Creator\CommonServerOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\CommonServerOptions.Designer.cs">
+    <Compile Include="GUI\Server Manager\Server Creator\CommonServerOptions.Designer.cs">
       <DependentUpon>CommonServerOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\DiceServerOptions.cs">
+    <Compile Include="GUI\Server Manager\Server Creator\DiceServerOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\DiceServerOptions.Designer.cs">
+    <Compile Include="GUI\Server Manager\Server Creator\DiceServerOptions.Designer.cs">
       <DependentUpon>DiceServerOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\ServerCreationForm.cs">
+    <Compile Include="GUI\Server Manager\Server Creator\ServerCreationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\ServerCreationForm.Designer.cs">
+    <Compile Include="GUI\Server Manager\Server Creator\ServerCreationForm.Designer.cs">
       <DependentUpon>ServerCreationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Server Manager\ServersList.cs">
@@ -90,6 +96,9 @@
       <DependentUpon>ServersList.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\Debug\Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Login\LoginFields.resx">
       <DependentUpon>LoginFields.cs</DependentUpon>
     </EmbeddedResource>
@@ -102,13 +111,13 @@
     <EmbeddedResource Include="GUI\Login\RegistrationFields.resx">
       <DependentUpon>RegistrationFields.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\CommonServerOptions.resx">
+    <EmbeddedResource Include="GUI\Server Manager\Server Creator\CommonServerOptions.resx">
       <DependentUpon>CommonServerOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\DiceServerOptions.resx">
+    <EmbeddedResource Include="GUI\Server Manager\Server Creator\DiceServerOptions.resx">
       <DependentUpon>DiceServerOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\ServerCreationForm.resx">
+    <EmbeddedResource Include="GUI\Server Manager\Server Creator\ServerCreationForm.resx">
       <DependentUpon>ServerCreationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server Manager\ServersList.resx">

@@ -7,27 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Player.GUI.ServerManager
+namespace Player.GUI.ServerManager.ServerCreator
 {
-    public partial class DiceServerOptions : UserControl, IFieldsOwner
+    public partial class CommonServerOptions : UserControl, IFieldsOwner
     {
-        public DiceServerOptions()
+        public CommonServerOptions()
         {
             InitializeComponent();
-            ResetFields();
         }
 
-        public bool FieldsFilled => true;
+        public bool FieldsFilled { get => txtName.Text != ""; }
 
         public event EventHandler FieldsFilledEvent;
         public event EventHandler FieldsNotFilledEvent;
 
         public void ResetFields()
         {
-            numScoreGoal.Value = Convert.ToDecimal(numScoreGoal.Tag);
-            numTurnTime.Value = Convert.ToDecimal(numTurnTime.Tag);
-            numDiceNumber.Value = Convert.ToDecimal(numDiceNumber.Tag);
-            chkIncludedJoker.Checked = Convert.ToInt32(chkIncludedJoker.Tag) > 0;
+            txtName.ResetText();
+            numMaxPlayers.Value = Convert.ToDecimal(numMaxPlayers.Tag);
         }
 
         private void OnFieldChange(object sender, EventArgs e)

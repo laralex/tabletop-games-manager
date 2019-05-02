@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Player.GUI.ServerManager
+namespace Player.GUI.ServerManager.ServerCreator
 {
     public partial class ServerCreationForm : Form
     {
         // FIXME: when numbericupdown field is filled with empty string, OK button is still active
-        private bool serverFormFilled, diceFormFilled;
+        
         public bool FieldsFilled => serverSubform.FieldsFilled && dicegameSubform.FieldsFilled;
 
         public ServerCreationForm()
@@ -59,5 +59,7 @@ namespace Player.GUI.ServerManager
             // TODO: close dialog, add server in servers list
             this.Close();
         }
+
+        private bool serverFormFilled, diceFormFilled;
     }
 }

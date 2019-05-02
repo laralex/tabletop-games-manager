@@ -13,8 +13,6 @@ namespace Player.GUI.Login
     public partial class LoginForm : Form, ITextOwner
     {
 
-        private bool current_ui_login;
-
         public LoginForm()
         { 
             InitializeComponent();
@@ -64,6 +62,8 @@ namespace Player.GUI.Login
             this.Size = new Size(this.Size.Width, 215);
             this.Text = "Register User";
         }
+
+        private bool current_ui_login;
 
     }
 }

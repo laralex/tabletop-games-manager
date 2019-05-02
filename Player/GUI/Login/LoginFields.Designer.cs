@@ -54,7 +54,7 @@
             btnRegister.TabIndex = 16;
             btnRegister.Text = "Not registered yet ?";
             btnRegister.UseVisualStyleBackColor = true;
-            btnRegister.Click += new System.EventHandler(this.OnRegister);
+            btnRegister.Click += new System.EventHandler(this.OnRegistrationRequest);
             // 
             // lblLoginUsername
             // 
