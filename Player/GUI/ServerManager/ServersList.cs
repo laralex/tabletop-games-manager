@@ -17,18 +17,6 @@ namespace Player.GUI.ServerManager
             InitializeComponent();
         }
 
-        private void OnCreateServer(object sender, EventArgs e)
-        {
-            // TODO: wait data from dialog
-            new ServerCreator.ServerCreationForm().ShowDialog();
-            // TODO: add in database
-            // TODO: add server in list
-            // TODO: select new server
-            AppendServer();
-            AppendServer();
-            AppendServer();
-        }
-
         private void OnJoin(object sender, EventArgs e)
         {
             // TODO: TRY connect to server and prepare client game (do in separate thread, connection timeout, server messages)
@@ -94,7 +82,7 @@ namespace Player.GUI.ServerManager
             bool is_lhs_waiting = lhs != "Playing";
             bool is_rhs_waiting = rhs != "Playing";
 
-            return is_lhs_waiting && is_rhs_waiting ? 0 : is_lhs_waiting ? 1 : -1; 
+            return is_lhs_waiting && is_rhs_waiting ? 0 : is_lhs_waiting ? 1 : -1;
         }
 
         // TODO: stable sort
@@ -121,6 +109,20 @@ namespace Player.GUI.ServerManager
             e.Handled = true;
         }
 
-        private Regex retrieve_number = new Regex(@"\d+");  
+        private void OnNewServer(object sender, EventArgs e)
+        {
+            // TODO: wait data from dialog
+            new ServerCreator.ServerCreationForm().ShowDialog();
+            // TODO: add in database
+            // TODO: add server in list
+            // TODO: select new server
+            AppendServer();
+            AppendServer();
+            AppendServer();
+        }
+
+        private Regex retrieve_number = new Regex(@"\d+");
+
+
     }
 }

@@ -62,6 +62,12 @@
     <Compile Include="GUI\Debug\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Dice Game\DiceGame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Dice Game\DiceGame.Designer.cs">
+      <DependentUpon>DiceGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\IFieldsOwner.cs" />
     <Compile Include="GUI\ITextOwner.cs" />
     <Compile Include="GUI\Login\LoginFields.cs">
@@ -117,6 +123,9 @@
     <EmbeddedResource Include="GUI\Debug\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Dice Game\DiceGame.resx">
+      <DependentUpon>DiceGame.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Login\LoginFields.resx">
       <DependentUpon>LoginFields.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,9 +170,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GUI\Dice Game\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="GUI\Resources\about_logo.png" />
   </ItemGroup>

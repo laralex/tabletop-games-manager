@@ -19,7 +19,8 @@ namespace Player
             //Application.Run(new Player.GUI.Login.LoginForm());
             var test = new Player.GUI.Debug.Test();
             //test.Show(new GUI.Application.AppForm());
-            Application.Run(new GUI.Application.AppForm());
+            Application.Run(test);
+            //Application.Run(new GUI.Application.AppForm());
 
         }
     }

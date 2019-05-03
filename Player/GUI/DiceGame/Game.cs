@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Player.GUI.Application
+namespace Player.GUI.DiceGame
 {
-    public partial class AppForm : Form
+    public partial class Game : UserControl
     {
-        public AppForm()
+        public Game()
         {
             InitializeComponent();
         }
-
-        private void OnMenuAbout(object sender, EventArgs e)
-        {
-            new AboutBox().Show(this);
-        }
-
     }
 }

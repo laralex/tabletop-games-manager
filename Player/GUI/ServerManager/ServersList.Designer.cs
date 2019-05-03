@@ -136,9 +136,9 @@
             this.btnCreateServer.Name = "btnCreateServer";
             this.btnCreateServer.Size = new System.Drawing.Size(88, 23);
             this.btnCreateServer.TabIndex = 4;
-            this.btnCreateServer.Text = "Create Server";
+            this.btnCreateServer.Text = "New Server";
             this.btnCreateServer.UseVisualStyleBackColor = true;
-            this.btnCreateServer.Click += new System.EventHandler(this.OnCreateServer);
+            this.btnCreateServer.Click += new System.EventHandler(this.OnNewServer);
             // 
             // ServersList
             // 
