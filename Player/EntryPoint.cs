@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Player.GUI;
 
 namespace Player
 {
@@ -16,7 +17,10 @@ namespace Player
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Player.GUI.Login.LoginForm());
-            Application.Run(new Player.GUI.Debug.Test());
+            var test = new Player.GUI.Debug.Test();
+            //test.Show(new GUI.Application.AppForm());
+            Application.Run(new GUI.Application.AppForm());
+
         }
     }
 }

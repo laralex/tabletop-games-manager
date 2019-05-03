@@ -44,6 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\Application\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Application\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Application\AppForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Application\AppForm.Designer.cs">
+      <DependentUpon>AppForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Debug\Test.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +108,12 @@
       <DependentUpon>ServersList.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\Application\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Application\AppForm.resx">
+      <DependentUpon>AppForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Debug\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,8 +162,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GUI\Application\" />
     <Folder Include="GUI\Dice Game\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\Resources\about_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
