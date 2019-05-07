@@ -8,12 +8,8 @@ namespace Player.GUI
     /// <summary>
     /// This object has controls, which are user input fields to be filled
     /// </summary>
-    interface IFieldsOwner
+    interface IFieldsOwner : IResetable
     {
-        /// <summary>
-        /// Rolls back all fields to initial state
-        /// </summary>
-        void ResetFields();
 
         /// <summary>
         /// Returns true, when crucial fields are filled with data

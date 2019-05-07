@@ -32,10 +32,10 @@ namespace Player.GUI.Login
         }
 
 
-        public void ResetFields()
+        public void Reset()
         {
-            loginSubform.ResetFields();
-            registrationSubform.ResetFields();
+            loginSubform.Reset();
+            registrationSubform.Reset();
         }
 
         public void SetFont(Font font)
@@ -46,7 +46,7 @@ namespace Player.GUI.Login
         private void OnChangeToLoginUi(object sender, EventArgs e)
         {
             registrationSubform.Hide();
-            loginSubform.ResetFields();
+            loginSubform.Reset();
             loginSubform.Show();
             current_ui_login = true;
             this.Size = new Size(this.Size.Width, 180);
@@ -56,7 +56,7 @@ namespace Player.GUI.Login
         private void OnChangeToRegisterUi(object sender, EventArgs e)
         {
             loginSubform.Hide();
-            registrationSubform.ResetFields();
+            registrationSubform.Reset();
             registrationSubform.Show();
             current_ui_login = false;
             this.Size = new Size(this.Size.Width, 215);

@@ -41,8 +41,8 @@ namespace Player.GUI.ServerManager.ServerCreator
 
         public void ResetFields()
         {
-            serverSubform.ResetFields();
-            dicegameSubform.ResetFields();
+            serverSubform.Reset();
+            dicegameSubform.Reset();
         }
 
         private void OnToDefaults(object sender, EventArgs e)

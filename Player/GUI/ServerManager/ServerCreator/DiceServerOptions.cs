@@ -14,7 +14,7 @@ namespace Player.GUI.ServerManager.ServerCreator
         public DiceServerOptions()
         {
             InitializeComponent();
-            ResetFields();
+            Reset();
         }
 
         public bool FieldsFilled => true;
@@ -22,7 +22,7 @@ namespace Player.GUI.ServerManager.ServerCreator
         public event EventHandler FieldsFilledEvent;
         public event EventHandler FieldsNotFilledEvent;
 
-        public void ResetFields()
+        public void Reset()
         {
             numScoreGoal.Value = Convert.ToDecimal(numScoreGoal.Tag);
             numTurnTime.Value = Convert.ToDecimal(numTurnTime.Tag);

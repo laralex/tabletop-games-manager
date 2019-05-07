@@ -21,7 +21,7 @@ namespace Player.GUI.ServerManager.ServerCreator
         public event EventHandler FieldsFilledEvent;
         public event EventHandler FieldsNotFilledEvent;
 
-        public void ResetFields()
+        public void Reset()
         {
             txtName.ResetText();
             numMaxPlayers.Value = Convert.ToDecimal(numMaxPlayers.Tag);

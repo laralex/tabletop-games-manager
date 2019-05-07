@@ -36,10 +36,10 @@ namespace Player.GUI.Login
         public RegistrationFields()
         {
             InitializeComponent();
-            ResetFields();
+            Reset();
         }
 
-        public void ResetFields()
+        public void Reset()
         {
             txtRegisterUsername.ResetText();
             txtRegisterPassword.ResetText();

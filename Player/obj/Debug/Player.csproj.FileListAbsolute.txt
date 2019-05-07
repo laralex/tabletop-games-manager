@@ -19,4 +19,6 @@ W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.ServerManager.ServerCreator
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Debug.Test.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Application.AboutBox.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Application.AppForm.resources
-W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Dice_Game.DiceGame.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.Game.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.ScoreBoard.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.ScoreRecords.resources

@@ -62,13 +62,35 @@
     <Compile Include="GUI\Debug\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Dice Game\DiceGame.cs">
+    <Compile Include="GUI\DiceGame\Die.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Dice Game\DiceGame.Designer.cs">
-      <DependentUpon>DiceGame.cs</DependentUpon>
+    <Compile Include="GUI\DiceGame\Die.Designer.cs">
+      <DependentUpon>Die.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DiceGame\DieControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\DiceGame\Game.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DiceGame\Game.Designer.cs">
+      <DependentUpon>Game.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DiceGame\ScoreBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DiceGame\ScoreBoard.Designer.cs">
+      <DependentUpon>ScoreBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DiceGame\ScoreRecords.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DiceGame\ScoreRecords.Designer.cs">
+      <DependentUpon>ScoreRecords.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\IFieldsOwner.cs" />
+    <Compile Include="GUI\IResetable.cs" />
     <Compile Include="GUI\ITextOwner.cs" />
     <Compile Include="GUI\Login\LoginFields.cs">
       <SubType>UserControl</SubType>
@@ -89,28 +111,28 @@
     <Compile Include="GUI\Login\RegistrationFields.Designer.cs">
       <DependentUpon>RegistrationFields.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\Server Creator\CommonServerOptions.cs">
+    <Compile Include="GUI\ServerManager\ServerCreator\CommonServerOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\Server Creator\CommonServerOptions.Designer.cs">
+    <Compile Include="GUI\ServerManager\ServerCreator\CommonServerOptions.Designer.cs">
       <DependentUpon>CommonServerOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\Server Creator\DiceServerOptions.cs">
+    <Compile Include="GUI\ServerManager\ServerCreator\DiceServerOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\Server Creator\DiceServerOptions.Designer.cs">
+    <Compile Include="GUI\ServerManager\ServerCreator\DiceServerOptions.Designer.cs">
       <DependentUpon>DiceServerOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\Server Creator\ServerCreationForm.cs">
+    <Compile Include="GUI\ServerManager\ServerCreator\ServerCreationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\Server Creator\ServerCreationForm.Designer.cs">
+    <Compile Include="GUI\ServerManager\ServerCreator\ServerCreationForm.Designer.cs">
       <DependentUpon>ServerCreationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Server Manager\ServersList.cs">
+    <Compile Include="GUI\ServerManager\ServersList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Server Manager\ServersList.Designer.cs">
+    <Compile Include="GUI\ServerManager\ServersList.Designer.cs">
       <DependentUpon>ServersList.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,8 +145,14 @@
     <EmbeddedResource Include="GUI\Debug\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Dice Game\DiceGame.resx">
-      <DependentUpon>DiceGame.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\DiceGame\Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DiceGame\ScoreBoard.resx">
+      <DependentUpon>ScoreBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DiceGame\ScoreRecords.resx">
+      <DependentUpon>ScoreRecords.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Login\LoginFields.resx">
       <DependentUpon>LoginFields.cs</DependentUpon>
@@ -138,16 +166,16 @@
     <EmbeddedResource Include="GUI\Login\RegistrationFields.resx">
       <DependentUpon>RegistrationFields.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\Server Creator\CommonServerOptions.resx">
+    <EmbeddedResource Include="GUI\ServerManager\ServerCreator\CommonServerOptions.resx">
       <DependentUpon>CommonServerOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\Server Creator\DiceServerOptions.resx">
+    <EmbeddedResource Include="GUI\ServerManager\ServerCreator\DiceServerOptions.resx">
       <DependentUpon>DiceServerOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\Server Creator\ServerCreationForm.resx">
+    <EmbeddedResource Include="GUI\ServerManager\ServerCreator\ServerCreationForm.resx">
       <DependentUpon>ServerCreationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server Manager\ServersList.resx">
+    <EmbeddedResource Include="GUI\ServerManager\ServersList.resx">
       <DependentUpon>ServersList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

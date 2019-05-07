@@ -34,10 +34,10 @@ namespace Player.GUI.Login
         public LoginFields()
         {
             InitializeComponent();
-            ResetFields();
+            Reset();
         }
 
-        public void ResetFields()
+        public void Reset()
         {
             txtLoginUsername.ResetText();
             txtLoginPassword.ResetText();
