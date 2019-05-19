@@ -22,3 +22,8 @@ W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.Application.AppForm.resourc
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.Game.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.ScoreBoard.resources
 W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.ScoreRecords.resources
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.GUI.DiceGame.Die.resources
+W:\@WORK\C#\LocalNetGame\Player\bin\Debug\Windows-Library.dll
+W:\@WORK\C#\LocalNetGame\Player\bin\Debug\Windows-Library.pdb
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.csproj.CopyComplete
+W:\@WORK\C#\LocalNetGame\Player\obj\Debug\Player.g.resources

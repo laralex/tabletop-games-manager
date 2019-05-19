@@ -28,30 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dieControl1 = new Player.GUI.DiceGame.DieControl();
-            this.die1 = new Player.GUI.DiceGame.Die();
             this.game1 = new Player.GUI.DiceGame.Game();
             this.SuspendLayout();
             // 
-            // dieControl1
-            // 
-            this.dieControl1.Location = new System.Drawing.Point(12, 12);
-            this.dieControl1.Name = "dieControl1";
-            this.dieControl1.Size = new System.Drawing.Size(75, 23);
-            this.dieControl1.TabIndex = 2;
-            this.dieControl1.Text = "dieControl1";
-            this.dieControl1.UseVisualStyleBackColor = true;
-            this.dieControl1.Value = Player.GUI.DiceGame.DieValue.ONE;
-            // 
-            // die1
-            // 
-            this.die1.Location = new System.Drawing.Point(12, 41);
-            this.die1.Name = "die1";
-            this.die1.Size = new System.Drawing.Size(101, 32);
-            this.die1.TabIndex = 1;
-            // 
             // game1
             // 
+            this.game1.AutoSize = true;
             this.game1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.game1.Dock = System.Windows.Forms.DockStyle.Right;
             this.game1.Location = new System.Drawing.Point(109, 0);
@@ -65,17 +47,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 579);
             this.Controls.Add(this.game1);
-            this.Controls.Add(this.dieControl1);
-            this.Controls.Add(this.die1);
             this.Name = "Test";
             this.Text = "Test";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private DiceGame.Die die1;
-        private DiceGame.DieControl dieControl1;
         private DiceGame.Game game1;
     }
 }

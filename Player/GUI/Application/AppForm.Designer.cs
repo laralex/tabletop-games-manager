@@ -44,8 +44,6 @@
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectedServersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disconnectFromAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.createNewServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationFeaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -128,9 +126,7 @@
             // 
             this.seversToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.currentServerToolStripMenuItem,
-            this.connectedServersToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.createNewServerToolStripMenuItem});
+            this.connectedServersToolStripMenuItem});
             this.seversToolStripMenuItem.Name = "seversToolStripMenuItem";
             this.seversToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.seversToolStripMenuItem.Text = "&Servers";
@@ -169,17 +165,6 @@
             this.disconnectFromAllToolStripMenuItem.Name = "disconnectFromAllToolStripMenuItem";
             this.disconnectFromAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.disconnectFromAllToolStripMenuItem.Text = "&Disconnect from all";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // createNewServerToolStripMenuItem
-            // 
-            this.createNewServerToolStripMenuItem.Name = "createNewServerToolStripMenuItem";
-            this.createNewServerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.createNewServerToolStripMenuItem.Text = "&New server";
             // 
             // helpToolStripMenuItem
             // 
@@ -311,8 +296,6 @@
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectedServersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disconnectFromAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem createNewServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applicationFeaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem applicationToolStripMenuItem;

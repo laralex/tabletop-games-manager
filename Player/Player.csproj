@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -67,9 +68,6 @@
     </Compile>
     <Compile Include="GUI\DiceGame\Die.Designer.cs">
       <DependentUpon>Die.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\DiceGame\DieControl.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUI\DiceGame\Game.cs">
       <SubType>UserControl</SubType>
@@ -145,6 +143,9 @@
     <EmbeddedResource Include="GUI\Debug\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DiceGame\Die.resx">
+      <DependentUpon>Die.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\DiceGame\Game.resx">
       <DependentUpon>Game.cs</DependentUpon>
     </EmbeddedResource>
@@ -198,9 +199,23 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="GUI\DiceGame\Die-sides\five.gif" />
+    <Resource Include="GUI\DiceGame\Die-sides\four.gif" />
+    <Resource Include="GUI\DiceGame\Die-sides\joker.gif" />
+    <Resource Include="GUI\DiceGame\Die-sides\one.png" />
+    <Resource Include="GUI\DiceGame\Die-sides\six.gif" />
+    <Resource Include="GUI\DiceGame\Die-sides\three.gif" />
+    <Resource Include="GUI\DiceGame\Die-sides\two.gif" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="GUI\Resources\about_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Windows-Library\Windows-Library.csproj">
+      <Project>{cec87f5a-cb19-4802-8f6b-f0a1b6c6f67c}</Project>
+      <Name>Windows-Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
