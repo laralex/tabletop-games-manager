@@ -28,9 +28,9 @@ namespace Player.GUI.DiceGame
             }
         }
 
-        public uint CurrentComboScore
+        public int CurrentComboScore
         {
-            get => (uint)_current_combo_row.Cells[1].Value;
+            get => (int)_current_combo_row.Cells[1].Value;
             set
             {
                 _current_combo_row.Cells[1].Value = value;
