@@ -126,24 +126,45 @@
     <comment>Uniform font for UI</comment>
   </data>
   <data name="five" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\five.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\five.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="five_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\five.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="four" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\four.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\four.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="four_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\four.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="joker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\joker.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\joker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="joker_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\joker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="one" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\one.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\one.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="one_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\one.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="six" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\six.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\six.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="six_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\six.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="three" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\three.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\three.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="three_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\three.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="two" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GUI\DiceGame\Die-sides\two.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\GUI\DiceGame\plain\two.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="two_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\GUI\DiceGame\gold\two.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

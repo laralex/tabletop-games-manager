@@ -200,22 +200,49 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GUI\DiceGame\Die-sides\five.gif" />
-    <Resource Include="GUI\DiceGame\Die-sides\four.gif" />
-    <Resource Include="GUI\DiceGame\Die-sides\joker.gif" />
-    <Resource Include="GUI\DiceGame\Die-sides\one.png" />
-    <Resource Include="GUI\DiceGame\Die-sides\six.gif" />
-    <Resource Include="GUI\DiceGame\Die-sides\three.gif" />
-    <Resource Include="GUI\DiceGame\Die-sides\two.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="GUI\Resources\about_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Windows-Library\Windows-Library.csproj">
-      <Project>{cec87f5a-cb19-4802-8f6b-f0a1b6c6f67c}</Project>
-      <Name>Windows-Library</Name>
-    </ProjectReference>
+    <None Include="GUI\DiceGame\gold\five.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\gold\four.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\gold\joker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\gold\one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\gold\six.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\gold\three.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\gold\two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\five.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\four.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\joker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\six.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\three.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\DiceGame\plain\two.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

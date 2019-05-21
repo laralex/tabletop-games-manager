@@ -14,7 +14,7 @@ namespace Player.GUI.DiceGame
         //public BindingSource Data { get; }
         public string SelectedPlayer
         {
-            get => (string)_selected_player.Cells[0].Value;
+            get => (string)_selected_player?.Cells[1].Value;
             set
             {
                 _selected_player = SeekPlayer(value);
@@ -60,7 +60,6 @@ namespace Player.GUI.DiceGame
                 {
                     tblScoreBoard.FirstDisplayedScrollingRowIndex = _selected_player.Index;
                 }
-                
             }
         }
 

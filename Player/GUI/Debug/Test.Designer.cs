@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.die1 = new Player.GUI.DiceGame.Die();
+            this.game1 = new Player.GUI.DiceGame.Game();
             this.SuspendLayout();
             // 
-            // die1
+            // game1
             // 
-            this.die1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.die1.Enabled = false;
-            this.die1.Location = new System.Drawing.Point(271, 98);
-            this.die1.Name = "die1";
-            this.die1.Side = Player.GUI.DiceGame.DieSide.SIX;
-            this.die1.Size = new System.Drawing.Size(255, 251);
-            this.die1.TabIndex = 0;
+            this.game1.AutoSize = true;
+            this.game1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.game1.Location = new System.Drawing.Point(0, 0);
+            this.game1.Name = "game1";
+            this.game1.Size = new System.Drawing.Size(813, 589);
+            this.game1.TabIndex = 0;
             // 
             // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 579);
-            this.Controls.Add(this.die1);
+            this.ClientSize = new System.Drawing.Size(813, 589);
+            this.Controls.Add(this.game1);
             this.Name = "Test";
             this.Text = "Test";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private DiceGame.Die die1;
+        private DiceGame.Game game1;
     }
 }

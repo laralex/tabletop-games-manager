@@ -44,7 +44,9 @@
             this.tblScoreBoard.AllowUserToDeleteRows = false;
             this.tblScoreBoard.AllowUserToResizeColumns = false;
             this.tblScoreBoard.AllowUserToResizeRows = false;
+            this.tblScoreBoard.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.tblScoreBoard.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.tblScoreBoard.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tblScoreBoard.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.tblScoreBoard.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -85,7 +87,7 @@
             this.tblScoreBoard.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.tblScoreBoard.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tblScoreBoard.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblScoreBoard.Size = new System.Drawing.Size(121, 106);
+            this.tblScoreBoard.Size = new System.Drawing.Size(123, 108);
             this.tblScoreBoard.TabIndex = 1;
             this.tblScoreBoard.SelectionChanged += new System.EventHandler(this.OnSelection);
             // 
@@ -124,10 +126,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.tblScoreBoard);
             this.Name = "ScoreBoard";
-            this.Size = new System.Drawing.Size(121, 106);
+            this.Size = new System.Drawing.Size(123, 108);
             this.Load += new System.EventHandler(this.OnLoad);
             ((System.ComponentModel.ISupportInitialize)(this.tblScoreBoard)).EndInit();
             this.ResumeLayout(false);
