@@ -1,6 +1,0 @@
-W:\@WORK\C#\LocalNetGame\Windows-Library\bin\Debug\Windows-Library.dll
-W:\@WORK\C#\LocalNetGame\Windows-Library\bin\Debug\Windows-Library.pdb
-W:\@WORK\C#\LocalNetGame\Windows-Library\obj\Debug\Windows-Library.csprojAssemblyReference.cache
-W:\@WORK\C#\LocalNetGame\Windows-Library\obj\Debug\Windows-Library.csproj.CoreCompileInputs.cache
-W:\@WORK\C#\LocalNetGame\Windows-Library\obj\Debug\Windows-Library.dll
-W:\@WORK\C#\LocalNetGame\Windows-Library\obj\Debug\Windows-Library.pdb

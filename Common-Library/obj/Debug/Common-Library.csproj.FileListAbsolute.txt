@@ -1,0 +1,12 @@
+W:\@WORK\C#\LocalNetGame\Common Library\bin\Debug\Common Library.dll
+W:\@WORK\C#\LocalNetGame\Common Library\bin\Debug\Common Library.pdb
+W:\@WORK\C#\LocalNetGame\Common Library\obj\Debug\Common-Library.csprojAssemblyReference.cache
+W:\@WORK\C#\LocalNetGame\Common Library\obj\Debug\Common-Library.csproj.CoreCompileInputs.cache
+W:\@WORK\C#\LocalNetGame\Common Library\obj\Debug\Common Library.dll
+W:\@WORK\C#\LocalNetGame\Common Library\obj\Debug\Common Library.pdb
+W:\@WORK\C#\LocalNetGame\Common-Library\obj\Debug\Common-Library.csprojAssemblyReference.cache
+W:\@WORK\C#\LocalNetGame\Common-Library\obj\Debug\Common-Library.csproj.CoreCompileInputs.cache
+W:\@WORK\C#\LocalNetGame\Common-Library\bin\Debug\CommonLibrary.dll
+W:\@WORK\C#\LocalNetGame\Common-Library\bin\Debug\CommonLibrary.pdb
+W:\@WORK\C#\LocalNetGame\Common-Library\obj\Debug\CommonLibrary.dll
+W:\@WORK\C#\LocalNetGame\Common-Library\obj\Debug\CommonLibrary.pdb

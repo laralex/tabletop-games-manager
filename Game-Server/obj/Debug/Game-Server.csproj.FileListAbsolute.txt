@@ -1,0 +1,6 @@
+W:\@WORK\C#\LocalNetGame\Game-Server\bin\Debug\GameServer.exe
+W:\@WORK\C#\LocalNetGame\Game-Server\bin\Debug\GameServer.pdb
+W:\@WORK\C#\LocalNetGame\Game-Server\obj\Debug\Game-Server.csprojAssemblyReference.cache
+W:\@WORK\C#\LocalNetGame\Game-Server\obj\Debug\Game-Server.csproj.CoreCompileInputs.cache
+W:\@WORK\C#\LocalNetGame\Game-Server\obj\Debug\GameServer.exe
+W:\@WORK\C#\LocalNetGame\Game-Server\obj\Debug\GameServer.pdb
