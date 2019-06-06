@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
+using CommonLibrary.Model.Common; 
+
 namespace GameClient.GUI.Login
 {
     public partial class RegistrationFields : UserControl, IFieldsOwner

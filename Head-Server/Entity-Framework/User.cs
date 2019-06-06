@@ -9,14 +9,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HeadServer.EntityFramework
 {
-    public class User : DbContext
+    public class User
     {
-        [Key]
-        int Id;
-        [Key]
-        string Name;
-        byte[] PasswordHash;
-        DateTime? SignupTime;
+        [Key] public int       Id { get; set; }
 
+        [Key] public string    Name { get; set; }
+        public byte[]          PasswordHash { get; set; }
+        public DateTime?       EnrollTime { get; set; }
     }
 }

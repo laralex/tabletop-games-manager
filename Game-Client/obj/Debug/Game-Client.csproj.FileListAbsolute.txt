@@ -3,7 +3,6 @@ W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.Application.AboutB
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.Application.AppForm.resources
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.Debug.Test.resources
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.DiceGame.Die.resources
-W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.DiceGame.Game.resources
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.DiceGame.ScoreBoard.resources
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.DiceGame.ScoreRecords.resources
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.Login.LoginFields.resources
@@ -28,3 +27,4 @@ W:\@WORK\C#\LocalNetGame\Game-Client\bin\Debug\CommonLibrary.pdb
 W:\@WORK\C#\LocalNetGame\Game-Client\bin\Debug\GameServer.pdb
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\en-US\GameClient.resources.dll
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\Game-Client.csproj.CopyComplete
+W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.DiceGame.DiceGameControl.resources

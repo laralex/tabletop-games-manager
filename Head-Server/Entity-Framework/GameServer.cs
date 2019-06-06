@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace HeadServer.EntityFramework
 {
-    class GameServer
+    public class GameServer
     {
-        [Key]
-        int Id;
-        User Creator;
-        DateTime CreationTime;
+        [Key] public int    Id { get; set; }
 
-
+        public string       Name { get; set; }
+        public User         Creator { get; set; }
+        public DateTime     CreationTime { get; set; }
+        public bool         IsActive { get; set; }
+        public IPEndPoint   IpPort { get; set; }
     }
 }

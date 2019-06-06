@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using CommonLibrary.Model.Common;
+
 namespace GameClient.GUI.ServerManager.ServerCreator
 {
     public partial class CommonServerOptions : UserControl, IFieldsOwner

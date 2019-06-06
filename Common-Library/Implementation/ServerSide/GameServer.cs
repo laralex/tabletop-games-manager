@@ -6,7 +6,7 @@ using System.Text;
 using CommonLibrary.Implementation;
 using CommonLibrary.Model.Application;
 
-namespace CommonLibrary.Implementation.Networking
+namespace CommonLibrary.Implementation.ServerSide
 {
     public enum GameServerStatus
     {

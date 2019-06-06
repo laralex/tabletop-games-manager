@@ -88,8 +88,6 @@
     <Compile Include="GUI\DiceGame\ScoreRecords.Designer.cs">
       <DependentUpon>ScoreRecords.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\IFieldsOwner.cs" />
-    <Compile Include="GUI\IResetable.cs" />
     <Compile Include="GUI\ITextOwnerControl.cs" />
     <Compile Include="GUI\Login\LoginFields.cs">
       <SubType>UserControl</SubType>

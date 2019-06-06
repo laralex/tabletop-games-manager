@@ -154,13 +154,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication-server\AuthentificationServer.cs" />
+    <Compile Include="Authentication-server\UserApplicationForm.cs" />
     <Compile Include="Cryptor.cs" />
+    <Compile Include="Entity-Framework\Context\DiceGameServerContext.cs" />
     <Compile Include="Entity-Framework\Context\GameServerContext.cs" />
+    <Compile Include="Entity-Framework\DiceGameServer.cs" />
     <Compile Include="Entity-Framework\GameServer.cs" />
     <Compile Include="Entity-Framework\User.cs" />
     <Compile Include="Entity-Framework\Context\UserContext.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Head-Server.cs" />
+    <Compile Include="HeadServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

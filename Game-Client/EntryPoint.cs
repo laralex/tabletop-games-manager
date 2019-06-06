@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using GameClient.GUI;
 
 namespace GameClient
 {
@@ -14,10 +13,10 @@ namespace GameClient
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             var test = new GameClient.GUI.Application.AppForm();  // Test();
-            Application.Run(test);
+            System.Windows.Forms.Application.Run(test);
         }
     }
 }

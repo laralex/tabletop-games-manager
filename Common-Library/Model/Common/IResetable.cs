@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GameClient.GUI
+namespace CommonLibrary.Model.Common
 {
-    interface IResetable
+    public interface IResetable
     {
         /// <summary>
         /// Rolls back all fields to initial state

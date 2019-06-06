@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using CommonLibrary.Model;
+using CommonLibrary.Model.Common;
+
 namespace GameClient.GUI.DiceGame
 {
     public partial class ScoreRecords : UserControl, IResetable 

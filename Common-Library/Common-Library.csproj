@@ -44,18 +44,26 @@
     <Compile Include="Implementation\Games\Dice-Game\Combo.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DiceGameOptions.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DieModel.cs" />
-    <Compile Include="Implementation\Networking\GameServers\DiceGameServer.cs" />
+    <Compile Include="Implementation\Networking\NetworkSender.cs" />
+    <Compile Include="Implementation\ServerSide\GameServers\DiceGameServer.cs" />
     <Compile Include="Model\Application\IUser.cs" />
+    <Compile Include="Model\Application\IUserValidator.cs" />
+    <Compile Include="Model\Common\IFieldsOwner.cs" />
+    <Compile Include="Model\Common\IResetable.cs" />
+    <Compile Include="Model\Database\IDatabaseConnector.cs" />
+    <Compile Include="Model\Database\IDatabaseReceiver.cs" />
+    <Compile Include="Model\Database\IDatabaseSender.cs" />
     <Compile Include="Model\Games\Dice-Game\IDiceGame.cs" />
     <Compile Include="Model\Games\Dice-Game\IDiceView.cs" />
     <Compile Include="Model\Games\IPlayer.cs" />
     <Compile Include="Model\Games\IGame.cs" />
     <Compile Include="Model\Games\ITurnBasedGame.cs" />
-    <Compile Include="Implementation\Networking\GameServer.cs" />
+    <Compile Include="Implementation\ServerSide\GameServer.cs" />
+    <Compile Include="Model\Networking\INetworkReceiver.cs" />
+    <Compile Include="Model\Networking\INetworkSender.cs" />
+    <Compile Include="Model\ServerSide\IServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Networking\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

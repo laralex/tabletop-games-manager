@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace HeadServer.EntityFramework
+namespace HeadServer.EntityFramework.Context
 {
     public class GameServerContext : DbContext
     {
-        public DbSet<GameServer> GameServers { get; set; }
+        public DbSet<GameServerContext> DiceGameServers { get; set; }
 
         public GameServerContext() : base(nameOrConnectionString: "LarGM-Postgres")
         {
@@ -24,4 +24,5 @@ namespace HeadServer.EntityFramework
             base.OnModelCreating(modelBuilder);
         }
     }
+
 }

@@ -9,6 +9,7 @@ namespace HeadServer
     {
         static void Main(string[] args)
         {
+            HeadServer head = new HeadServer();
         }
     }
 }
