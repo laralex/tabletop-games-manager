@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace HeadServer.AuthenticationServer
 {
-    public class UserApplicationForm
+    public struct UserEnroll
     {
+        public string Name { get; set; }
+        public string Password { get; set; }
     }
 }
