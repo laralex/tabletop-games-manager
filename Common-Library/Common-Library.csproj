@@ -47,6 +47,8 @@
     <Compile Include="Implementation\Games\Dice-Game\DiceGameOptions.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DieModel.cs" />
     <Compile Include="Implementation\Networking\NetworkSender.cs" />
+    <Compile Include="Implementation\ServerSide\GameServers\DiceGameServerEnroll.cs" />
+    <Compile Include="Implementation\ServerSide\GameServerEnroll.cs" />
     <Compile Include="Implementation\ServerSide\GameServers\DiceGameServer.cs" />
     <Compile Include="Model\Application\IUser.cs" />
     <Compile Include="Model\Application\IUserValidator.cs" />

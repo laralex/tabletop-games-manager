@@ -154,14 +154,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication-Server\AuthentificationServer.cs" />
+    <Compile Include="Authentication-Server\AuthenticationServer.cs" />
     <Compile Include="Authentication-Server\UserEnroll.cs" />
+    <Compile Include="AuxStructs.cs" />
     <Compile Include="Database-Server\DatabaseServer.cs" />
     <Compile Include="Database-Server\Entity-Framework\Context\GameServerContext.cs" />
     <Compile Include="Database-Server\Entity-Framework\DiceGameServer.cs" />
     <Compile Include="Database-Server\Entity-Framework\GameServer.cs" />
     <Compile Include="Database-Server\Entity-Framework\User.cs" />
     <Compile Include="Database-Server\Entity-Framework\Context\UserContext.cs" />
+    <Compile Include="Debug\HeadServerConsole.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="HeadServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="Database-Server\Entity-Framework\Context\MainContext.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
