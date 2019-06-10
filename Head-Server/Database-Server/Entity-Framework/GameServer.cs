@@ -8,7 +8,7 @@ using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace HeadServer.EntityFramework
+namespace HeadServer.DB
 {
     public class GameServer
     {
@@ -16,8 +16,10 @@ namespace HeadServer.EntityFramework
 
         public string       Name { get; set; }
         public User         Creator { get; set; }
-        public DateTime     CreationTime { get; set; }
+        public DateTime     RegisterTime { get; set; }
         public bool         IsActive { get; set; }
-        public IPEndPoint   IpPort { get; set; }
+        public IPEndPoint   Socket { get; set; }
+
+        //public DiceGameServer DiceGameServer { get; set; }
     }
 }

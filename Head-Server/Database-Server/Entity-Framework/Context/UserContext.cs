@@ -2,9 +2,9 @@
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace HeadServer.EntityFramework
+namespace HeadServer.DB.Context
 {
-    class UserContext : DbContext
+    internal class UserContext : DbContext
     {
         public DbSet<User> Users { get; set; }
 
@@ -16,6 +16,7 @@ namespace HeadServer.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+            //modelBuilder.ForNpgsqlUseIdentityColumns();
             base.OnModelCreating(modelBuilder);
         }
     }

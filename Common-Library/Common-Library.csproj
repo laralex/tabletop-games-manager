@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\Crypto\ShaEncryptor.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combo.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DiceGameOptions.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DieModel.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Model\Application\IUserValidator.cs" />
     <Compile Include="Model\Common\IFieldsOwner.cs" />
     <Compile Include="Model\Common\IResetable.cs" />
+    <Compile Include="Model\Crypto\IEncryptor.cs" />
     <Compile Include="Model\Database\IDatabaseConnector.cs" />
     <Compile Include="Model\Database\IDatabaseReceiver.cs" />
     <Compile Include="Model\Database\IDatabaseSender.cs" />

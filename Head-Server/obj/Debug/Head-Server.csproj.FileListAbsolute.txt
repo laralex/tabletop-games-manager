@@ -1,0 +1,3 @@
+W:\@WORK\C#\LocalNetGame\Head-Server\obj\Debug\Head-Server.csprojAssemblyReference.cache
+W:\@WORK\C#\LocalNetGame\Head-Server\obj\Debug\HeadServer.exe.config
+W:\@WORK\C#\LocalNetGame\Head-Server\obj\Debug\Head-Server.csproj.CoreCompileInputs.cache

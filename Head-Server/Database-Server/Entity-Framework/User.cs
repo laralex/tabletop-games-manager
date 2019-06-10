@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace HeadServer.EntityFramework
+namespace HeadServer.DB
 {
     public class User
     {

@@ -17,11 +17,11 @@ namespace CommonLibrary.Implementation.ServerSide
         PausedEverything,
         Uninitialized
     }
-    public abstract class GameServer
+    /*public abstract class GameServer
     {
         protected int DatabaseId { get; set; }
         public string Name { get; protected set; }
         public IUser Creator { get; protected set; }
         public GameServerStatus Status { get; protected set; }
-    }
+    } */
 }

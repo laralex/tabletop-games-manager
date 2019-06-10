@@ -9,7 +9,11 @@ namespace HeadServer
     {
         static void Main(string[] args)
         {
+            // Create head
             HeadServer head = new HeadServer();
+            head.Initialize();
+            head.Start();
+            head.Dispose();
         }
     }
 }

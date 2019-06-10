@@ -6,7 +6,7 @@ using System.Text;
 namespace CommonLibrary.Implementation.ServerSide
 {
 
-    public class DiceGameServer : GameServer
+    /*public class DiceGameServer : GameServer
     {
-    }
+    } */
 }

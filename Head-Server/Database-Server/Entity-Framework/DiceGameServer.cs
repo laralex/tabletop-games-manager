@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace HeadServer.EntityFramework
+namespace HeadServer.DB
 {
-    public class DiceGameServer
+    public class DiceGameServer : GameServer
     {
-        [Key] public int    ServerId { get; set; }
-
         public int?         TurnTimeSec { get; set; }
         public int          ScoreGoal { get; set; }
         public int          DiceNumber { get; set; }

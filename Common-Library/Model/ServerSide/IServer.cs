@@ -7,7 +7,7 @@ using System.Net;
 
 namespace CommonLibrary.Model.ServerSide
 {
-    public enum ServerStatus { Running, Stoped, Uninitialized }
+    public enum ServerStatus { Running, Stopped, Uninitialized, Initialized }
 
     public interface IServer : IDisposable
     {
@@ -16,9 +16,11 @@ namespace CommonLibrary.Model.ServerSide
 
         void Initialize();
 
-        void Pause();
+        void Stop();
 
-        void Resume();
+        void Start();
+
+        void ServerLoop();
 
     }
 }
