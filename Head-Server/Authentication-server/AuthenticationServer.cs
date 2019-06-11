@@ -12,6 +12,7 @@ using CommonLibrary.Model.ServerSide;
 using HeadServer.DB;
 using HeadServer.DB.Context;
 using System.Threading;
+using HeadServer.Debug;
 
 namespace HeadServer.AuthenticationServer
 {
@@ -21,7 +22,13 @@ namespace HeadServer.AuthenticationServer
         public IPEndPoint Socket { get; private set; }
         public ServerStatus Status { get; private set; }
         public TimeSpan RecentIPsUpdateRate { get; set; }
-        public int AuthorizedUsersInitCapacity = 1000; 
+        public int AuthorizedUsersInitCapacity = 1000;
+
+        public event EventHandler<ThreadStateEventArgs> OnThreadStateChange;
+        public event EventHandler<MessageFromUserEventArgs> OnMessageFromUser;
+        public event EventHandler<MessageToUserEventArgs> OnMessageToUser;
+        public event EventHandler OnInitialization;
+        public event EventHandler OnTermination;
 
         public AuthenticationServer(IPEndPoint socket, MainContext usersContext)
         {
@@ -42,11 +49,16 @@ namespace HeadServer.AuthenticationServer
             _authenticated_users = new List<DB.User>(AuthorizedUsersInitCapacity);
 
             _thread_mre = new ManualResetEvent(false);
+            _main_mre = new ManualResetEvent(false);
 
             _network_handling_thread = new Thread(ServerLoop);
             _network_handling_thread.IsBackground = false;
 
+
             Status = ServerStatus.Initialized;
+
+            OnInitialization?.Invoke(this, null);
+            //_log_console.AuthenticationInitMessage(); // d
         }
 
         public void Stop()
@@ -58,24 +70,41 @@ namespace HeadServer.AuthenticationServer
             if (this.Status == ServerStatus.Running)
             {
                 _thread_mre.Reset();
+
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Stop));
+                //_log_console.AuthNetworkThreadMessage(ThreadStateType.Stop);  // d
                 this.Status = ServerStatus.Stopped;
             }
         }
 
         public void Start()
+        {   
+            if (this.Status == ServerStatus.Initialized)
+            {
+                _timer.Start();
+                this.Status = ServerStatus.Running; 
+
+                this._thread_mre.Set();
+                _network_handling_thread.Start();
+
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
+                //_log_console.AuthNetworkThreadMessage(ThreadStateType.Begin); // d
+            }
+            
+        }
+
+        public void Resume()
         {
             if (!_timer.Enabled)
             {
                 _timer.Start();
             }
-            if (this.Status == ServerStatus.Initialized)
-            {
-                this.Status = ServerStatus.Stopped; // just to enter 'if' a few lines below
-                _network_handling_thread.Start();
-            }
             if (this.Status == ServerStatus.Stopped || this.Status == ServerStatus.Initialized)
             {
                 _thread_mre.Set();
+
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Resume));
+                //_log_console.AuthNetworkThreadMessage(ThreadStateType.Resume); // d
                 this.Status = ServerStatus.Running;
             }
         }
@@ -87,6 +116,9 @@ namespace HeadServer.AuthenticationServer
             _recent_user_creators_IPs = null;
             _db_context = null;
             Status = ServerStatus.Uninitialized;
+
+            OnTermination?.Invoke(this, null);
+            //_log_console.AuthenticationTerminationMessage(); // d
         }
 
         public void ServerLoop()
@@ -96,14 +128,20 @@ namespace HeadServer.AuthenticationServer
                 _thread_mre.WaitOne();
                 if (Status == ServerStatus.Uninitialized)
                 {
+                    OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
+                    _main_mre.Set();
+                    _main_mre.Reset();
+                    //_log_console.AuthNetworkThreadMessage(ThreadStateType.End); // d
                     // finish tasks and terminate
                     return;
                 }
                 // TODO: collect messages
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
+                Thread.Sleep(300);
             }
         }
 
-        public bool TrySignUp(IPAddress who_requests, UserEntry new_user)
+        private bool TrySignUp(IPAddress who_requests, UserEntry new_user)
         {
             if (IsRecentIp(who_requests) || DatabaseIsUserEnrolled(new_user.Name))
             {
@@ -114,7 +152,7 @@ namespace HeadServer.AuthenticationServer
             return true;
         }
 
-        public bool TryLogIn(UserEntry user)
+        private bool TryLogIn(UserEntry user)
         {
             if (_authenticated_users.Count > AuthorizedUsersInitCapacity ||
                 _authenticated_users.Find(e => e.Name == user.Name && e.PasswordHash == user.PasswordHash) != null)
@@ -133,7 +171,7 @@ namespace HeadServer.AuthenticationServer
             return true;
         }
 
-        public bool TryLogOut(UserEntry user)
+        private bool TryLogOut(UserEntry user)
         {
             int found_user_idx = _authenticated_users.FindIndex(e => e.Name == user.Name && e.PasswordHash == user.PasswordHash);
             if (found_user_idx >= 0)
@@ -197,7 +235,9 @@ namespace HeadServer.AuthenticationServer
         private MainContext _db_context;
 
         // threading
-        private ManualResetEvent _thread_mre = new ManualResetEvent(false);
+        private ManualResetEvent _thread_mre;
+        private ManualResetEvent _main_mre;
         private Thread _network_handling_thread;
+
     }
 }

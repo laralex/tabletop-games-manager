@@ -10,7 +10,7 @@ using System.Net;
 
 namespace HeadServer.DB
 {
-    public class GameServer
+    internal class GameServer
     {
         [Key] public int    Id { get; set; }
 

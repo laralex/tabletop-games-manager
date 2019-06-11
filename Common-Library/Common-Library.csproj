@@ -54,7 +54,7 @@
     <Compile Include="Model\Application\IUserValidator.cs" />
     <Compile Include="Model\Common\IFieldsOwner.cs" />
     <Compile Include="Model\Common\IResetable.cs" />
-    <Compile Include="Model\Crypto\IEncryptor.cs" />
+    <Compile Include="Implementation\Crypto\BaseEncryptor.cs" />
     <Compile Include="Model\Database\IDatabaseConnector.cs" />
     <Compile Include="Model\Database\IDatabaseReceiver.cs" />
     <Compile Include="Model\Database\IDatabaseSender.cs" />
@@ -69,6 +69,8 @@
     <Compile Include="Model\ServerSide\IServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Crypto\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

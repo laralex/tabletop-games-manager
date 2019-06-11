@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HeadServer.DB
 {
-    public class User
+    internal class User
     {
         [Key] public int       Id { get; set; }
 

@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\DiceGameView.cs" />
+    <Compile Include="Application\GameServerTalker.cs" />
+    <Compile Include="Application\HeadServerTalker.cs" />
     <Compile Include="GUI\Application\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

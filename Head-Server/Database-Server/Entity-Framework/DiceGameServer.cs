@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HeadServer.DB
 {
-    public class DiceGameServer : GameServer
+    internal class DiceGameServer : GameServer
     {
         public int?         TurnTimeSec { get; set; }
         public int          ScoreGoal { get; set; }

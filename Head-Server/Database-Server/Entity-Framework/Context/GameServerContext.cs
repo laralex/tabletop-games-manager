@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HeadServer.DB.Context
 {
-    public class GameServerContext : DbContext
+    internal class GameServerContext : DbContext
     {
         public DbSet<GameServer> GameServers { get; set; }
         public DbSet<DiceGameServer> DiceGameServers { get; set; }

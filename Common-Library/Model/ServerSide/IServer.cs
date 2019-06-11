@@ -18,6 +18,8 @@ namespace CommonLibrary.Model.ServerSide
 
         void Stop();
 
+        void Resume();
+
         void Start();
 
         void ServerLoop();

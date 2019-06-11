@@ -30,8 +30,15 @@ namespace HeadServer
         public ServerStatus Status { get; internal set; }
         public IPEndPoint Socket { get; internal set; }
         public TimeSpan RecentIPsUpdateRate { get; set; }
+        public AuthenticationServer.AuthenticationServer AuthServer { get; private set; }
 
-        public HeadServer(IPEndPoint socket, MainContext db_context)
+        public event EventHandler<ThreadStateEventArgs> OnThreadStateChange;
+        public event EventHandler<MessageFromGameServerEventArgs> OnMessageFromGameServer;
+        public event EventHandler<MessageToGameServerEventArgs> OnMessageToGameServer;
+        public event EventHandler OnInitialization;
+        public event EventHandler OnTermination;
+
+        public HeadServer(IPEndPoint socket)
         {
             Socket = socket;
             Status = ServerStatus.Uninitialized;
@@ -47,26 +54,33 @@ namespace HeadServer
             _recent_server_creators_IPs = new Queue<TimestampedIP>();
             _registered_servers = new List<DB.GameServer>();
 
-            _auth_server = new AuthenticationServer.AuthenticationServer(Socket, _db_server.Context);
-            _auth_server.Initialize();
+            _db_server = new DatabaseServer();
+            AuthServer = new AuthenticationServer.AuthenticationServer(Socket, _db_server.Context);
+            AuthServer.Initialize();
 
             _thread_mre = new ManualResetEvent(false);
+            _main_mre = new ManualResetEvent(false);
 
             _network_handling_thread = new Thread(ServerLoop);
             _network_handling_thread.IsBackground = false;
 
             Status = ServerStatus.Initialized;
-            _log_console.InitMessage(); // d
+            OnInitialization?.Invoke(this, null);
         }
 
         public void Stop()
         {
+            if (_timer.Enabled)
+            {
+                _timer.Stop();
+            }
             if (this.Status == ServerStatus.Running)
             {
-                this._auth_server.Stop();
+                this.AuthServer.Stop();
                 this._db_server.Stop();
                 this._thread_mre.Reset();
-                _log_console.NetworkThreadMessage(ThreadStateType.Stop);  // d
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Stop));
+                // _log_console.NetworkThreadMessage(ThreadStateType.Stop);  // d
                 this.Status = ServerStatus.Stopped;
             }
         }
@@ -75,30 +89,58 @@ namespace HeadServer
         {
             if (this.Status == ServerStatus.Initialized)
             {
-                this.Status = ServerStatus.Stopped; // just to enter 'if' a few lines below
+                _timer.Start();
+                this._db_server.Start();
+                this.AuthServer.Start();
+                this.Status = ServerStatus.Running; 
+                this._thread_mre.Set();
+
                 _network_handling_thread.Start();
 
-                _log_console.NetworkThreadMessage(ThreadStateType.Begin); // d
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
+                //_log_console.NetworkThreadMessage(ThreadStateType.Begin); // d
+
+            }
+            
+        }
+
+        public void Resume()
+        {
+            if (!_timer.Enabled)
+            {
+                _timer.Start();
             }
             if (this.Status == ServerStatus.Stopped || this.Status == ServerStatus.Initialized)
             {
                 this._db_server.Start();
-                this._auth_server.Start();
+                this.AuthServer.Start();
                 this._thread_mre.Set();
-                _log_console.NetworkThreadMessage(ThreadStateType.Resume); // d
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Resume));
+                //_log_console.NetworkThreadMessage(ThreadStateType.Resume); // d
                 this.Status = ServerStatus.Running;
             }
         }
 
         public void Dispose()
         {
+            //_main_mre.WaitOne();
+
             Stop();
+            _timer.Dispose();
+
             _registered_servers = null;
             _recent_server_creators_IPs = null;
-            _auth_server = null;
+
+            AuthServer.Dispose();
+            AuthServer = null;
+
             _db_server = null;
             Socket = null;
-            _log_console.TerminationMessage(); // d
+
+            Status = ServerStatus.Uninitialized;
+
+            OnTermination?.Invoke(this, null);
+            //_log_console.TerminationMessage(); // d
         }
 
         public void ServerLoop()
@@ -108,15 +150,21 @@ namespace HeadServer
                 _thread_mre.WaitOne();
                 if (Status == ServerStatus.Uninitialized)
                 {
-                    _log_console.NetworkThreadMessage(ThreadStateType.End); // d 
+                    OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
+                    _main_mre.Set();
+                    _main_mre.Reset();
+                    //_log_console.NetworkThreadMessage(ThreadStateType.End); // d 
                     // finish tasks and terminate thread
                     return;
                 }
+
+                OnInitialization?.Invoke(null, null);
+                Thread.Sleep(500);
                 // TODO: Get Messages
             }
         }
 
-        public bool TryRegisterServer(IPAddress who_requests, DiceGameServerEntry new_server)
+        private bool TryRegisterServer(IPAddress who_requests, DiceGameServerEntry new_server)
         {
             if (IsRecentIp(who_requests) || DatabaseIsServerRegistered(new_server))
             {
@@ -124,17 +172,25 @@ namespace HeadServer
             }
             var db_server = DatabaseRegisterServer(new_server);
             _recent_server_creators_IPs.Append(new TimestampedIP(who_requests, DateTime.UtcNow));
-            _log_console.GameServerMessage(db_server, GameServerMessageType.Registered); // d
+            OnMessageToGameServer?.Invoke(
+                this, 
+                new MessageToGameServerEventArgs(db_server, ToGameServerMessageType.AckRegister)
+            );
+            //_log_console.GameServerMessage(db_server, GameServerMessageType.Registered); // d
             return true;
         }
 
         // FIXME: anyone can detach server (security leak)
-        public bool TryDetachServer(GameServerEnroll server)
+        private bool TryDetachServer(GameServerEnroll server)
         {
             int found_server_idx = _registered_servers.FindIndex(e => e.Name == server.Name);
             if (found_server_idx >= 0)
             {
-                _log_console.GameServerMessage(_registered_servers[found_server_idx], GameServerMessageType.Detached); // d
+                OnMessageToGameServer?.Invoke(
+                    this,
+                    new MessageToGameServerEventArgs(_registered_servers[found_server_idx], ToGameServerMessageType.AckRegister)
+                );
+                //_log_console.GameServerMessage(_registered_servers[found_server_idx], GameServerMessageType.Detached); // d
                 _registered_servers.RemoveAt(found_server_idx);
                 return true;
             }
@@ -161,7 +217,7 @@ namespace HeadServer
         {
             //DB.GameServer db_server = new DB.GameServer();
             db_server_record.Name = new_server_enroll.Name;
-            db_server_record.Creator = _auth_server.DatabaseSelectUser(new_server_enroll.CreatorName);
+            db_server_record.Creator = AuthServer.DatabaseSelectUser(new_server_enroll.CreatorName);
             db_server_record.RegisterTime = DateTime.UtcNow;
             db_server_record.IsActive = new_server_enroll.IsActive;
             db_server_record.Socket = new_server_enroll.Socket;
@@ -192,17 +248,16 @@ namespace HeadServer
             return _recent_server_creators_IPs.Any((e) => e.IP.Equals(who_requests));
         }
 
+
         private System.Timers.Timer _timer;
         private List<DB.GameServer> _registered_servers;
         private Queue<TimestampedIP> _recent_server_creators_IPs;
-        private AuthenticationServer.AuthenticationServer _auth_server;
+        
         private DB.DatabaseServer _db_server;
 
         // threading
         private ManualResetEvent _thread_mre;
+        private ManualResetEvent _main_mre;
         private Thread _network_handling_thread;
-
-        // debug
-        private HeadServerConsole _log_console;
     }
 }

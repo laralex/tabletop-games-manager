@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication-Server\AuthenticationServer.cs" />
+    <Compile Include="Authentication-Server\AuthenticationServerEventArgs.cs" />
     <Compile Include="Authentication-Server\UserEnroll.cs" />
     <Compile Include="AuxStructs.cs" />
     <Compile Include="Database-Server\DatabaseServer.cs" />
@@ -163,7 +164,9 @@
     <Compile Include="Database-Server\Entity-Framework\GameServer.cs" />
     <Compile Include="Database-Server\Entity-Framework\User.cs" />
     <Compile Include="Database-Server\Entity-Framework\Context\UserContext.cs" />
+    <Compile Include="Debug\AuthenticationServerConsole.cs" />
     <Compile Include="Debug\HeadServerConsole.cs" />
+    <Compile Include="Debug\HeadServerDebugManager.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="HeadServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +188,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="Database-Server\Entity-Framework\Context\MainContext.cs" />
+    <Compile Include="HeadServerEventArgs.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

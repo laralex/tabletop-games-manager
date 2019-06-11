@@ -47,6 +47,11 @@ namespace HeadServer.DB
             Status = ServerStatus.Running;
         }
 
+        public void Resume()
+        {
+            Status = ServerStatus.Running;
+        }
+
         public void Dispose()
         {
             Context = null;
@@ -59,5 +64,7 @@ namespace HeadServer.DB
         {
             
         }
+
+
     }
 }
