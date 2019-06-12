@@ -17,7 +17,7 @@ namespace HeadServer
             head.Initialize();
             HeadServerDebugManager debug_console = new HeadServerDebugManager(head, head.AuthServer);
             head.Start();
-            System.Threading.Thread.Sleep(10000);
+            System.Threading.Thread.Sleep(100000);
             head.Dispose();
 
             debug_console.EndOfProcessMessage();

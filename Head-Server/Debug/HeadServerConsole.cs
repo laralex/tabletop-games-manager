@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using CommonLibrary.Model.ServerSide;
+
 namespace HeadServer.Debug
 {
 
@@ -56,6 +58,8 @@ namespace HeadServer.Debug
                     return "RESUME";
                 case ThreadStateType.Stop:
                     return "STOP";
+                case ThreadStateType.Dummy:
+                    return "<DEBUG MSG>";
             }
             return null;
         }
@@ -72,6 +76,8 @@ namespace HeadServer.Debug
                     return "REQUEST STATUS CHANGE";
                 case FromGameServerMessageType.UseMyData:
                     return "USE MY CONFIG";
+                case FromGameServerMessageType.Dummy:
+                    return "<DEBUG MSG>";
             }
             return null;
         }
@@ -98,6 +104,8 @@ namespace HeadServer.Debug
                     return "DENY YOUR CONFIG";
                 case ToGameServerMessageType.DenyStatusData:
                     return "DENY YOUR STATUS";
+                case ToGameServerMessageType.Dummy:
+                    return "<DEBUG MSG>";
             }
             return null;
         }

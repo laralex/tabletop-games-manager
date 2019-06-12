@@ -4,27 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using CommonLibrary.Model.ServerSide;
+
 namespace HeadServer.AuthenticationServer
 {
-    internal enum FromUserMessageType
-    {
-        ReqLogIn,
-        ReqLogOut,
-        ReqSignUp,
-        ReqServersList,
-        UseMyData
-    }
-    internal enum ToUserMessageType
-    {
-        AckLogIn,
-        AckLogOut,
-        AckSignUp,
-        AckMyData,
-        DenyLogIn,
-        DenySignUp,
-        DenyServerList,
-        UseServerList
-    }
+
 
     internal class MessageFromUserEventArgs : EventArgs
     {

@@ -5,37 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HeadServer.DB;
+using CommonLibrary.Model.ServerSide;
 
 namespace HeadServer
 {
-    internal enum ThreadStateType
-    {
-        Begin,
-        Resume,
-        Stop,
-        End
-    }
-    internal enum FromGameServerMessageType
-    {
-        ReqRegister,
-        ReqDetach,
-        ReqStatusUpdate,
-        UseMyData
-        //UseStatus
-    }
 
-    internal enum ToGameServerMessageType
-    {
-        AckRegister,
-        AckMyData,
-        AckDetach,
-        AckStatusUpdate,
-        AckStatusData,
-        DenyRegister,
-        DenyMyData,
-        DenyStatusUpdate,
-        DenyStatusData
-    }
     internal class ThreadStateEventArgs : EventArgs
     {
         public ThreadStateType State { get; }

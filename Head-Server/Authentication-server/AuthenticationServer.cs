@@ -136,8 +136,8 @@ namespace HeadServer.AuthenticationServer
                     return;
                 }
                 // TODO: collect messages
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
-                Thread.Sleep(300);
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
+                Thread.Sleep(2000);
             }
         }
 

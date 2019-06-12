@@ -44,6 +44,9 @@ namespace HeadServer
             Status = ServerStatus.Uninitialized;
 
             RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 3, seconds: 0);
+
+            _listening_to = new IPEndPoint(IPAddress.Any, 42077);
+            _udp_listener = new UdpClient(_listening_to);
         }
 
         public void Initialize()
@@ -67,6 +70,35 @@ namespace HeadServer
             Status = ServerStatus.Initialized;
             OnInitialization?.Invoke(this, null);
         }
+        async public void ServerLoop()
+        {
+            while (true)
+            {
+                _thread_mre.WaitOne();
+                if (Status == ServerStatus.Uninitialized)
+                {
+                    OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
+                    _main_mre.Set();
+                    _main_mre.Reset();
+                    //_log_console.NetworkThreadMessage(ThreadStateType.End); // d 
+                    // finish tasks and terminate thread
+                    return;
+                }
+
+                _udp_listener.BeginReceive(
+                    ParseMessageType, 
+                    new UdpState(_udp_listener, _listening_to)
+                ); 
+                
+                ParseMessageType()
+                //OnThreadStateChange.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
+                while (!_received) Thread.Sleep(500);
+                _received = false;
+                // TODO: Get Messages
+            }
+        }
+
+
 
         public void Stop()
         {
@@ -141,27 +173,6 @@ namespace HeadServer
 
             OnTermination?.Invoke(this, null);
             //_log_console.TerminationMessage(); // d
-        }
-
-        public void ServerLoop()
-        {
-            while (true)
-            {
-                _thread_mre.WaitOne();
-                if (Status == ServerStatus.Uninitialized)
-                {
-                    OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
-                    _main_mre.Set();
-                    _main_mre.Reset();
-                    //_log_console.NetworkThreadMessage(ThreadStateType.End); // d 
-                    // finish tasks and terminate thread
-                    return;
-                }
-
-                OnInitialization?.Invoke(null, null);
-                Thread.Sleep(500);
-                // TODO: Get Messages
-            }
         }
 
         private bool TryRegisterServer(IPAddress who_requests, DiceGameServerEntry new_server)
@@ -248,12 +259,27 @@ namespace HeadServer
             return _recent_server_creators_IPs.Any((e) => e.IP.Equals(who_requests));
         }
 
+        // TODO:
+        private void ParseMessageType(IAsyncResult ares)
+        {
+            UdpState st = (UdpState)(ares.AsyncState);
+            byte[] raw_received = st.Client.EndReceive(ares, ref st.Remote);
+
+            _received = true;
+            OnThreadStateChange(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
+        }
 
         private System.Timers.Timer _timer;
         private List<DB.GameServer> _registered_servers;
         private Queue<TimestampedIP> _recent_server_creators_IPs;
         
         private DB.DatabaseServer _db_server;
+
+        // net // TODO:
+        private UdpClient _udp_listener;
+        private IPEndPoint _listening_to;
+        private bool _received;
+            //private UdpMessageReceiver _udp;
 
         // threading
         private ManualResetEvent _thread_mre;

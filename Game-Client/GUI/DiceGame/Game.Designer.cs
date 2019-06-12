@@ -41,9 +41,8 @@
             this.btnEndTurn = new System.Windows.Forms.Button();
             this.pnlPlayerPanel = new System.Windows.Forms.Panel();
             this.pnlGameField = new System.Windows.Forms.Panel();
-            this.tblDiceBoard = new System.Windows.Forms.FlowLayoutPanel();
             this.tblCentering = new System.Windows.Forms.TableLayoutPanel();
-            this.scoreRecords = new GameClient.GUI.DiceGame.ScoreRecords();
+            this.tblDiceBoard = new System.Windows.Forms.FlowLayoutPanel();
             this.scoreBoard = new GameClient.GUI.DiceGame.ScoreBoard();
             this.statusGamePlaying.SuspendLayout();
             this.pnlPlayerPanel.SuspendLayout();
@@ -83,18 +82,18 @@
             // 
             // barTurnTime
             // 
-            this.barTurnTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.barTurnTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.barTurnTime.Location = new System.Drawing.Point(5, 262);
+            this.barTurnTime.Location = new System.Drawing.Point(5, 45);
             this.barTurnTime.Name = "barTurnTime";
             this.barTurnTime.Size = new System.Drawing.Size(201, 23);
             this.barTurnTime.TabIndex = 8;
             // 
             // lblTurnTime
             // 
-            this.lblTurnTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblTurnTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTurnTime.Location = new System.Drawing.Point(5, 243);
+            this.lblTurnTime.Location = new System.Drawing.Point(5, 26);
             this.lblTurnTime.Name = "lblTurnTime";
             this.lblTurnTime.Size = new System.Drawing.Size(201, 16);
             this.lblTurnTime.TabIndex = 9;
@@ -114,8 +113,7 @@
             // 
             // btnReroll
             // 
-            this.btnReroll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnReroll.Location = new System.Drawing.Point(5, 291);
+            this.btnReroll.Location = new System.Drawing.Point(5, 74);
             this.btnReroll.Name = "btnReroll";
             this.btnReroll.Size = new System.Drawing.Size(92, 23);
             this.btnReroll.TabIndex = 11;
@@ -125,8 +123,8 @@
             // 
             // btnEndTurn
             // 
-            this.btnEndTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEndTurn.Location = new System.Drawing.Point(116, 291);
+            this.btnEndTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEndTurn.Location = new System.Drawing.Point(116, 74);
             this.btnEndTurn.Name = "btnEndTurn";
             this.btnEndTurn.Size = new System.Drawing.Size(90, 23);
             this.btnEndTurn.TabIndex = 12;
@@ -138,7 +136,6 @@
             // 
             this.pnlPlayerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlPlayerPanel.Controls.Add(this.scoreRecords);
             this.pnlPlayerPanel.Controls.Add(this.lblFailure);
             this.pnlPlayerPanel.Controls.Add(this.btnEndTurn);
             this.pnlPlayerPanel.Controls.Add(this.lblTurnTime);
@@ -160,19 +157,6 @@
             this.pnlGameField.Size = new System.Drawing.Size(487, 423);
             this.pnlGameField.TabIndex = 16;
             // 
-            // tblDiceBoard
-            // 
-            this.tblDiceBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tblDiceBoard.AutoSize = true;
-            this.tblDiceBoard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblDiceBoard.Location = new System.Drawing.Point(3, 208);
-            this.tblDiceBoard.Name = "tblDiceBoard";
-            this.tblDiceBoard.Padding = new System.Windows.Forms.Padding(3);
-            this.tblDiceBoard.Size = new System.Drawing.Size(481, 6);
-            this.tblDiceBoard.TabIndex = 14;
-            this.tblDiceBoard.Layout += new System.Windows.Forms.LayoutEventHandler(this.OnGameBoardLayout);
-            this.tblDiceBoard.Resize += new System.EventHandler(this.OnGameBoardResize);
-            // 
             // tblCentering
             // 
             this.tblCentering.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -187,19 +171,18 @@
             this.tblCentering.Size = new System.Drawing.Size(487, 423);
             this.tblCentering.TabIndex = 0;
             // 
-            // scoreRecords
+            // tblDiceBoard
             // 
-            this.scoreRecords.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scoreRecords.CurrentComboIsVisible = true;
-            this.scoreRecords.CurrentComboName = "3+3";
-            this.scoreRecords.CurrentComboScore = 50;
-            this.scoreRecords.Failure = false;
-            this.scoreRecords.Location = new System.Drawing.Point(5, 26);
-            this.scoreRecords.Name = "scoreRecords";
-            this.scoreRecords.Size = new System.Drawing.Size(201, 214);
-            this.scoreRecords.TabIndex = 13;
+            this.tblDiceBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tblDiceBoard.AutoSize = true;
+            this.tblDiceBoard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblDiceBoard.Location = new System.Drawing.Point(3, 208);
+            this.tblDiceBoard.Name = "tblDiceBoard";
+            this.tblDiceBoard.Padding = new System.Windows.Forms.Padding(3);
+            this.tblDiceBoard.Size = new System.Drawing.Size(481, 6);
+            this.tblDiceBoard.TabIndex = 14;
+            this.tblDiceBoard.Layout += new System.Windows.Forms.LayoutEventHandler(this.OnGameBoardLayout);
+            this.tblDiceBoard.Resize += new System.EventHandler(this.OnGameBoardResize);
             // 
             // scoreBoard
             // 
@@ -212,7 +195,7 @@
             this.scoreBoard.Size = new System.Drawing.Size(201, 177);
             this.scoreBoard.TabIndex = 7;
             // 
-            // Game
+            // DiceGameControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -221,7 +204,7 @@
             this.Controls.Add(this.scoreBoard);
             this.Controls.Add(this.statusGamePlaying);
             this.Controls.Add(this.pnlGameField);
-            this.Name = "Game";
+            this.Name = "DiceGameControl";
             this.Size = new System.Drawing.Size(847, 580);
             this.statusGamePlaying.ResumeLayout(false);
             this.statusGamePlaying.PerformLayout();
@@ -247,7 +230,6 @@
         private System.Windows.Forms.Button btnReroll;
         private System.Windows.Forms.Button btnEndTurn;
         private System.Windows.Forms.Panel pnlPlayerPanel;
-        private ScoreRecords scoreRecords;
         private System.Windows.Forms.ToolStripStatusLabel statusGameTime;
         private System.Windows.Forms.Panel pnlGameField;
         private System.Windows.Forms.FlowLayoutPanel tblDiceBoard;

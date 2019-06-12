@@ -1,4 +1,4 @@
-﻿namespace CommonLibrary.Implementation.DiceGame
+﻿namespace CommonLibrary.Implementation.Games.Dice
 {
     public class DiceGameOptions
     {

@@ -43,13 +43,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\Crypto\ShaEncryptor.cs" />
-    <Compile Include="Implementation\Games\Dice-Game\Combo.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\BaseCombo.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\ComboParser.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\ComboMaxResult.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\Flash.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\FlashRoyale.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\Quad.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\Set.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Combos\Street.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\DiceGameEventArgs.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DiceGameOptions.cs" />
-    <Compile Include="Implementation\Games\Dice-Game\DieModel.cs" />
+    <Compile Include="Implementation\Games\GameOptions.cs" />
+    <Compile Include="Model\Games\Dice-Game\IDie.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\MainStateMachine.cs" />
     <Compile Include="Implementation\Networking\NetworkSender.cs" />
-    <Compile Include="Implementation\ServerSide\GameServers\DiceGameServerEnroll.cs" />
+    <Compile Include="Implementation\Networking\UdpMessageReceiver.cs" />
+    <Compile Include="Implementation\Networking\UdpMessageSender.cs" />
+    <Compile Include="Implementation\ServerSide\Games\DiceGameServerEnroll.cs" />
     <Compile Include="Implementation\ServerSide\GameServerEnroll.cs" />
-    <Compile Include="Implementation\ServerSide\GameServers\DiceGameServer.cs" />
+    <Compile Include="Implementation\ServerSide\Games\DiceGameServer.cs" />
     <Compile Include="Model\Application\IUser.cs" />
     <Compile Include="Model\Application\IUserValidator.cs" />
     <Compile Include="Model\Common\IFieldsOwner.cs" />
@@ -58,7 +70,7 @@
     <Compile Include="Model\Database\IDatabaseConnector.cs" />
     <Compile Include="Model\Database\IDatabaseReceiver.cs" />
     <Compile Include="Model\Database\IDatabaseSender.cs" />
-    <Compile Include="Model\Games\Dice-Game\IDiceGame.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\DiceGame.cs" />
     <Compile Include="Model\Games\Dice-Game\IDiceView.cs" />
     <Compile Include="Model\Games\IPlayer.cs" />
     <Compile Include="Model\Games\IGame.cs" />
@@ -66,11 +78,17 @@
     <Compile Include="Implementation\ServerSide\GameServer.cs" />
     <Compile Include="Model\Networking\INetworkReceiver.cs" />
     <Compile Include="Model\Networking\INetworkSender.cs" />
+    <Compile Include="Model\ServerSide\ClientServerMessageTypes.cs" />
+    <Compile Include="Model\ServerSide\InterServerMessageTypes.cs" />
     <Compile Include="Model\ServerSide\IServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\Crypto\" />
+    <Folder Include="Model\ServerSide\DiceGame\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Implementation\Games\Dice-Game\Combos\Single.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

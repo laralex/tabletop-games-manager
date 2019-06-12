@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HeadServer.AuthenticationServer;
+using CommonLibrary.Model.ServerSide;
 
 namespace HeadServer.Debug
 {
@@ -14,6 +15,10 @@ namespace HeadServer.Debug
     {
         public AuthenticationServerConsole(AuthenticationServer.AuthenticationServer server)
         {
+            if (server == null)
+            {
+                return;
+            }
             server.OnInitialization += InitMessage;
             server.OnThreadStateChange += NetworkThreadMessage;
             server.OnTermination += TerminationMessage;
@@ -61,6 +66,8 @@ namespace HeadServer.Debug
                     return "REQUEST SERVERS LIST";
                 case FromUserMessageType.UseMyData:
                     return "USE MY ACCOUNT DATA";
+                case FromUserMessageType.Dummy:
+                    return "<DEBUG MSG>";
             }
             return null;
         }
@@ -77,6 +84,8 @@ namespace HeadServer.Debug
                     return "RESUME";
                 case ThreadStateType.Stop:
                     return "STOP";
+                case ThreadStateType.Dummy:
+                    return "<DEBUG MSG>";
             }
             return null;
         }
@@ -101,6 +110,8 @@ namespace HeadServer.Debug
                     return "DENY STATUS UPDATE";
                 case ToUserMessageType.UseServerList:
                     return "TAKE THIS SERVER LIST";
+                case ToUserMessageType.Dummy:
+                    return "<DEBUG MSG>";
             }
             return null;
         }

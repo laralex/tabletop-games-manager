@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using CommonLibrary.Implementation.DiceGame;
+using CommonLibrary.Model.Games;
+using CommonLibrary.Model.Games.Dice;
 
-namespace CommonLibrary.Model.DiceGame
+using CommonLibrary.Implementation.Games.Dice;
+using CommonLibrary.Implementation.Games.Dice.Combos;
+
+namespace CommonLibrary.Implementation.Games.Dice
 {
-    public interface IDiceGame : ITurnBasedGame
-    {
-        event EventHandler<DieSelectChangedEventArgs> DieSelectChanged;
-        event EventHandler<ComboSubmittedEventArgs> ComboSubmitted;
-        event EventHandler<RerollEventArgs> Reroll;
-        
-        void StartGame(DiceGameOptions options);
-    }
-
-
     public class DiceGameTurnSubmittedEventArgs : TurnSubmittedEventArgs
     {
         public int ScoreGained { get; }
@@ -32,32 +26,24 @@ namespace CommonLibrary.Model.DiceGame
 
     public class DieSelectChangedEventArgs : EventArgs
     {
-        public DieModel ChangedDie { get; }
-        public DieSelectChangedEventArgs (DieModel die)
+        public IDie ChangedDie { get; }
+        public DieSelectChangedEventArgs(IDie die)
         {
             ChangedDie = die;
         }
     }
 
-    public class ComboSubmittedEventArgs : EventArgs
+    public class DiceSubmittedEventArgs : EventArgs
     {
-        public Combo Combo { get; }
-        public ComboSubmittedEventArgs(Combo combo)
+        public AllCombosInDice Combos { get; }
+        public DiceSubmittedEventArgs(AllCombosInDice combos)
         {
-            Combo = combo;
+            Combos = combos;
         }
     }
 
-    public class DiceGameStartedEventArgs : GameStartedEventArgs
-    {
-        public DiceGameOptions GameOptions { get; }
-        public DiceGameStartedEventArgs(DiceGameOptions options, IPlayer[] players) : base(players)
-        {
-            GameOptions = options;
-        }
-    }
 
-    public class ServerClosedEventArgs : EventArgs
+    /*public class ServerClosedEventArgs : EventArgs
     {
         public enum ServerCloseType {
             InternalError,
@@ -72,14 +58,15 @@ namespace CommonLibrary.Model.DiceGame
             WhyClosedType = why_closed;
             WhyClosedMessage = why_closed_msg;
         }
-    }    
+    } */
 
     public class RerollEventArgs : EventArgs
     {
-        public DieModel[] NewDice { get; }
-        public RerollEventArgs(DieModel[] new_dice)
+        public IDie[] NewDice { get; }
+        public RerollEventArgs(IDie[] new_dice)
         {
-            NewDice = new_dice; 
+            NewDice = new_dice;
         }
     }
+
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CommonLibrary.Model
+using CommonLibrary.Implementation.Games;
+
+namespace CommonLibrary.Model.Games
 {
     public interface IGame
     {
@@ -11,9 +13,14 @@ namespace CommonLibrary.Model
         event EventHandler<GameEndedEventArgs> GameEnded;
         event EventHandler<PlayerStateEventArgs> PlayerJoined;
         event EventHandler<PlayerStateEventArgs> PlayerLeaved;
-        //event EventHandler<SpectatorStateEventArgs> SpectatorJoined;
-        //event EventHandler<SpectatorStateEventArgs> SpectatorLeaved;
+        event EventHandler<PlayerStateEventArgs> SpectatorJoined;
+        event EventHandler<PlayerStateEventArgs> SpectatorLeaved;
         //event EventHandler<ServerClosedEventArgs> ServerClosed;
+
+        void StartupGame(GameOptions options);
+        void ShutdownGame();
+        void AddPlayer(IPlayer new_player);
+        void KickPlayer(IPlayer player);
     }
 
     public class GameStartedEventArgs : EventArgs
