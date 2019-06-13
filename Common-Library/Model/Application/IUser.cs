@@ -8,7 +8,7 @@ namespace CommonLibrary.Model.Application
     public interface IUser
     {
         string Name { get; }
-        string Username { get; }
+        string LoginName { get; }
         //public DateTime
     }
 }

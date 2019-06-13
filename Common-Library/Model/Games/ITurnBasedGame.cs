@@ -11,7 +11,7 @@ namespace CommonLibrary.Model.Games
         event EventHandler<TurnSubmittedEventArgs> TurnSubmitted;
 
         bool IsTimeLimitedTurn { get; }
-        void SwtichTurn(IPlayer next);
+        void SwitchTurn(IPlayer next);
     }
 
     public class TurnSwitchedEventArgs : EventArgs
@@ -29,9 +29,11 @@ namespace CommonLibrary.Model.Games
     public class TurnSubmittedEventArgs : EventArgs
     {
         public IPlayer Player { get; }
-        public TurnSubmittedEventArgs(IPlayer player)
+        public int NewScore { get; }
+        public TurnSubmittedEventArgs(IPlayer player, int new_score)
         {
             Player = player;
+            NewScore = new_score;
         }
     }
 }

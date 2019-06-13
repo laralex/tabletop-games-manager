@@ -9,13 +9,13 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
     public class FlashRoyale : Combo
     {
-        public override ComboMaxResult GetMaxCombo(List<IDie> dice, bool is_sorted)
+        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             if (dice == null)
             {
                 return null;
             }
-            List<IDie> dice_copy = dice;
+            List<Die> dice_copy = dice;
 
             ComboMaxResult result = new ComboMaxResult();
             result.Name = "Flash Royale";

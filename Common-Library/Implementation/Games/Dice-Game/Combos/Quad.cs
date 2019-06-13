@@ -9,16 +9,16 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
     public class Quad : Combo
     {
-        public override ComboMaxResult GetMaxCombo(List<IDie> dice, bool is_sorted)
+        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             if (dice == null)
             {
                 return null;
             }
-            List<IDie> dice_copy = dice;
+            List<Die> dice_copy = dice;
             if (!is_sorted)
             {
-                dice_copy = new List<IDie>(dice);
+                dice_copy = new List<Die>(dice);
                 dice_copy.Sort((d1, d2) => { return (int)d1.Side - (int)d2.Side; });
             }
 
@@ -27,7 +27,7 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
             result.Name = "Quad of ";
             for (int i = 0; i < dice_copy.Count; ++i)
             {
-                IDie die = dice_copy[i];
+                Die die = dice_copy[i];
                 if (die.Side == DieSide.JOKER)
                 {
                     continue;

@@ -9,7 +9,7 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
     public class ComboMaxResult
     {
-        public List<IDie> DiceInCombo;
+        public List<Die> DiceInCombo;
         public int Score;
         public string Name;
     }

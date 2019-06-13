@@ -1,6 +1,8 @@
-﻿namespace CommonLibrary.Implementation.Games.Dice
+﻿using CommonLibrary.Implementation.Games;
+
+namespace CommonLibrary.Implementation.Games.Dice
 {
-    public class DiceGameOptions
+    public class DiceGameOptions : GameOptions
     {
         public int TurnTimeSecs { get; set; }
         public int ScoreGoal { get; set; }

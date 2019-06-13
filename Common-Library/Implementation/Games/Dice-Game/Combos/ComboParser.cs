@@ -20,15 +20,15 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
                 new Combos.FlashRoyale()
             };
         }
-        public static AllCombosInDice ParseDice(List<IDie> dice, bool is_sorted){
+        public static AllCombosInDice ParseDice(List<Die> dice, bool is_sorted){
             if (dice == null)
             {
                 return null;
             }
-            List<IDie> dice_copy = new List<IDie>(dice);
+            List<Die> dice_copy = new List<Die>(dice);
             if (!is_sorted)
             {
-                dice_copy = new List<IDie>(dice);
+                dice_copy = new List<Die>(dice);
                 dice_copy.Sort((d1, d2) => { return (int)d1.Side - (int)d2.Side; });
             }
 

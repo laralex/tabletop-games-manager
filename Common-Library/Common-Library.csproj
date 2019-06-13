@@ -51,11 +51,12 @@
     <Compile Include="Implementation\Games\Dice-Game\Combos\Quad.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\Set.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\Street.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\DiceGameController.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DiceGameEventArgs.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DiceGameOptions.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\DiceGamePlayer.cs" />
     <Compile Include="Implementation\Games\GameOptions.cs" />
-    <Compile Include="Model\Games\Dice-Game\IDie.cs" />
-    <Compile Include="Implementation\Games\Dice-Game\MainStateMachine.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\Die.cs" />
     <Compile Include="Implementation\Networking\NetworkSender.cs" />
     <Compile Include="Implementation\Networking\UdpMessageReceiver.cs" />
     <Compile Include="Implementation\Networking\UdpMessageSender.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Model\Database\IDatabaseConnector.cs" />
     <Compile Include="Model\Database\IDatabaseReceiver.cs" />
     <Compile Include="Model\Database\IDatabaseSender.cs" />
-    <Compile Include="Implementation\Games\Dice-Game\DiceGame.cs" />
+    <Compile Include="Implementation\Games\Dice-Game\DiceGameEngine.cs" />
     <Compile Include="Model\Games\Dice-Game\IDiceView.cs" />
     <Compile Include="Model\Games\IPlayer.cs" />
     <Compile Include="Model\Games\IGame.cs" />

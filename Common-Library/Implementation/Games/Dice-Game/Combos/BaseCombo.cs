@@ -9,7 +9,7 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
     public class Combo
     {
-        public virtual ComboMaxResult GetMaxCombo(List<IDie> dice, bool is_sorted)
+        public virtual ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             return null;
         }

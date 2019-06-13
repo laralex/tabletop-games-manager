@@ -24,13 +24,19 @@ namespace CommonLibrary.Implementation.Games.Dice
         }
     }
 
-    public class DieSelectChangedEventArgs : EventArgs
+    public class DiceSelectChangedEventArgs : EventArgs
     {
-        public IDie ChangedDie { get; }
-        public DieSelectChangedEventArgs(IDie die)
+        public List<Die> ChangedDice { get; }
+        public DiceSelectChangedEventArgs(List<Die> dice)
         {
-            ChangedDie = die;
+            ChangedDice = dice;
         }
+        public DiceSelectChangedEventArgs(Die die)
+        {
+            ChangedDice = new List<Die>();
+            ChangedDice.Add(die);
+        }
+
     }
 
     public class DiceSubmittedEventArgs : EventArgs
@@ -62,8 +68,8 @@ namespace CommonLibrary.Implementation.Games.Dice
 
     public class RerollEventArgs : EventArgs
     {
-        public IDie[] NewDice { get; }
-        public RerollEventArgs(IDie[] new_dice)
+        public List<Die> NewDice { get; }
+        public RerollEventArgs(List<Die> new_dice)
         {
             NewDice = new_dice;
         }

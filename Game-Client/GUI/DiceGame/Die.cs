@@ -16,7 +16,7 @@ using CommonLibrary.Implementation.Games.Dice;
 namespace GameClient.GUI.DiceGame
 {
     
-    public partial class Die : UserControl, ICloneable, IDie
+    public partial class Die : UserControl, ICloneable, CommonLibrary.Implementation.Games.Dice.Die
     {
         public DieSide Side {
             get => _value;

@@ -9,14 +9,14 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
     public class Single : Combo
     {
-        public override ComboMaxResult GetMaxCombo(List<IDie> dice, bool is_sorted)
+        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
-            List<IDie> dice_copy = dice;
+            List<Die> dice_copy = dice;
             byte[] found_combo_sides = new byte[6];
             ComboMaxResult result = new ComboMaxResult();
             for (int i = 0; i < dice_copy.Count; ++i)
             {
-                IDie die = dice_copy[i];
+                Die die = dice_copy[i];
                 if (die.Side == DieSide.JOKER)
                 {
                     continue;
@@ -63,7 +63,7 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
             }
             for (int i = 0; i < dice_copy.Count && search_count > 0; ++i)
             {
-                IDie die = dice_copy[i];
+                Die die = dice_copy[i];
                 if (die.Side == search_for)
                 {
                     result.DiceInCombo.Add(die);

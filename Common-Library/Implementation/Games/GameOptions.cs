@@ -7,5 +7,6 @@ namespace CommonLibrary.Implementation.Games
 {
     public class GameOptions
     {
+        public int MaxPlayers { get; set; }
     }
 }
