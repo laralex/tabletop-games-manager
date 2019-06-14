@@ -35,6 +35,7 @@ namespace GameClient.GUI.Login
         public event EventHandler FieldsFilledEvent;
         public event EventHandler FieldsNotFilledEvent;
 
+        public event EventHandler<LoginFormEventArgs> Signup;
         public RegistrationFields()
         {
             InitializeComponent();
@@ -59,6 +60,10 @@ namespace GameClient.GUI.Login
             // TODO: add in DB
 
             // TODO: login action 
+            Signup?.Invoke(
+                this, 
+                new LoginFormEventArgs(txtRegisterUsername.Text, txtRegisterPassword.Text)
+            );
         }       
 
         // Press on "Back to login" - change UI on login form

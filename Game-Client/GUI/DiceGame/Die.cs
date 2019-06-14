@@ -10,13 +10,13 @@ using System.IO;
 using System.Windows.Media;
 using System.Resources;
 using System.Reflection;
-using CommonLibrary.Model.DiceGame;
+using CommonLibrary.Model.Games.Dice;
 using CommonLibrary.Implementation.Games.Dice;
 
 namespace GameClient.GUI.DiceGame
 {
     
-    public partial class Die : UserControl, ICloneable, CommonLibrary.Implementation.Games.Dice.Die
+    public partial class Die : UserControl, ICloneable
     {
         public DieSide Side {
             get => _value;

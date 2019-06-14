@@ -5,26 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HeadServer.DB;
+using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
 using CommonLibrary.Model.ServerSide;
+using CommonLibrary.Model.Common;
 
 namespace HeadServer
 {
 
-    internal class ThreadStateEventArgs : EventArgs
-    {
-        public ThreadStateType State { get; }
-        public ThreadStateEventArgs(ThreadStateType state)
-        {
-            State = state;   
-        }
-    }
 
     internal class MessageFromGameServerEventArgs : EventArgs
     {
 
-        public FromGameServerMessageType MessageType { get; }
+        public ToHeadServerMessageType MessageType { get; }
         public DB.GameServer Server { get; }
-        public MessageFromGameServerEventArgs(DB.GameServer server, FromGameServerMessageType type)
+        public MessageFromGameServerEventArgs(DB.GameServer server, ToHeadServerMessageType type)
         {
             Server = server;
             MessageType = type;
@@ -35,7 +29,8 @@ namespace HeadServer
     {
         public ToGameServerMessageType MessageType { get; }
         public DB.GameServer Server { get; }
-        public MessageToGameServerEventArgs(DB.GameServer server, ToGameServerMessageType type)
+        public MessageToGameServerEventArgs(DB.GameServer server, ToGameServerMessageType
+            type)
         {
             Server = server;
             MessageType = type;

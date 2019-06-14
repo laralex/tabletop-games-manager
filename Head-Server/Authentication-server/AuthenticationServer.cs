@@ -13,16 +13,19 @@ using HeadServer.DB;
 using HeadServer.DB.Context;
 using System.Threading;
 using HeadServer.Debug;
+using CommonLibrary.Model.Common;
+
+using CommonLibrary.Implementation.ServerSide.Authentication;
 
 namespace HeadServer.AuthenticationServer
 {
-    internal class AuthenticationServer : IServer
+    internal class AuthenticationServer : IServer     
     {
 
         public IPEndPoint Socket { get; private set; }
         public ServerStatus Status { get; private set; }
         public TimeSpan RecentIPsUpdateRate { get; set; }
-        public int AuthorizedUsersInitCapacity = 1000;
+        public int AuthorizedUsersInitCapacity { get => 1000; }
 
         public event EventHandler<ThreadStateEventArgs> OnThreadStateChange;
         public event EventHandler<MessageFromUserEventArgs> OnMessageFromUser;

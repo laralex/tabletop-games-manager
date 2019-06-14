@@ -156,7 +156,6 @@
   <ItemGroup>
     <Compile Include="Authentication-Server\AuthenticationServer.cs" />
     <Compile Include="Authentication-Server\AuthenticationServerEventArgs.cs" />
-    <Compile Include="Authentication-Server\UserEnroll.cs" />
     <Compile Include="AuxStructs.cs" />
     <Compile Include="Database-Server\DatabaseServer.cs" />
     <Compile Include="Database-Server\Entity-Framework\Context\GameServerContext.cs" />

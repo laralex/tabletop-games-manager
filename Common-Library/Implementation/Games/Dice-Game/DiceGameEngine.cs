@@ -30,7 +30,7 @@ namespace CommonLibrary.Implementation.Games.Dice
                 {
                     return null;
                 }
-                return _players[_current_player_idx];
+                return _players[_current_player];
             }
         }
 
@@ -41,46 +41,62 @@ namespace CommonLibrary.Implementation.Games.Dice
             _players = new List<DiceGamePlayer>();
             _combo_parser = new ComboParser();
         }
-        public void SetPlayers(List<IPlayer> new_players, int new_current)
+        public void SetPlayers(List<IPlayer> new_players, int new_current_idx)
         {
             if (new_players == null)
             {
                 _players = new List<DiceGamePlayer>();
-                _current_player_idx = -1;
+                _current_player = -1;
                 return;
             }
+
             _players = new_players.ConvertAll((e) => e as DiceGamePlayer);
-            _current_player_idx = new_current;
+            if (new_current_idx >= _players.Count || new_current_idx < 0)
+            {
+                throw new IndexOutOfRangeException("New current player index is out of boundaries");
+            }
+            _current_player = new_current_idx;
         }
 
-        public void AddPlayer(IPlayer new_player, int order)
+        public void AddPlayer(IPlayer new_player, int order_idx)
         {
             if (_players.Count == 0)
             {
                 _players.Add(new_player as DiceGamePlayer);
-                _current_player_idx = 0;
+                _current_player = 0;
                 return;
             }
-            if (order <= _current_player_idx)
-            {
-                ++_current_player_idx;
-            }
+
+            IPlayer current = CurrentPlayer;
+
             _players.Insert(
-                Math.Min(order, _players.Count), 
+                Math.Min(order_idx, _players.Count), 
                 new_player as DiceGamePlayer
             );
+
+            SwitchTurnTo(current);
         }
 
-        public void KickPlayer(IPlayer player)
+        public bool KickPlayer(IPlayer player)
         {
             if (_players.Count == 0)
             {
-                return;
+                throw new InvalidOperationException("No players in the list");
             }
+            bool is_current = CurrentPlayer == player;
+            
             if (_players.Remove(player as DiceGamePlayer))
             {
-                _current_player_idx = Math.Min(_players.Count, _current_player_idx - 1);
+                if (is_current)
+                {
+                    SwitchTurnToNextPlayer();
+                } else
+                {
+                    SwitchTurnTo(player);
+                }
+                return true;
             }
+            return false;
         }
 
         public void CreateDice(int number_of_dice)
@@ -98,11 +114,16 @@ namespace CommonLibrary.Implementation.Games.Dice
             {
                 return;
             }
-            ++ _current_player_idx;
-            if (_current_player_idx >= _players.Count)
+            ++ _current_player;
+            if (_current_player >= _players.Count)
             {
-                _current_player_idx = 0;
+                _current_player = 0;
             }
+        }
+
+        public void SwitchTurnTo(IPlayer player)
+        {
+            _current_player = _players.IndexOf((DiceGamePlayer)player);
         }
 
         public void Reroll(List<Die> dice_to_reroll)
@@ -153,9 +174,9 @@ namespace CommonLibrary.Implementation.Games.Dice
             return IsFailure(AllDice); 
         }
 
-        public AllCombosInDice CalculateGainOf(List<Die> selected)
+        public AllCombosInDice CalculateGainOf(List<Die> dice)
         {
-            return ComboParser.ParseDice(selected, is_sorted: false);
+            return ComboParser.ParseDice(dice, is_sorted: false);
         }
 
         public AllCombosInDice CalculateGainOfSelected()
@@ -164,7 +185,7 @@ namespace CommonLibrary.Implementation.Games.Dice
         }
 
         private List<DiceGamePlayer> _players;
-        private int _current_player_idx;
+        private int _current_player;
         private Die[] _dice;
         private ComboParser _combo_parser;
     }

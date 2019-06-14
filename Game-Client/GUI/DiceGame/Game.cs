@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using CommonLibrary.Model.DiceGame;
-using CommonLibrary.Implementation.DiceGame;
-
+using CommonLibrary.Model.Games.Dice;
+using CommonLibrary.Implementation.Games.Dice;
+using DieModel = CommonLibrary.Implementation.Games.Dice.Die;
 namespace GameClient.GUI.DiceGame
 {
     public partial class DiceGameControl : UserControl
@@ -23,9 +23,9 @@ namespace GameClient.GUI.DiceGame
             resize_timer.Interval = 1000; // ms
             resize_timer.Tick += (sender, e) => OnGameBoardResizeEnd();
             DieModel[] new_dice = new DieModel[] {
-                new DieModel(DieSide.ONE, 0, true),
-                new DieModel(DieSide.JOKER, 1, true),
-                new DieModel(DieSide.FIVE, 2, false),
+                new DieModel(DieSide.ONE, true),
+                new DieModel(DieSide.JOKER, true),
+                new DieModel(DieSide.FIVE, false),
                 new DieModel(DieSide.FIVE),
                 new DieModel(DieSide.SIX),
                 new DieModel(DieSide.TWO)

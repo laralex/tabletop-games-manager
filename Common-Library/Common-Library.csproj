@@ -60,6 +60,7 @@
     <Compile Include="Implementation\Networking\NetworkSender.cs" />
     <Compile Include="Implementation\Networking\UdpMessageReceiver.cs" />
     <Compile Include="Implementation\Networking\UdpMessageSender.cs" />
+    <Compile Include="Implementation\ServerSide\Authentication\UserEntry.cs" />
     <Compile Include="Implementation\ServerSide\Games\DiceGameServerEnroll.cs" />
     <Compile Include="Implementation\ServerSide\GameServerEnroll.cs" />
     <Compile Include="Implementation\ServerSide\Games\DiceGameServer.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Model\Common\IFieldsOwner.cs" />
     <Compile Include="Model\Common\IResetable.cs" />
     <Compile Include="Implementation\Crypto\BaseEncryptor.cs" />
+    <Compile Include="Model\Common\ThreadStateEventArgs.cs" />
+    <Compile Include="Model\Common\ThreadStateType.cs" />
     <Compile Include="Model\Database\IDatabaseConnector.cs" />
     <Compile Include="Model\Database\IDatabaseReceiver.cs" />
     <Compile Include="Model\Database\IDatabaseSender.cs" />
@@ -76,11 +79,14 @@
     <Compile Include="Model\Games\IPlayer.cs" />
     <Compile Include="Model\Games\IGame.cs" />
     <Compile Include="Model\Games\ITurnBasedGame.cs" />
-    <Compile Include="Implementation\ServerSide\GameServer.cs" />
     <Compile Include="Model\Networking\INetworkReceiver.cs" />
     <Compile Include="Model\Networking\INetworkSender.cs" />
-    <Compile Include="Model\ServerSide\ClientServerMessageTypes.cs" />
-    <Compile Include="Model\ServerSide\InterServerMessageTypes.cs" />
+    <Compile Include="Model\ServerSide\GameServerEventArgs.cs" />
+    <Compile Include="Model\ServerSide\GameType.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-HeadServer-GameServer.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-Client-GameServer.cs" />
+    <Compile Include="Model\ServerSide\IGameServer.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-Client-HeadServer.cs" />
     <Compile Include="Model\ServerSide\IServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

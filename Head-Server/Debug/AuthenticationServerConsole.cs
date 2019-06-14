@@ -5,7 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HeadServer.AuthenticationServer;
-using CommonLibrary.Model.ServerSide;
+//using CommonLibrary.Model.ServerSide;
+using CommonLibrary.Model.Common;
+using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+//using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
+using ToHeadServerMessageType = CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer.ToHeadServerMessageType;
 
 namespace HeadServer.Debug
 {
@@ -52,21 +56,21 @@ namespace HeadServer.Debug
             Console.WriteLine("\tAuth server: TERMINATE");
         }
 
-        private string StringifyType(FromUserMessageType type)
+        private string StringifyType(ToHeadServerMessageType type)
         {
             switch (type)
             {
-                case FromUserMessageType.ReqLogIn:
+                case ToHeadServerMessageType.ReqLogIn:
                     return "REQUEST LOG IN";
-                case FromUserMessageType.ReqLogOut:
+                case ToHeadServerMessageType.ReqLogOut:
                     return "REQUEST LOG OUT";
-                case FromUserMessageType.ReqSignUp:
+                case ToHeadServerMessageType.ReqSignUp:
                     return "REQUEST SIGN UP";
-                case FromUserMessageType.ReqServersList:
+                case ToHeadServerMessageType.ReqServersList:
                     return "REQUEST SERVERS LIST";
-                case FromUserMessageType.UseMyData:
+                case ToHeadServerMessageType.UseMyData:
                     return "USE MY ACCOUNT DATA";
-                case FromUserMessageType.Dummy:
+                case ToHeadServerMessageType.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
@@ -90,27 +94,27 @@ namespace HeadServer.Debug
             return null;
         }
 
-        private string StringifyType(ToUserMessageType type)
+        private string StringifyType(ToApplicationClientMessageType type)
         {
             switch (type)
             {
-                case ToUserMessageType.AckLogIn:
+                case ToApplicationClientMessageType.AckLogIn:
                     return "PERMIT DETACH";
-                case ToUserMessageType.AckLogOut:
+                case ToApplicationClientMessageType.AckLogOut:
                     return "PERMIT REGISTER";
-                case ToUserMessageType.AckSignUp:
+                case ToApplicationClientMessageType.AckSignUp:
                     return "PERMIT STATUS UPDATE";
-                case ToUserMessageType.AckMyData:
+                case ToApplicationClientMessageType.AckMyData:
                     return "APPLIED YOUR CONFIG";
-                case ToUserMessageType.DenyLogIn:
+                case ToApplicationClientMessageType.DenyLogIn:
                     return "APPLIED YOUR STATUS";
-                case ToUserMessageType.DenyServerList:
+                case ToApplicationClientMessageType.DenyServerList:
                     return "DENY REGISTER";
-                case ToUserMessageType.DenySignUp:
+                case ToApplicationClientMessageType.DenySignUp:
                     return "DENY STATUS UPDATE";
-                case ToUserMessageType.UseServerList:
+                case ToApplicationClientMessageType.UseServerList:
                     return "TAKE THIS SERVER LIST";
-                case ToUserMessageType.Dummy:
+                case ToApplicationClientMessageType.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;

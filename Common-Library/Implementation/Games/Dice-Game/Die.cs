@@ -13,7 +13,7 @@ namespace CommonLibrary.Implementation.Games.Dice
         public bool Selected { get; set; }
         public DieSide Side { get; set; }
 
-        public Die(DieSide side, bool is_selected)
+        public Die(DieSide side, bool is_selected = false)
         {
             Side = side;
             Selected = is_selected;

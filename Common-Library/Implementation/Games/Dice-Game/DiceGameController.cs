@@ -19,7 +19,7 @@ namespace CommonLibrary.Implementation.Games.Dice
         public event EventHandler<GameStartedEventArgs> GameStarted;
         public event EventHandler<GameEndedEventArgs> GameEnded;
         public event EventHandler GameShutdowned;
-        public event EventHandler<PlayerStateEventArgs> PlayerJoined;
+        //public event EventHandler<PlayerStateEventArgs> PlayerJoined;
         public event EventHandler<PlayerStateEventArgs> PlayerLeaved;
         public event EventHandler<PlayerStateEventArgs> SpectatorJoined;
         public event EventHandler<PlayerStateEventArgs> SpectatorLeaved;
@@ -28,111 +28,218 @@ namespace CommonLibrary.Implementation.Games.Dice
         public event EventHandler<RerollEventArgs> DiceRerolled;
         public event EventHandler<PlayerStateEventArgs> TurnFailure;
 
-        public List<IUser> ConnectedUsers { get; internal set; }
+        //public List<IUser> ConnectedUsers { get; internal set; }
+        public List<IPlayer> Players { get; private set; } 
+        public DiceGameEngine DiceEngine { get; }
 
         public DiceGameController()
         {
-            _engine = new DiceGameEngine();
-            ConnectedUsers = new List<IUser>();
+            _timer = new Timer();
+            DiceEngine = new DiceGameEngine();
+            _is_game_alive = false;
         }
 
-        public void StartupGame(GameOptions options)
+        public void StartupGame(GameOptions options, List<IUser> server_users)
         {
+            if (options == null)
+            {
+                throw new InvalidOperationException("Invalid game options");
+            }
+            if (server_users.Count == 0)
+            {
+                throw new InvalidOperationException("No users connected");
+            }
+
             var dice_options = options as DiceGameOptions;
             _current_game_options = dice_options;
 
             List<IPlayer> players = 
-                ((List<IUser>)ConnectedUsers.Take(dice_options.MaxPlayers))
+                ((List<IUser>)server_users.Take(dice_options.MaxPlayers))
                 .ConvertAll( (e) => new DiceGamePlayer(e.LoginName, 0) as IPlayer ); 
             // Send to picked users event of started game
 
-            _engine.SetPlayers(players, 0);
-            _engine.CreateDice(dice_options.DiceNumber);
-            // _engine.
+            DiceEngine.SetPlayers(players, 0);
+            DiceEngine.CreateDice(dice_options.DiceNumber);
 
-            _timer.AutoReset = false;
+            _timer.Interval = dice_options.TurnTimeSecs * 1000;
+            _timer.AutoReset = true;
+            _timer.Enabled = false;
             _timer.Elapsed += OnTimerElapsed;
 
             GameStarted?.Invoke(
                 this,
                 new GameStartedEventArgs(players.ToArray())
             );
+
+            StartFirstTurn(players.First());
+        }
+
+        public void KickPlayer(IPlayer player)
+        {
+            if ((DiceGamePlayer)player == DiceEngine.CurrentPlayer)
+            {
+                DiceEngine.KickPlayer(player);
+                SwitchTurn();
+            }
+
+        }
+
+        public void StartFirstTurn(IPlayer first_player = null)
+        {
+            if (first_player == null)
+            {
+                first_player = Players.First();
+            }
+            DiceEngine.SwitchTurnTo(first_player);
+            DiceEngine.CurrentPlayerTurnScore = 0;
+            TurnSwitched?.Invoke(
+                this,
+                new TurnSwitchedEventArgs(null, first_player)
+            );
+
+            DiceEngine.Reroll(DiceEngine.AllDice);
+            if (DiceEngine.IsCurrentDiceFailure())
+            {
+                TurnFailure?.Invoke(
+                    this,
+                    new PlayerStateEventArgs(first_player)
+                );
+            }
+            _timer.Enabled = true;
+            _timer.Start();
+        }
+
+        public int GetScoreGainOf(List<Die> dice)
+        {
+            return DiceEngine.CalculateGainOf(dice).TotalScore;
         }
 
         public void SubmitDice(List<Die> dice)
-        { 
-            var combos_result = _engine.CalulateGainOf();
-            _engine.CurrentPlayer.AddScore(combos_result.TotalScore);
-            DiceSubmitted?.Invoke(this, new DiceSubmittedEventArgs(combos_result));
-
-            var to_reroll = _engine.SelectedDice;
-            _engine.Reroll(to_reroll);
-            DiceRerolled?.Invoke(this, new RerollEventArgs(to_reroll));
-
-            if (_engine.IsFailure())
+        {
+            if (dice == null || dice.Count == 0)
             {
-
-                TurnFailure?.Invoke(this, new PlayerStateEventArgs(_engine.CurrentPlayer));
+                return;
             }
+
+            var combos_result = DiceEngine.CalculateGainOf(dice);
+
+            DiceEngine.CurrentPlayerTurnScore += combos_result.TotalScore;
+
+            DiceSubmitted?.Invoke(
+                this, 
+                new DiceSubmittedEventArgs(combos_result, DiceEngine.CurrentPlayerTurnScore)
+            );
+
+            var to_reroll = DiceEngine.SelectedDice;
+            DiceEngine.Reroll(to_reroll);
+
+            DiceRerolled?.Invoke(
+                this, 
+                new RerollEventArgs(to_reroll)
+            );
+
+            IfFailureSwitchTurn();
         }
 
         public void SwitchTurn()
         {
-            OnTimerElapsed(this, null);
+            _timer.Enabled = false;
+            _timer.Stop();
+
+            IPlayer old_player = DiceEngine.CurrentPlayer;
+
+            DiceEngine.SwitchTurnToNextPlayer();
+            DiceEngine.CurrentPlayerTurnScore = 0;
+
+            TurnSwitched?.Invoke(
+                this,
+                new TurnSwitchedEventArgs(old_player, DiceEngine.CurrentPlayer)
+            );
+
+            var all_dice = DiceEngine.AllDice;
+            DiceEngine.DeselectAll();
+            DiceEngine.Reroll(all_dice);
+
+            DiceRerolled?.Invoke(
+                this,
+                new RerollEventArgs(all_dice)
+            );
+
+            _timer.Stop();
+            _timer.Start();
+            _timer.Enabled = true;
         }
 
-        private 
+        public void SubmitSelected()
+        {
+            SubmitDice(DiceEngine.SelectedDice);
+        }
+
+        public void SubmitTurn()
+        {
+            SubmitSelected();
+
+            DiceEngine.CurrentPlayer.Score += DiceEngine.CurrentPlayerTurnScore;
+
+            TurnSubmitted?.Invoke(
+                this,
+                new TurnSubmittedEventArgs(DiceEngine.CurrentPlayer, DiceEngine.CurrentPlayer.Score)
+            );
+
+            if (DidCurrentWinByScore())
+            {
+                EndGame(DiceEngine.CurrentPlayer);
+                return;
+            }
+        }
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            _engine.SubmitTurnScore();
-            if (DidCurrentWin())
-            {
-                EndGame(_engine.CurrentPlayer);
-                return;
-            }
+            SubmitTurn();
+            SwitchTurn();
+        }
 
-            int old_score = _engine.CurrentPlayer.Score;
-            IPlayer old_player = _engine.CurrentPlayer;
-
-            _engine.SwitchTurnToNextPlayer();
-            TurnSwitched?.Invoke(
-                this,
-                new TurnSwitchedEventArgs(old_player, _engine.CurrentPlayer)
-            );
-
-            var all_dice = _engine.AllDice;
-            _engine.Reroll(all_dice);
-            DiceRerolled?.Invoke(this, new RerollEventArgs(all_dice));
-            TurnSubmitted?.Invoke(this, new TurnSubmittedEventArgs(old_player, old_score));
-            Turn
+        public bool DidCurrentWinByScore()
+        {
+            return DiceEngine.CurrentPlayer.Score > _current_game_options.ScoreGoal;
         }
 
         public void ShutdownGame()
         {
             _is_game_alive = false;
+            _timer.Enabled = false;
             GameShutdowned?.Invoke(
                 this,
                 null
             );
-        } 
-
-        public bool DidCurrentWin()
-        {
-            return _engine.CurrentPlayer.Score > _current_game_options.ScoreGoal;
         }
 
         public void EndGame(IPlayer winner = null)
         {
             if (winner == null)
             {
-                winner = _engine.CurrentPlayer;
+                winner = DiceEngine.CurrentPlayer;
             }
             _is_game_alive = false;
+            _timer.Enabled = false;
             GameEnded?.Invoke(this, new GameEndedEventArgs(winner));
         }
         
-        private DiceGameEngine _engine;
+        public void IfFailureSwitchTurn()
+        {
+            if (DiceEngine.IsCurrentDiceFailure())
+            {
+                DiceEngine.CurrentPlayerTurnScore = 0;
+
+                TurnFailure?.Invoke(
+                    this,
+                    new PlayerStateEventArgs(DiceEngine.CurrentPlayer)
+                );
+
+                SwitchTurn();
+            }
+        }
+
         private DiceGameOptions _current_game_options;
         private Timer _timer;
         private bool _is_game_alive;

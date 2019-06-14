@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HeadServer.DB.Context;
 using CommonLibrary.Model.ServerSide;
 using System.Net;
+using CommonLibrary.Model.Common;
 
 namespace HeadServer.DB
 {
@@ -22,6 +23,10 @@ namespace HeadServer.DB
         {
             Status = ServerStatus.Uninitialized;
         }
+
+        public event EventHandler OnInitialization;
+        public event EventHandler OnTermination;
+        public event EventHandler<ThreadStateEventArgs> OnThreadStateChange;
 
         public void Initialize()
         {

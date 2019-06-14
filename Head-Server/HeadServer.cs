@@ -18,7 +18,9 @@ using HeadServer.AuthenticationServer;
 using System.Collections;
 using System.Timers;
 using System.Threading;
-
+using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
+using CommonLibrary.Model.Common;
 using HeadServer.Debug;
 
 namespace HeadServer
@@ -70,7 +72,7 @@ namespace HeadServer
             Status = ServerStatus.Initialized;
             OnInitialization?.Invoke(this, null);
         }
-        async public void ServerLoop()
+        public void ServerLoop()
         {
             while (true)
             {
@@ -85,20 +87,19 @@ namespace HeadServer
                     return;
                 }
 
-                _udp_listener.BeginReceive(
+                /*_udp_listener.BeginReceive(
                     ParseMessageType, 
                     new UdpState(_udp_listener, _listening_to)
-                ); 
-                
-                ParseMessageType()
-                //OnThreadStateChange.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
-                while (!_received) Thread.Sleep(500);
-                _received = false;
+                );
+
+                ParseMessageType();*/
+                OnThreadStateChange.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
+                Thread.Sleep(800);
+                //while (!_received) Thread.Sleep(500);
+                //_received = false;
                 // TODO: Get Messages
             }
         }
-
-
 
         public void Stop()
         {

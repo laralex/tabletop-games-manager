@@ -16,7 +16,7 @@ namespace CommonLibrary.Implementation.Games.Dice
         public int ScoreGained { get; }
         public int TotalScore { get; }
         public bool IsFailure { get; }
-        public DiceGameTurnSubmittedEventArgs(IPlayer player, int total_score, int score_gain = 0) : base(player)
+        public DiceGameTurnSubmittedEventArgs(IPlayer player, int total_score, int score_gain = 0) : base(player, total_score)
         {
             ScoreGained = Math.Max(0, score_gain);
             TotalScore = total_score;
@@ -42,9 +42,11 @@ namespace CommonLibrary.Implementation.Games.Dice
     public class DiceSubmittedEventArgs : EventArgs
     {
         public AllCombosInDice Combos { get; }
-        public DiceSubmittedEventArgs(AllCombosInDice combos)
+        public int TurnScore { get; }
+        public DiceSubmittedEventArgs(AllCombosInDice combos, int turn_score)
         {
             Combos = combos;
+            TurnScore = turn_score;
         }
     }
 

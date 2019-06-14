@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using CommonLibrary.Model.ServerSide;
+using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
 
 namespace HeadServer.AuthenticationServer
 {
@@ -13,9 +13,9 @@ namespace HeadServer.AuthenticationServer
     internal class MessageFromUserEventArgs : EventArgs
     {
 
-        public FromUserMessageType MessageType { get; }
+        public ToHeadServerMessageType MessageType { get; }
         public DB.User User { get; }
-        public MessageFromUserEventArgs(DB.User user, FromUserMessageType type)
+        public MessageFromUserEventArgs(DB.User user, ToHeadServerMessageType type)
         {
             User = user;
             MessageType = type;
@@ -24,9 +24,9 @@ namespace HeadServer.AuthenticationServer
 
     internal class MessageToUserEventArgs : EventArgs
     {
-        public ToUserMessageType MessageType { get; }
+        public ToApplicationClientMessageType MessageType { get; }
         public DB.User User { get; }
-        public MessageToUserEventArgs(DB.User user, ToUserMessageType type)
+        public MessageToUserEventArgs(DB.User user, ToApplicationClientMessageType type)
         {
             User = user;
             MessageType = type;

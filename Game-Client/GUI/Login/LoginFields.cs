@@ -33,6 +33,8 @@ namespace GameClient.GUI.Login
         public event EventHandler FieldsFilledEvent;
         public event EventHandler FieldsNotFilledEvent;
 
+        public event EventHandler<LoginFormEventArgs> Login;
+
         public LoginFields()
         {
             InitializeComponent();
@@ -47,13 +49,13 @@ namespace GameClient.GUI.Login
             FieldsFilled = false;
         }
 
-        // Press on "Login" - try sign in 
+        // Press on "Login" - try log in 
         private void OnLogin(object sender, EventArgs e)
         {
-            // TODO: get user's hash from DB
-            // TODO: check passwords hashes
-            // TODO: login, provide user info to app
-            // TODO: pass to a next form
+            Login?.Invoke(
+                this,
+                new LoginFormEventArgs(txtLoginUsername.Text, txtLoginPassword.Text)
+            );
             // Change state, not explicit close
             this.ParentForm.Close();
 
@@ -73,4 +75,5 @@ namespace GameClient.GUI.Login
 
         private bool fields_filled;
     }
+
 }

@@ -45,9 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AuthenticationBackend.cs" />
     <Compile Include="Application\DiceGameView.cs" />
-    <Compile Include="Application\GameServerTalker.cs" />
-    <Compile Include="Application\HeadServerTalker.cs" />
+    <Compile Include="Server-Side\GameServerTalker.cs" />
+    <Compile Include="Server-Side\HeadServerMessenger.cs" />
     <Compile Include="GUI\Application\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

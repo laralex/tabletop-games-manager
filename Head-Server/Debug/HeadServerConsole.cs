@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 using CommonLibrary.Model.ServerSide;
 
+using CommonLibrary.Model.Common;
+using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
+using ToHeadServerMessageType = CommonLibrary.Model.ServerSide.HeadServerAndGameServer.ToHeadServerMessageType;
+
+
 namespace HeadServer.Debug
 {
 
@@ -64,19 +69,19 @@ namespace HeadServer.Debug
             return null;
         }
 
-        private string StringifyType(FromGameServerMessageType type)
+        private string StringifyType(ToHeadServerMessageType type)
         {
             switch (type)
             {
-                case FromGameServerMessageType.ReqDetach:
+                case ToHeadServerMessageType.ReqDetach:
                     return "REQUEST REGISTER";
-                case FromGameServerMessageType.ReqRegister:
+                case ToHeadServerMessageType.ReqRegister:
                     return "REQUEST DETACH";
-                case FromGameServerMessageType.ReqStatusUpdate:
+                case ToHeadServerMessageType.ReqStatusUpdate:
                     return "REQUEST STATUS CHANGE";
-                case FromGameServerMessageType.UseMyData:
+                case ToHeadServerMessageType.UseMyData:
                     return "USE MY CONFIG";
-                case FromGameServerMessageType.Dummy:
+                case ToHeadServerMessageType.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;

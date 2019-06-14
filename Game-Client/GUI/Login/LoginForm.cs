@@ -13,6 +13,8 @@ namespace GameClient.GUI.Login
     public partial class LoginForm : Form, ITextOwnerControl
     {
 
+        public event EventHandler<LoginFormEventArgs> Login;
+        public event EventHandler<LoginFormEventArgs> Signup;
         public LoginForm()
         { 
             InitializeComponent();
@@ -24,6 +26,9 @@ namespace GameClient.GUI.Login
             registrationSubform.ChangeToLoginUi += OnChangeToLoginUi;
 
             this.AcceptButton = loginSubform.btnLogin;
+
+            loginSubform.Login += (o, e) => Login?.Invoke(this, e);
+            registrationSubform.Signup += (o, e) => Signup?.Invoke(this, e);
             // TODO: uniform font
         }
 
@@ -65,5 +70,17 @@ namespace GameClient.GUI.Login
 
         private bool current_ui_login;
 
+    }
+
+    public class LoginFormEventArgs : EventArgs
+    {
+        public string Username { get; set; }
+        public string PasswordText { get; set; }
+
+        public LoginFormEventArgs(string user, string pass_text)
+        {
+            Username = user;
+            PasswordText = pass_text;
+        }
     }
 }

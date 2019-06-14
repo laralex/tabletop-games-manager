@@ -41,11 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Debug\GameServerConsole.cs" />
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="Games\Dice\DiceGameServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Dice-Game\" />
+    <ProjectReference Include="..\Common-Library\Common-Library.csproj">
+      <Project>{5382906c-d3a8-4412-9f48-e4a6e4c65546}</Project>
+      <Name>Common-Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

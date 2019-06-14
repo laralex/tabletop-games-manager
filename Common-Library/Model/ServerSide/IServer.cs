@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using System.Net;
+using CommonLibrary.Model.Common;
 
 namespace CommonLibrary.Model.ServerSide
 {
@@ -13,6 +14,10 @@ namespace CommonLibrary.Model.ServerSide
     {
         ServerStatus Status { get; }
         IPEndPoint Socket { get; }
+
+        event EventHandler OnInitialization;
+        event EventHandler OnTermination;
+        event EventHandler<ThreadStateEventArgs> OnThreadStateChange;
 
         void Initialize();
 
