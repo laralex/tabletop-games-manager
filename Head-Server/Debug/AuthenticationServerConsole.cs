@@ -42,12 +42,12 @@ namespace HeadServer.Debug
 
         public void UserMessage(object sender, MessageFromUserEventArgs args)
         {
-            Console.WriteLine("\tUser --> Auth : " + StringifyType(args.MessageType) + " : " + args.User.Name);
+            Console.WriteLine("\tUser --> Auth : " + StringifyType(args.MessageType) + " : " + args.User.LoginName);
         }
 
         public void UserMessage(object sender, MessageToUserEventArgs args)
         {
-            Console.WriteLine("\tUser <-- Auth : " + StringifyType(args.MessageType) + " : " + args.User.Name);
+            Console.WriteLine("\tUser <-- Auth : " + StringifyType(args.MessageType) + " : " + args.User.LoginName);
         }
 
 

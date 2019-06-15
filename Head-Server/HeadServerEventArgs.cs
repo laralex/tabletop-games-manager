@@ -8,6 +8,7 @@ using HeadServer.DB;
 using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
 using CommonLibrary.Model.ServerSide;
 using CommonLibrary.Model.Common;
+using CommonLibrary.Implementation.ServerSide;
 
 namespace HeadServer
 {
@@ -17,8 +18,8 @@ namespace HeadServer
     {
 
         public ToHeadServerMessageType MessageType { get; }
-        public DB.GameServer Server { get; }
-        public MessageFromGameServerEventArgs(DB.GameServer server, ToHeadServerMessageType type)
+        public GameServerEntry Server { get; }
+        public MessageFromGameServerEventArgs(GameServerEntry server, ToHeadServerMessageType type)
         {
             Server = server;
             MessageType = type;
@@ -28,9 +29,8 @@ namespace HeadServer
     internal class MessageToGameServerEventArgs : EventArgs
     {
         public ToGameServerMessageType MessageType { get; }
-        public DB.GameServer Server { get; }
-        public MessageToGameServerEventArgs(DB.GameServer server, ToGameServerMessageType
-            type)
+        public GameServerEntry Server { get; }
+        public MessageToGameServerEventArgs(GameServerEntry server, ToGameServerMessageType type)
         {
             Server = server;
             MessageType = type;

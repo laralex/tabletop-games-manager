@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 using CommonLibrary.Implementation.Crypto;
 using CommonLibrary.Implementation.ServerSide.Authentication;
 using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+using GameClient.GUI.Application;
 using GameClient.GUI.Login;
 using GameClient.ServerSide;
 
@@ -14,14 +16,19 @@ namespace GameClient.Application
     internal class AuthenticationBackend
     {
 
-        public Form NextForm { get; set; };
+        public Form NextForm { get; set; }
+        public LoginForm FrontEndForm { get; }
+
+        public string ConnectedUser { get => _current_login_data.LoginName; }
+
         public AuthenticationBackend()
         {
-            _frontend = new LoginForm();
+            FrontEndForm = new LoginForm();
             _head_connection = new HeadServerMessenger();
 
-            _frontend.Login += Login;
-            _frontend.Signup += Signup;
+            FrontEndForm.Login += Login;
+            FrontEndForm.Signup += Signup;
+
         }
 
         private void Login(object sender, LoginFormEventArgs e)
@@ -29,7 +36,7 @@ namespace GameClient.Application
             var passw_hash = ShaEncryptor.Encrypt(e.PasswordText);
             // TODO: get user's hash from DB
             var entry = new UserEntry(e.Username, passw_hash);
-            _head_connection.SendMessage(
+            /*_head_connection.SendMessage(
                 ToHeadServerMessageType.ReqLogIn,
                 entry
             );
@@ -49,10 +56,21 @@ namespace GameClient.Application
                 // TODO: pass to a next form
                 
             }
+            */
+            FrontEndForm.Reset();
+            FrontEndForm.Visible = false;
+
+            _current_login_data = entry;
+            NextForm = new AppFormDemo(this);
+
+            //FrontEndForm.Close();
+            NextForm.Show();
+
         }
 
         private void Signup(object sender, LoginFormEventArgs e)
         {
+            /*
             var passw_hash = ShaEncryptor.Encrypt(e.PasswordText);
             // TODO: if user does not exist ...
             _head_connection.SendMessage(
@@ -88,18 +106,25 @@ namespace GameClient.Application
                     break;
                 
             }
+            */
             
         }
 
         public void Logout()
         {
+            /*
             _head_connection.SendMessage(
                ToHeadServerMessageType.ReqLogOut,
                _current_login_data
             );
+            */
         }
 
-        private LoginForm _frontend;
+        public void Show()
+        {
+            FrontEndForm?.Show();
+        }
+
         private HeadServerMessenger _head_connection;
 
         private UserEntry _current_login_data;

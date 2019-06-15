@@ -47,6 +47,13 @@
   <ItemGroup>
     <Compile Include="Application\AuthenticationBackend.cs" />
     <Compile Include="Application\DiceGameView.cs" />
+    <Compile Include="Application\LobbyBackend.cs" />
+    <Compile Include="GUI\Application\AppFormDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Application\AppFormDemo.Designer.cs">
+      <DependentUpon>AppFormDemo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Server-Side\GameServerTalker.cs" />
     <Compile Include="Server-Side\HeadServerMessenger.cs" />
     <Compile Include="GUI\Application\AboutBox.cs">
@@ -138,6 +145,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\Application\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Application\AppFormDemo.resx">
+      <DependentUpon>AppFormDemo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Application\AppForm.resx">
       <DependentUpon>AppForm.cs</DependentUpon>

@@ -36,13 +36,14 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
             int accum_score = 0;
             ComboMaxResult cur_result, best_result = null;
 
-            while (best_result != null)
+            do
             {
+                best_result = null;
                 int max_score = int.MinValue;
                 foreach (Combo combo_type in _combos)
                 {
                     cur_result = combo_type.GetMaxCombo(dice_copy, true);
-                    if (cur_result.Score > max_score)
+                    if (cur_result?.Score > max_score)
                     {
                         max_score = cur_result.Score;
                         best_result = cur_result;
@@ -54,8 +55,8 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
                     accum.Add(best_result);
                     dice_copy.RemoveAll((e) => best_result.DiceInCombo.Contains(e));
                 }
-                
-            }
+
+            } while (best_result != null);
             if (accum_score == 0)
             {
                 return null;

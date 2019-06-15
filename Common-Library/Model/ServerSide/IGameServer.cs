@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 using CommonLibrary.Implementation.Games;
@@ -23,7 +24,7 @@ namespace CommonLibrary.Model.ServerSide
         event EventHandler<MessageFromUserEventArgs> OnMessageFromUser;
         event EventHandler<MessageToUserEventArgs> OnMessageToUser;
 
-        bool ConnectUser(IUser user);
+        bool ConnectUser(IUser user, IPEndPoint socket);
         bool DisconnectUser(IUser user);
         void StartNewGame();
         void ShutdownGame();

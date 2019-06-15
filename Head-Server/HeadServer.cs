@@ -13,7 +13,6 @@ using CommonLibrary.Model.Networking;
 using CommonLibrary.Model.ServerSide;
 
 using HeadServer.DB;
-using HeadServer.DB.Context;
 using HeadServer.AuthenticationServer;
 using System.Collections;
 using System.Timers;
@@ -33,6 +32,7 @@ namespace HeadServer
         public IPEndPoint Socket { get; internal set; }
         public TimeSpan RecentIPsUpdateRate { get; set; }
         public AuthenticationServer.AuthenticationServer AuthServer { get; private set; }
+        public DB.DatabaseServer DbServer { get; private set; }
 
         public event EventHandler<ThreadStateEventArgs> OnThreadStateChange;
         public event EventHandler<MessageFromGameServerEventArgs> OnMessageFromGameServer;
@@ -45,10 +45,10 @@ namespace HeadServer
             Socket = socket;
             Status = ServerStatus.Uninitialized;
 
-            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 3, seconds: 0);
+            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 30);
 
-            _listening_to = new IPEndPoint(IPAddress.Any, 42077);
-            _udp_listener = new UdpClient(_listening_to);
+            //_listening_to = new IPEndPoint(IPAddress.Any, 42077);
+            //_udp_listener = new UdpClient(_listening_to);
         }
 
         public void Initialize()
@@ -57,10 +57,11 @@ namespace HeadServer
             _timer.Elapsed += OnTimerIntervalElapsed;
 
             _recent_server_creators_IPs = new Queue<TimestampedIP>();
-            _registered_servers = new List<DB.GameServer>();
+            _registered_servers = new List<GameServerEntry>();
 
-            _db_server = new DatabaseServer();
-            AuthServer = new AuthenticationServer.AuthenticationServer(Socket, _db_server.Context);
+            DbServer = new DatabaseServer();
+            DbServer.Initialize();
+            AuthServer = new AuthenticationServer.AuthenticationServer(Socket, DbServer);
             AuthServer.Initialize();
 
             _thread_mre = new ManualResetEvent(false);
@@ -110,10 +111,9 @@ namespace HeadServer
             if (this.Status == ServerStatus.Running)
             {
                 this.AuthServer.Stop();
-                this._db_server.Stop();
+                this.DbServer.Stop();
                 this._thread_mre.Reset();
                 OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Stop));
-                // _log_console.NetworkThreadMessage(ThreadStateType.Stop);  // d
                 this.Status = ServerStatus.Stopped;
             }
         }
@@ -123,7 +123,7 @@ namespace HeadServer
             if (this.Status == ServerStatus.Initialized)
             {
                 _timer.Start();
-                this._db_server.Start();
+                this.DbServer.Start();
                 this.AuthServer.Start();
                 this.Status = ServerStatus.Running; 
                 this._thread_mre.Set();
@@ -145,7 +145,7 @@ namespace HeadServer
             }
             if (this.Status == ServerStatus.Stopped || this.Status == ServerStatus.Initialized)
             {
-                this._db_server.Start();
+                this.DbServer.Start();
                 this.AuthServer.Start();
                 this._thread_mre.Set();
                 OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Resume));
@@ -167,7 +167,8 @@ namespace HeadServer
             AuthServer.Dispose();
             AuthServer = null;
 
-            _db_server = null;
+            DbServer.Dispose();
+            DbServer = null;
             Socket = null;
 
             Status = ServerStatus.Uninitialized;
@@ -178,22 +179,21 @@ namespace HeadServer
 
         private bool TryRegisterServer(IPAddress who_requests, DiceGameServerEntry new_server)
         {
-            if (IsRecentIp(who_requests) || DatabaseIsServerRegistered(new_server))
+            if (IsRecentIp(who_requests) || !DbServer.InsertDiceGameServer(new_server))
             {
                 return false;
             }
-            var db_server = DatabaseRegisterServer(new_server);
-            _recent_server_creators_IPs.Append(new TimestampedIP(who_requests, DateTime.UtcNow));
+            _recent_server_creators_IPs.Enqueue(new TimestampedIP(who_requests, DateTime.UtcNow));
             OnMessageToGameServer?.Invoke(
                 this, 
-                new MessageToGameServerEventArgs(db_server, ToGameServerMessageType.AckRegister)
+                new MessageToGameServerEventArgs(new_server, ToGameServerMessageType.AckRegister)
             );
             //_log_console.GameServerMessage(db_server, GameServerMessageType.Registered); // d
             return true;
         }
 
         // FIXME: anyone can detach server (security leak)
-        private bool TryDetachServer(GameServerEnroll server)
+        private bool TryDetachServer(GameServerEntry server)
         {
             int found_server_idx = _registered_servers.FindIndex(e => e.Name == server.Name);
             if (found_server_idx >= 0)
@@ -209,23 +209,11 @@ namespace HeadServer
             return false;
         }
 
-        private DiceGameServer DatabaseRegisterServer(DiceGameServerEntry new_server_record)
-        {
-            DiceGameServer db_server_record = new DiceGameServer();
-            FillGameServerFields(db_server_record, new_server_record);
+        //TODO del/ private
 
-            db_server_record.TurnTimeSec = new_server_record.TurnTimeSec;
-            db_server_record.ScoreGoal = new_server_record.ScoreGoal;
-            db_server_record.IsJokerAllowed = new_server_record.IsJokerAllowed;
-            db_server_record.DiceNumber = new_server_record.DiceNumber;
 
-            _db_server.Context.GameServers.Add(db_server_record);
-            _db_server.Context.SaveChanges();
-
-            return db_server_record;
-        }
-
-        private void FillGameServerFields(DB.GameServer db_server_record, GameServerEnroll new_server_enroll)
+        /*
+        private void FillGameServerFields(DB.GameServer db_server_record, GameServerEntry new_server_enroll)
         {
             //DB.GameServer db_server = new DB.GameServer();
             db_server_record.Name = new_server_enroll.Name;
@@ -234,18 +222,19 @@ namespace HeadServer
             db_server_record.IsActive = new_server_enroll.IsActive;
             db_server_record.Socket = new_server_enroll.Socket;
         }
-
-        private DB.GameServer DatabaseSelectOneServer(GameServerEnroll server_enroll)
+        */
+        /*
+        private DB.GameServer DatabaseSelectOneServer(GameServerEntry server_enroll)
         {
             return _db_server.Context.GameServers
                 .Single(e => e.Name == server_enroll.Name);
         }
 
-        private bool DatabaseIsServerRegistered(GameServerEnroll server_enroll)
+        private bool DatabaseIsServerRegistered(GameServerEntry server_enroll)
         {
             return DatabaseSelectOneServer(server_enroll) == null;
         }
-
+        */
         private void OnTimerIntervalElapsed(object sender, ElapsedEventArgs e)
         {
             // If <now> is older than threshold of first queue item's timestamp
@@ -271,16 +260,14 @@ namespace HeadServer
         }
 
         private System.Timers.Timer _timer;
-        private List<DB.GameServer> _registered_servers;
+        private List<GameServerEntry> _registered_servers;
         private Queue<TimestampedIP> _recent_server_creators_IPs;
-        
-        private DB.DatabaseServer _db_server;
 
         // net // TODO:
         private UdpClient _udp_listener;
         private IPEndPoint _listening_to;
         private bool _received;
-            //private UdpMessageReceiver _udp;
+        //private UdpMessageReceiver _udp;
 
         // threading
         private ManualResetEvent _thread_mre;

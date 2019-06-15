@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using CommonLibrary.Implementation.ServerSide;
 
 namespace GameClient.GUI.ServerManager
 {
@@ -17,10 +18,19 @@ namespace GameClient.GUI.ServerManager
             InitializeComponent();
         }
 
+        public event EventHandler<JoinEventArgs> JoinClick;
+        public event EventHandler RefreshClick;
+        public event EventHandler CreateServerClick;
+
         private void OnJoin(object sender, EventArgs e)
         {
             // TODO: TRY connect to server and prepare client game (do in separate thread, connection timeout, server messages)
             // TODO: give signal to swap tab
+            var selected_rows = tblServersList.SelectedRows;
+            if (selected_rows != null && selected_rows.Count > 0)
+            {
+                JoinClick?.Invoke(this, new JoinEventArgs(selected_rows[0].Index));
+            }
         }
 
         private void OnRefresh(object sender, EventArgs e)
@@ -28,6 +38,7 @@ namespace GameClient.GUI.ServerManager
             // TODO: clear table (? or update it for slightly better performance)
             // TODO: load servers from db
             // TODO: fill table
+            RefreshClick?.Invoke(this, EventArgs.Empty);
         }
 
         // NOTE: float, decimal, ????
@@ -44,13 +55,12 @@ namespace GameClient.GUI.ServerManager
         // NOTE: Accept some internal representation, convert to appropriate string
         private string ToGameStatusString()
         {
-            return "Status code";
+            return "Alive";
         }
 
-        // NOTE: Accept some internal representation, convert to appropriate string
-        private void AppendServer()
+        private void AppendServer(GameServerEntry entry)
         {
-
+            /* DEBUG
             var r = new Random();
             tblServersList.Rows.Add(
                 "Server name",
@@ -58,20 +68,31 @@ namespace GameClient.GUI.ServerManager
                 ToGameStatusString(),
                 ToPingString(r.Next(1, 100))
             );
+            */
+            tblServersList.Rows.Add(
+                entry.Name,
+                "? / " + entry.MaxPlayers
+            );
+        }
+
+        public void SetServersList(List<GameServerEntry> servers)
+        {
+            tblServersList.Rows.Clear();
+            servers.ForEach((e) => AppendServer(e));
         }
 
         private int PingCompare(string lhs, string rhs)
         {
-            int lhs_ping = Convert.ToInt32(retrieve_number.Match(lhs).Value);
-            int rhs_ping = Convert.ToInt32(retrieve_number.Match(rhs).Value);
+            int lhs_ping = Convert.ToInt32(_retrieve_number.Match(lhs).Value);
+            int rhs_ping = Convert.ToInt32(_retrieve_number.Match(rhs).Value);
 
             return lhs_ping - rhs_ping;   
         }
 
         private int PlayersCompare(string lhs, string rhs)
         {
-            int lhs_players = Convert.ToInt32(retrieve_number.Match(lhs).Value);
-            int rhs_players = Convert.ToInt32(retrieve_number.Match(rhs).Value);
+            int lhs_players = Convert.ToInt32(_retrieve_number.Match(lhs).Value);
+            int rhs_players = Convert.ToInt32(_retrieve_number.Match(rhs).Value);
 
             return lhs_players - rhs_players;
         }
@@ -116,13 +137,19 @@ namespace GameClient.GUI.ServerManager
             // TODO: add in database
             // TODO: add server in list
             // TODO: select new server
-            AppendServer();
-            AppendServer();
-            AppendServer();
         }
 
-        private Regex retrieve_number = new Regex(@"\d+");
+        private Regex _retrieve_number = new Regex(@"\d+");
 
 
+    }
+
+    public class JoinEventArgs : EventArgs
+    {
+        public int ServersListIndex;
+        public JoinEventArgs(int server_idx)
+        {
+            ServersListIndex = server_idx;
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace GameClient.GUI.Login
                 new LoginFormEventArgs(txtLoginUsername.Text, txtLoginPassword.Text)
             );
             // Change state, not explicit close
-            this.ParentForm.Close();
+            //this.ParentForm.Close();
 
         }
 

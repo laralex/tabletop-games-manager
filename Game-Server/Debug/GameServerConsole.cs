@@ -32,13 +32,13 @@ namespace GameServer.Debug
             server.OnMessageFromHeadServer += HeadServerMessage;
         }
 
-        private void HeadServerMessage(object sender, MessageFromHeadServerEventArgs e)
+        public void HeadServerMessage(object sender, MessageFromHeadServerEventArgs e)
         {
             IGameServer server = sender as IGameServer;
             Console.WriteLine("\tGame <-- Head : {0} : {1}", StringifyType(e.MessageType), server.Name);
         }
 
-        private void HeadServerMessage(object sender, MessageToHeadServerEventArgs e)
+        public void HeadServerMessage(object sender, MessageToHeadServerEventArgs e)
         {
             IGameServer server = sender as IGameServer;
             Console.WriteLine("\tGame <-- Head : {0} : {1}", StringifyType(e.MessageType), server.Name);
@@ -73,6 +73,20 @@ namespace GameServer.Debug
         {
             IGameServer server = sender as IGameServer;
             Console.WriteLine("\tGame server: TERMINATE");
+        }
+
+        public void StartGameCommand()
+        {
+            Console.Write("Start? > ");
+            Console.ReadLine();
+        }
+
+        public void DebugThreadLoop()
+        {
+            while (true)
+            {
+                
+            }
         }
 
         private string StringifyType(ToGameServerMessageType type)

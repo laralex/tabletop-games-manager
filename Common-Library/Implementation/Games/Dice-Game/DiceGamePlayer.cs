@@ -6,6 +6,7 @@ using System.Text;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    [Serializable]
     public class DiceGamePlayer : IPlayer
     {
         public string Name { get; private set; }

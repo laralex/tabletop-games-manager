@@ -1,7 +1,9 @@
 ﻿using CommonLibrary.Implementation.Games;
+using System;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    [Serializable]
     public class DiceGameOptions : GameOptions
     {
         public int TurnTimeSecs { get; set; }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 using System.Net;
 using System.Timers;
-using CommonLibrary.Model.Database;
 using CommonLibrary.Model.ServerSide;
 
 using HeadServer.DB;
-using HeadServer.DB.Context;
 using System.Threading;
 using HeadServer.Debug;
 using CommonLibrary.Model.Common;
@@ -33,13 +31,13 @@ namespace HeadServer.AuthenticationServer
         public event EventHandler OnInitialization;
         public event EventHandler OnTermination;
 
-        public AuthenticationServer(IPEndPoint socket, MainContext usersContext)
+        public AuthenticationServer(IPEndPoint socket, DatabaseServer db)
         {
             Status = ServerStatus.Uninitialized;
-            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 3, seconds: 0);
+            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 30);
 
             Socket = socket;
-            _db_context = usersContext;
+            _db_server = db;
         }
 
 
@@ -49,7 +47,7 @@ namespace HeadServer.AuthenticationServer
             _timer.Elapsed += OnTimerIntervalElapsed;
 
             _recent_user_creators_IPs = new Queue<TimestampedIP>();
-            _authenticated_users = new List<DB.User>(AuthorizedUsersInitCapacity);
+            _authenticated_users = new List<UserEntry>(AuthorizedUsersInitCapacity);
 
             _thread_mre = new ManualResetEvent(false);
             _main_mre = new ManualResetEvent(false);
@@ -117,7 +115,7 @@ namespace HeadServer.AuthenticationServer
             Stop();
             _timer.Dispose();
             _recent_user_creators_IPs = null;
-            _db_context = null;
+            _db_server = null;
             Status = ServerStatus.Uninitialized;
 
             OnTermination?.Invoke(this, null);
@@ -144,39 +142,39 @@ namespace HeadServer.AuthenticationServer
             }
         }
 
-        private bool TrySignUp(IPAddress who_requests, UserEntry new_user)
+        internal bool TrySignUp(IPAddress who_requests, UserEntry new_user)
         {
-            if (IsRecentIp(who_requests) || DatabaseIsUserEnrolled(new_user.Name))
+            if (IsRecentIp(who_requests) || !_db_server.InsertUser(new_user))
             {
                 return false;
             }
-            DatabaseUserInsert(new_user);
-            _recent_user_creators_IPs.Append(new TimestampedIP(who_requests, DateTime.UtcNow));
+            //DatabaseUserInsert(new_user);
+            _recent_user_creators_IPs.Enqueue(new TimestampedIP(who_requests, DateTime.UtcNow));
             return true;
         }
 
-        private bool TryLogIn(UserEntry user)
+        internal bool TryLogIn(UserEntry user)
         {
             if (_authenticated_users.Count > AuthorizedUsersInitCapacity ||
-                _authenticated_users.Find(e => e.Name == user.Name && e.PasswordHash == user.PasswordHash) != null)
+                _authenticated_users.Find(e => e.LoginName == user.LoginName && e.PasswordHash == user.PasswordHash) != null)
             {
                 return false;
             }
             // throws InvalidOperation if multiple rows
-            DB.User db_user = DatabaseAuthenticateAndSelectUser(user);
+            //UserEntry db_user = DatabaseAuthenticateAndSelectUser(user);
 
-            if (db_user == null)
+            if (!_db_server.CheckUserLogin(user.LoginName, user.PasswordHash))
             {
                 return false;
             }
 
-            _authenticated_users.Add(db_user);
+            _authenticated_users.Add(user);
             return true;
         }
 
-        private bool TryLogOut(UserEntry user)
+        internal bool TryLogOut(UserEntry user)
         {
-            int found_user_idx = _authenticated_users.FindIndex(e => e.Name == user.Name && e.PasswordHash == user.PasswordHash);
+            int found_user_idx = _authenticated_users.FindIndex(e => e.LoginName == user.LoginName && e.PasswordHash == user.PasswordHash);
             if (found_user_idx >= 0)
             {
                 _authenticated_users.RemoveAt(found_user_idx);
@@ -185,38 +183,42 @@ namespace HeadServer.AuthenticationServer
             return false;
         }
 
-        internal DB.User DatabaseSelectUser(string name)
+        /*internal UserEntry DatabaseSelectUser(string name)
         {
-            return _db_context.Users
+            return _db_server.Users
                 .Single(e => e.Name == name);
         }
+        */
 
+            /*
         private void DatabaseUserInsert(UserEntry new_user_enroll)
         {
             DB.User db_user = new DB.User();
             db_user.Name = new_user_enroll.Name;
             db_user.PasswordHash = new_user_enroll.PasswordHash;
             db_user.EnrollTime = DateTime.UtcNow;
-            _db_context.Users.Add(db_user);
-            _db_context.SaveChanges();
+            _db_server.Users.Add(db_user);
+            _db_server.SaveChanges();
         }
-
-        private DB.User DatabaseAuthenticateAndSelectUser(UserEntry user)
+        */
+         /*
+        private UserEntry DatabaseAuthenticateAndSelectUser(UserEntry user)
         {
-            return _db_context.Users
+            return _db_server.Users
                 .Single(e => e.Name == user.Name && e.PasswordHash == user.PasswordHash);
         }
+           */
 
-
-
+        /*
         private bool DatabaseIsUserEnrolled(string user_name)
         {
             // throws InvalidOperation if multiple rows
-            DB.User db_user = _db_context.Users
+            UserEntry db_user = _db_server.Users
                 .Single(e => e.Name == user_name);
 
             return db_user == null;
         }
+        */
 
         private bool IsRecentIp(IPAddress who_requests)
         {
@@ -233,9 +235,9 @@ namespace HeadServer.AuthenticationServer
         }
 
         private System.Timers.Timer _timer;
-        private List<DB.User> _authenticated_users;
+        private List<UserEntry> _authenticated_users;
         private Queue<TimestampedIP> _recent_user_creators_IPs;
-        private MainContext _db_context;
+        private DatabaseServer _db_server;
 
         // threading
         private ManualResetEvent _thread_mre;

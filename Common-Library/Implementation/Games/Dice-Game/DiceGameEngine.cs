@@ -13,14 +13,15 @@ namespace CommonLibrary.Implementation.Games.Dice
     public class DiceGameEngine //: ITurnBasedGame
     {
         public bool IsTimeLimitedTurn { get; protected set; }
+        public Die[] Dice { get; private set; }
         public List<Die> SelectedDice
         {
-            get => _dice?.Where((e) => e.Selected == true).ToList();
+            get => Dice?.Where((e) => e.Selected == true).ToList();
         }
 
         public List<Die> AllDice
         {
-            get => _dice?.ToList();
+            get => Dice?.ToList();
         }
 
         public DiceGamePlayer CurrentPlayer {
@@ -70,7 +71,7 @@ namespace CommonLibrary.Implementation.Games.Dice
             IPlayer current = CurrentPlayer;
 
             _players.Insert(
-                Math.Min(order_idx, _players.Count), 
+                Math.Min(order_idx, _players.Count),
                 new_player as DiceGamePlayer
             );
 
@@ -84,7 +85,7 @@ namespace CommonLibrary.Implementation.Games.Dice
                 throw new InvalidOperationException("No players in the list");
             }
             bool is_current = CurrentPlayer == player;
-            
+
             if (_players.Remove(player as DiceGamePlayer))
             {
                 if (is_current)
@@ -101,10 +102,10 @@ namespace CommonLibrary.Implementation.Games.Dice
 
         public void CreateDice(int number_of_dice)
         {
-            _dice = new Die[number_of_dice];
-            for(int i = 0; i < number_of_dice; ++i)
+            Dice = new Die[number_of_dice];
+            for (int i = 0; i < number_of_dice; ++i)
             {
-                _dice[i] = new Die(DieSide.ONE, false);        
+                Dice[i] = new Die(DieSide.ONE, false);
             }
         }
 
@@ -114,7 +115,7 @@ namespace CommonLibrary.Implementation.Games.Dice
             {
                 return;
             }
-            ++ _current_player;
+            ++_current_player;
             if (_current_player >= _players.Count)
             {
                 _current_player = 0;
@@ -137,11 +138,11 @@ namespace CommonLibrary.Implementation.Games.Dice
 
         public void SetDieSelection(int index, bool value)
         {
-            if (_dice == null || index >= _dice.Length)
+            if (Dice == null || index >= Dice.Length)
             {
                 throw new IndexOutOfRangeException();
             }
-            _dice[index].Selected = value;
+            Dice[index].Selected = value;
         }
 
         public void DeselectAll()
@@ -156,7 +157,7 @@ namespace CommonLibrary.Implementation.Games.Dice
         public int CurrentDiceMaxScoreGain()
         {
             var result = ComboParser.ParseDice(
-                _dice.ToList(),
+                Dice.ToList(),
                 is_sorted: false
             );
 
@@ -171,7 +172,7 @@ namespace CommonLibrary.Implementation.Games.Dice
 
         public bool IsCurrentDiceFailure()
         {
-            return IsFailure(AllDice); 
+            return IsFailure(AllDice);
         }
 
         public AllCombosInDice CalculateGainOf(List<Die> dice)
@@ -186,7 +187,6 @@ namespace CommonLibrary.Implementation.Games.Dice
 
         private List<DiceGamePlayer> _players;
         private int _current_player;
-        private Die[] _dice;
         private ComboParser _combo_parser;
     }
 

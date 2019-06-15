@@ -1,7 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+
+using GameClient.Application;
 
 namespace GameClient
 {
@@ -15,8 +18,10 @@ namespace GameClient
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            var test = new GameClient.GUI.Application.AppForm();  // Test();
-            System.Windows.Forms.Application.Run(test);
+            var auth = new AuthenticationBackend();
+            // first_form = new GameClient.GUI.Login.LoginForm(); 
+            //var first_form = new GameClient.GUI.Application.AppFormDemo();  
+            System.Windows.Forms.Application.Run(auth.FrontEndForm);
         }
     }
 }

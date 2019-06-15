@@ -12,6 +12,7 @@ using CommonLibrary.Model.Common;
 using CommonLibrary.Model.ServerSide.ApplicationClientAndGameServer;
 using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
 using GameServer.Debug;
+using CommonLibrary.Implementation.ServerSide.Authentication;
 
 namespace GameServer.Games.Dice
 {
@@ -47,7 +48,7 @@ namespace GameServer.Games.Dice
 
         public void Initialize()
         {
-            _connected_users = new List<IUser>();
+            _connected_users = new List<UserSocket>();
             _game_controller = new DiceGameController();
 
             Status = ServerStatus.Initialized;
@@ -59,24 +60,21 @@ namespace GameServer.Games.Dice
             throw new NotImplementedException();
         }
 
-        public bool ConnectUser(IUser user)
+        public bool ConnectUser(IUser user, IPEndPoint socket)
         {
-            if (_connected_users.Contains(user))
+
+            if (_connected_users.Any((e) => e.User == user))
             {
                 return false;
             }
-            _connected_users.Add(user);
+
+            _connected_users.Add(new UserSocket(user, socket));
             return true;
         }
 
         public bool DisconnectUser(IUser user)
         {
-            if (!_connected_users.Contains(user))
-            {
-                return false;
-            }
-            _connected_users.Remove(user);
-            return true;
+            return _connected_users.RemoveAll((e) => e.User == user) > 0;
         }
 
         public void ShutdownGame()
@@ -133,7 +131,8 @@ namespace GameServer.Games.Dice
             OnTermination?.Invoke(this, null);
         }
 
-        private List<IUser> _connected_users;
+        private List<UserSocket> _connected_users;
         private DiceGameController _game_controller;
     }
+
 }

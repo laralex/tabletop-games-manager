@@ -6,11 +6,11 @@ using System.Net;
 
 namespace CommonLibrary.Model.Networking
 {
-    public interface INetworkSender
+    public interface INetworkSender<E> : IDisposable
     {
-        IPEndPoint Sender { get; }
-        void Send(byte[] data, AsyncCallback callback);
-        void Send(string message, AsyncCallback callback);
+        IPEndPoint OwnSocket { get; }
+        void Send(byte[] data);
+        void Send(E message);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrary.Model.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace CommonLibrary.Implementation.ServerSide.Authentication
 {
-    public class UserEntry
+    [Serializable]
+    public class UserEntry : IUser
     {
-        public string Name { get; set; }
+        public string LoginName { get; set; }
         public byte[] PasswordHash { get; set; }
+        public string Name { get; }
 
         public UserEntry(string name, byte[] passhash)
         {
+            LoginName = name;
             Name = name;
             PasswordHash = passhash;
         }

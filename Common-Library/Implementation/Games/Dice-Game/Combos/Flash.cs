@@ -41,9 +41,9 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
 
             for (int i = 5; i > 0; --i)
             {
-                if (found_combo_sides[i] >= 3)
+                if (found_combo_sides[i] >= 5)
                 {
-                    best_side = (DieSide)(i + 1);
+                    best_side = (DieSide)(i);
                     result.Score = (i + 1) * 40;
                     result.Name += Convert.ToString(i + 1);
                     combo_exists = true;

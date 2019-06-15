@@ -28,3 +28,4 @@ W:\@WORK\C#\LocalNetGame\Game-Client\bin\Debug\GameServer.pdb
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\en-US\GameClient.resources.dll
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\Game-Client.csproj.CopyComplete
 W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.DiceGame.DiceGameControl.resources
+W:\@WORK\C#\LocalNetGame\Game-Client\obj\Debug\GameClient.GUI.Application.AppFormDemo.resources

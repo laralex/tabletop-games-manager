@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.Implementation.Games;
 using CommonLibrary.Implementation.Games.Dice;
+using CommonLibrary.Implementation.ServerSide.Authentication;
 using CommonLibrary.Model.ServerSide;
 using GameServer.Debug;
 using GameServer.Games.Dice;
@@ -15,6 +16,7 @@ namespace GameServer
     /// </summary>
     class EntryPoint
     {
+        // "DICE testServer 5 90 1000 5 0"
         static void Main(string[] args)
         {
             string GameType = args[0];
@@ -25,8 +27,9 @@ namespace GameServer
             int DiceNumber = Convert.ToInt32(args[5]);
             bool IsJokerAllowed = Convert.ToInt32(args[6]) > 0;
 
-            GameOptions game_options;
-            IGameServer server = null;
+            GameOptions game_options = null;
+           
+            //IGameServer server = null;
             switch (GameType) {
                 case "DICE":
                     var d_game_options = new DiceGameOptions();
@@ -38,18 +41,26 @@ namespace GameServer
 
                     game_options = d_game_options;
 
-                    server = new DiceGameServer(d_game_options, Name);
+                    //server = new DiceGameServer(d_game_options, Name);
                     break;
                 default:
                     break;
             }
-            if (server != null)
+            /*if (server != null)
             {
                 server.Initialize();
                 GameServerConsole debug_console = new GameServerConsole(server);
                 server.Start();
                 server.Dispose();
-            }
+            } 
+            */
+            DiceGameController game = new DiceGameController();
+            var users = new List<CommonLibrary.Model.Application.IUser>();
+            users.Add(new UserEntry("qwert", null));
+            users.Add(new UserEntry("dead", null));
+            users.Add(new UserEntry("best", null));
+            game.StartupGame(game_options, users);
+            //game.StartFirstTurn();
         }   
     }
 }

@@ -29,14 +29,12 @@
         private void InitializeComponent()
         {
             this.tblServersList = new System.Windows.Forms.DataGridView();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPlayers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGameStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPing = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblAllServers = new System.Windows.Forms.Label();
             this.btnJoin = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnCreateServer = new System.Windows.Forms.Button();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPlayers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tblServersList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,9 +49,7 @@
             this.tblServersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tblServersList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colName,
-            this.colPlayers,
-            this.colGameStatus,
-            this.colPing});
+            this.colPlayers});
             this.tblServersList.Location = new System.Drawing.Point(7, 37);
             this.tblServersList.Margin = new System.Windows.Forms.Padding(10);
             this.tblServersList.Name = "tblServersList";
@@ -64,40 +60,6 @@
             this.tblServersList.Size = new System.Drawing.Size(405, 295);
             this.tblServersList.TabIndex = 0;
             this.tblServersList.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.OnSortCompare);
-            // 
-            // colName
-            // 
-            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colName.HeaderText = "Server";
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            // 
-            // colPlayers
-            // 
-            this.colPlayers.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.colPlayers.FillWeight = 58.40708F;
-            this.colPlayers.HeaderText = "Players";
-            this.colPlayers.Name = "colPlayers";
-            this.colPlayers.ReadOnly = true;
-            this.colPlayers.Width = 66;
-            // 
-            // colGameStatus
-            // 
-            this.colGameStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colGameStatus.FillWeight = 140.8481F;
-            this.colGameStatus.HeaderText = "Game Status";
-            this.colGameStatus.Name = "colGameStatus";
-            this.colGameStatus.ReadOnly = true;
-            this.colGameStatus.Width = 93;
-            // 
-            // colPing
-            // 
-            this.colPing.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colPing.FillWeight = 100.7449F;
-            this.colPing.HeaderText = "Ping";
-            this.colPing.Name = "colPing";
-            this.colPing.ReadOnly = true;
-            this.colPing.Width = 53;
             // 
             // lblAllServers
             // 
@@ -132,6 +94,7 @@
             // btnCreateServer
             // 
             this.btnCreateServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateServer.Enabled = false;
             this.btnCreateServer.Location = new System.Drawing.Point(324, 8);
             this.btnCreateServer.Name = "btnCreateServer";
             this.btnCreateServer.Size = new System.Drawing.Size(88, 23);
@@ -139,6 +102,22 @@
             this.btnCreateServer.Text = "New Server";
             this.btnCreateServer.UseVisualStyleBackColor = true;
             this.btnCreateServer.Click += new System.EventHandler(this.OnNewServer);
+            // 
+            // colName
+            // 
+            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colName.HeaderText = "Server";
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            // 
+            // colPlayers
+            // 
+            this.colPlayers.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colPlayers.FillWeight = 58.40708F;
+            this.colPlayers.HeaderText = "Players";
+            this.colPlayers.Name = "colPlayers";
+            this.colPlayers.ReadOnly = true;
+            this.colPlayers.Width = 66;
             // 
             // ServersList
             // 
@@ -161,13 +140,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView tblServersList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPlayers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colGameStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPing;
         private System.Windows.Forms.Label lblAllServers;
         private System.Windows.Forms.Button btnJoin;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnCreateServer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPlayers;
     }
 }

@@ -12,5 +12,10 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
         public List<Die> DiceInCombo;
         public int Score;
         public string Name;
+
+        public ComboMaxResult()
+        {
+            DiceInCombo = new List<Die>();
+        }
     }
 }

@@ -8,6 +8,7 @@ using CommonLibrary.Implementation.Games.Dice.Combos;
 using CommonLibrary.Model.Games;
 using CommonLibrary.Model.Games.Dice;
 using CommonLibrary.Model.Application;
+using CommonLibrary.Implementation.ServerSide.Authentication;
 using System.Timers;
 
 namespace CommonLibrary.Implementation.Games.Dice
@@ -39,7 +40,7 @@ namespace CommonLibrary.Implementation.Games.Dice
             _is_game_alive = false;
         }
 
-        public void StartupGame(GameOptions options, List<IUser> server_users)
+        public void StartupGame(GameOptions options, List<UserSocket> server_users)
         {
             if (options == null)
             {
@@ -50,12 +51,12 @@ namespace CommonLibrary.Implementation.Games.Dice
                 throw new InvalidOperationException("No users connected");
             }
 
-            var dice_options = options as DiceGameOptions;
+            DiceGameOptions dice_options = options as DiceGameOptions;
             _current_game_options = dice_options;
 
             List<IPlayer> players = 
-                ((List<IUser>)server_users.Take(dice_options.MaxPlayers))
-                .ConvertAll( (e) => new DiceGamePlayer(e.LoginName, 0) as IPlayer ); 
+                server_users.GetRange(0,Math.Min(dice_options.MaxPlayers, server_users.Count))
+                .ConvertAll( (e) => new DiceGamePlayer(e.User.LoginName, 0) as IPlayer ); 
             // Send to picked users event of started game
 
             DiceEngine.SetPlayers(players, 0);
