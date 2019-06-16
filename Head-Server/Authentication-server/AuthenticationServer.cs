@@ -8,12 +8,18 @@ using System.Net;
 using System.Timers;
 using CommonLibrary.Model.ServerSide;
 
+using CommonLibrary.Implementation.Networking;
+using CommonLibrary.Implementation.Networking.Tcp;
+
+using HeadServer;
 using HeadServer.DB;
-using System.Threading;
 using HeadServer.Debug;
+using System.Threading;
 using CommonLibrary.Model.Common;
 
 using CommonLibrary.Implementation.ServerSide.Authentication;
+using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+using System.Net.Sockets;
 
 namespace HeadServer.AuthenticationServer
 {
@@ -31,12 +37,13 @@ namespace HeadServer.AuthenticationServer
         public event EventHandler OnInitialization;
         public event EventHandler OnTermination;
 
-        public AuthenticationServer(IPEndPoint socket, DatabaseServer db)
+        public AuthenticationServer(TcpListener listener, DatabaseServer db)
         {
             Status = ServerStatus.Uninitialized;
-            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 30);
+            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 10);
 
-            Socket = socket;
+            Socket = null;
+            _tcp_listener = listener;
             _db_server = db;
         }
 
@@ -55,6 +62,7 @@ namespace HeadServer.AuthenticationServer
             _network_handling_thread = new Thread(ServerLoop);
             _network_handling_thread.IsBackground = false;
 
+            //_tcp_listener = new TcpListener(Socket);
 
             Status = ServerStatus.Initialized;
 
@@ -86,6 +94,7 @@ namespace HeadServer.AuthenticationServer
                 this.Status = ServerStatus.Running; 
 
                 this._thread_mre.Set();
+                //_tcp_listener.Start();
                 _network_handling_thread.Start();
 
                 OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
@@ -126,31 +135,25 @@ namespace HeadServer.AuthenticationServer
         {
             while (true)
             {
-                _thread_mre.WaitOne();
-                if (Status == ServerStatus.Uninitialized)
-                {
-                    OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
-                    _main_mre.Set();
-                    _main_mre.Reset();
-                    //_log_console.AuthNetworkThreadMessage(ThreadStateType.End); // d
-                    // finish tasks and terminate
-                    return;
-                }
                 // TODO: collect messages
                 OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
                 Thread.Sleep(2000);
             }
         }
 
-        internal bool TrySignUp(IPAddress who_requests, UserEntry new_user)
+        internal SignupError TrySignUp(IPAddress who_requests, UserEntry new_user)
         {
-            if (IsRecentIp(who_requests) || !_db_server.InsertUser(new_user))
+            if (IsRecentIp(who_requests))
             {
-                return false;
+                return SignupError.HeadServerUnavailable;
+            }
+            if (!_db_server.InsertUser(new_user))
+            {
+                return SignupError.UserExists;
             }
             //DatabaseUserInsert(new_user);
             _recent_user_creators_IPs.Enqueue(new TimestampedIP(who_requests, DateTime.UtcNow));
-            return true;
+            return SignupError.AllOk;
         }
 
         internal bool TryLogIn(UserEntry user)
@@ -183,43 +186,6 @@ namespace HeadServer.AuthenticationServer
             return false;
         }
 
-        /*internal UserEntry DatabaseSelectUser(string name)
-        {
-            return _db_server.Users
-                .Single(e => e.Name == name);
-        }
-        */
-
-            /*
-        private void DatabaseUserInsert(UserEntry new_user_enroll)
-        {
-            DB.User db_user = new DB.User();
-            db_user.Name = new_user_enroll.Name;
-            db_user.PasswordHash = new_user_enroll.PasswordHash;
-            db_user.EnrollTime = DateTime.UtcNow;
-            _db_server.Users.Add(db_user);
-            _db_server.SaveChanges();
-        }
-        */
-         /*
-        private UserEntry DatabaseAuthenticateAndSelectUser(UserEntry user)
-        {
-            return _db_server.Users
-                .Single(e => e.Name == user.Name && e.PasswordHash == user.PasswordHash);
-        }
-           */
-
-        /*
-        private bool DatabaseIsUserEnrolled(string user_name)
-        {
-            // throws InvalidOperation if multiple rows
-            UserEntry db_user = _db_server.Users
-                .Single(e => e.Name == user_name);
-
-            return db_user == null;
-        }
-        */
-
         private bool IsRecentIp(IPAddress who_requests)
         {
             return _recent_user_creators_IPs.Any((e) => e.IP.Equals(who_requests));
@@ -228,7 +194,7 @@ namespace HeadServer.AuthenticationServer
         private void OnTimerIntervalElapsed(object sender, ElapsedEventArgs e)
         {
             // If <now> is older than threshold of first queue item's timestamp
-            while (DateTime.UtcNow.CompareTo(_recent_user_creators_IPs.Peek().AdditionTime.Add(RecentIPsUpdateRate)) > 0)
+            while (_recent_user_creators_IPs.Count > 0 && DateTime.UtcNow.CompareTo(_recent_user_creators_IPs.Peek().AdditionTime.Add(RecentIPsUpdateRate)) > 0)
             {
                 _recent_user_creators_IPs.Dequeue();
             }
@@ -238,6 +204,9 @@ namespace HeadServer.AuthenticationServer
         private List<UserEntry> _authenticated_users;
         private Queue<TimestampedIP> _recent_user_creators_IPs;
         private DatabaseServer _db_server;
+
+        // net 
+        private TcpListener _tcp_listener;
 
         // threading
         private ManualResetEvent _thread_mre;

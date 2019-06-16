@@ -10,25 +10,43 @@ namespace CommonLibrary.Implementation.Networking.Udp
 {
     public static class UdpNetworkFactory
     {
-        public static INetworkReceiver<TE> MakeUdpReader<TE>(int port)
+        public static INetworkReceiver<TE> MakeUdpReceiver<TE>(int port)
         {
-            UdpClient client = new UdpClient(port);
-            return new UdpReceiver<TE>(client);
+            try
+            {
+                UdpClient client = new UdpClient(port);
+                return new UdpReceiver<TE>(client);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("!> Socket Exception while creating Udp-Receiver on local port: " + e.Message);
+            }
+            return null;
         }
 
-        public static INetworkSender<TE> MakeUdpWriter<TE>(IPAddress address, int port)
+        public static INetworkSender<TE> MakeUdpSender<TE>(IPAddress address, int port)
         {
             UdpClient client = new UdpClient();
-            client.Connect(address, port);
-            return new UdpSender<TE>(client);
+            try
+            {
+                client.Connect(address, port);
+                return new UdpSender<TE>(client);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("!> Socket Exception while connection of Udp-Sender: " + e.Message);
+            }
+            return null;
         }
 
+        /*
         public static INetworkSender<TE> MakeBroadcast<TE>(int port)
         {
             UdpClient client = new UdpClient { EnableBroadcast = true };
             // TODO
-            //client.Connect(IPAddress.Parse("192.168.13.255"), port);
+            client.Connect(IPAddress.Loopback, port);
             return new UdpSender<TE>(client);
         }
+        */
     }
 }

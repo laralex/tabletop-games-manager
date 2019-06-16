@@ -12,8 +12,8 @@ namespace CommonLibrary.Implementation.Networking.Udp
 {
     class UdpSender<E> : INetworkSender<E>
     {
-        public IPEndPoint OwnSocket { get; private set; }
-        public IPEndPoint RemoteSocket { get; set; }
+        public IPEndPoint OwnEndPoint { get; private set; }
+        public IPEndPoint RemoteEndPoint { get; set; }
         public UdpSender(UdpClient client)
         {
             _udp_client = client;

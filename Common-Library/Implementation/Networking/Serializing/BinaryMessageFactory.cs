@@ -26,6 +26,10 @@ namespace CommonLibrary.Implementation.Networking.Serializing
 
         public static E Deserialize<E>(byte[] data)
         {
+            if (data == null || data.Length == 0)
+            {
+                return default(E);
+            }
             using (MemoryStream memory = new MemoryStream(data))
             {
                 return (E)_formatter.Deserialize(memory);

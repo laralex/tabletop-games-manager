@@ -51,7 +51,7 @@
             btnRegister.Location = new System.Drawing.Point(227, 81);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new System.Drawing.Size(133, 25);
-            btnRegister.TabIndex = 16;
+            btnRegister.TabIndex = 15;
             btnRegister.Text = "Not registered yet ?";
             btnRegister.UseVisualStyleBackColor = true;
             btnRegister.Click += new System.EventHandler(this.OnRegistrationRequest);
@@ -101,7 +101,7 @@
             this.btnLogin.Location = new System.Drawing.Point(85, 81);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(100, 25);
-            this.btnLogin.TabIndex = 15;
+            this.btnLogin.TabIndex = 14;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.OnLogin);
@@ -125,7 +125,7 @@
             this.txtLoginPassword.Location = new System.Drawing.Point(85, 50);
             this.txtLoginPassword.Name = "txtLoginPassword";
             this.txtLoginPassword.Size = new System.Drawing.Size(275, 25);
-            this.txtLoginPassword.TabIndex = 14;
+            this.txtLoginPassword.TabIndex = 13;
             this.txtLoginPassword.UseSystemPasswordChar = true;
             this.txtLoginPassword.TextChanged += new System.EventHandler(this.OnLoginFormFilling);
             // 

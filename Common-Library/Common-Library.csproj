@@ -57,7 +57,7 @@
     <Compile Include="Implementation\Games\Dice-Game\DiceGamePlayer.cs" />
     <Compile Include="Implementation\Games\GameOptions.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Die.cs" />
-    <Compile Include="Implementation\Networking\NetworkSender.cs" />
+    <Compile Include="Implementation\Networking\Draft\NetworkSender.cs" />
     <Compile Include="Implementation\Networking\Serializing\BinaryMessageFactory.cs" />
     <Compile Include="Implementation\Networking\Serializing\ClientDiceSelectionMessage.cs" />
     <Compile Include="Implementation\Networking\Serializing\DiceList.cs" />
@@ -66,9 +66,20 @@
     <Compile Include="Implementation\Networking\Serializing\GameServerPlayers.cs" />
     <Compile Include="Implementation\Networking\Serializing\GameServerStatus.cs" />
     <Compile Include="Implementation\Networking\Serializing\GameServerSubmittedDice.cs" />
-    <Compile Include="Implementation\Networking\TcpConnectedClient.cs" />
+    <Compile Include="Implementation\Networking\Draft\TcpConnectedClient.cs" />
+    <Compile Include="Implementation\Networking\Serializing\ServersListMessage.cs" />
+    <Compile Include="Implementation\Networking\Serializing\SignUpResult.cs" />
+    <Compile Include="Implementation\Networking\SocketExtensions.cs" />
+    <Compile Include="Implementation\Networking\Tcp\TcpClientExtensions.cs" />
+    <Compile Include="Implementation\Networking\Draft\TcpMessageListener.cs" />
+    <Compile Include="Implementation\Networking\Draft\TcpMessageReceiver.cs" />
+    <Compile Include="Implementation\Networking\Draft\TcpConnectedClient2.cs" />
+    <Compile Include="Implementation\Networking\Tcp\TcpMessenger.cs" />
+    <Compile Include="Implementation\Networking\Tcp\TcpNetworkFactory.cs" />
+    <Compile Include="Implementation\Networking\Draft\TcpReceiver.cs" />
+    <Compile Include="Implementation\Networking\Draft\TcpSender.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpMessageListener.cs" />
-    <Compile Include="Implementation\Networking\Udp\UdpMessageReceiver.cs" />
+    <Compile Include="Implementation\Networking\Draft\UdpMessageReceiver.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpNetworkFactory.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpReceiver.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpSender.cs" />
@@ -89,10 +100,12 @@
     <Compile Include="Model\Games\IPlayer.cs" />
     <Compile Include="Model\Games\IGame.cs" />
     <Compile Include="Model\Games\ITurnBasedGame.cs" />
+    <Compile Include="Model\Networking\INetworkMessenger.cs" />
     <Compile Include="Model\Networking\INetworkReceiver.cs" />
     <Compile Include="Model\Networking\INetworkSender.cs" />
     <Compile Include="Model\ServerSide\GameServerEventArgs.cs" />
     <Compile Include="Model\ServerSide\GameType.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-AuthenticationError.cs" />
     <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-HeadServer-GameServer.cs" />
     <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-Client-GameServer.cs" />
     <Compile Include="Model\ServerSide\IGameServer.cs" />
@@ -102,7 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Implementation\App\" />
-    <Folder Include="Implementation\Networking\Tcp\" />
     <Folder Include="Model\Crypto\" />
     <Folder Include="Model\ServerSide\DiceGame\" />
   </ItemGroup>

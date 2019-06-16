@@ -54,8 +54,6 @@
     <Compile Include="GUI\Application\AppFormDemo.Designer.cs">
       <DependentUpon>AppFormDemo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Server-Side\GameServerTalker.cs" />
-    <Compile Include="Server-Side\HeadServerMessenger.cs" />
     <Compile Include="GUI\Application\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +264,8 @@
       <Name>Game-Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Server-Side\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

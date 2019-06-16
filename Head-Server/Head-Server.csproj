@@ -61,11 +61,13 @@
   <ItemGroup>
     <Compile Include="AuxStructs.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="HeadServer.cs" />
-    <Compile Include="HeadServerEventArgs.cs" />
+    <Compile Include="Head-Server\HeadServer.cs" />
+    <Compile Include="Head-Server\AuthenticationConnectionProcessor.cs" />
+    <Compile Include="Head-Server\WithGameServerEventArgs.cs" />
+    <Compile Include="Head-Server\ServersListConnectionProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authentication-Server\AuthenticationServer.cs" />
-    <Compile Include="Authentication-Server\AuthenticationServerEventArgs.cs" />
+    <Compile Include="Head-Server\WithUserEventArgs.cs" />
     <Compile Include="Debug\AuthenticationServerConsole.cs" />
     <Compile Include="Debug\HeadServerConsole.cs" />
     <Compile Include="Debug\HeadServerDebugManager.cs" />

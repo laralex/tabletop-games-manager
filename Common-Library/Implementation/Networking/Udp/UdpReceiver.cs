@@ -13,7 +13,7 @@ namespace CommonLibrary.Implementation.Networking.Udp
     public class UdpReceiver<E> : INetworkReceiver<E>
     {
         
-        public IPEndPoint RemoteSenderSocket => _remote_sender_socket;
+        public IPEndPoint RemoteEndPoint => _remote_sender_end_point;
         public UdpReceiver(UdpClient client)
         {
             _udp_client = client;
@@ -24,14 +24,14 @@ namespace CommonLibrary.Implementation.Networking.Udp
             _udp_client.Close();
         }
 
-        public E Read()
+        public E Receive()
         {
-            byte[] data = _udp_client.Receive(ref _remote_sender_socket);
+            byte[] data = _udp_client.Receive(ref _remote_sender_end_point);
             return BinaryMessageFactory.Deserialize<E>(data);
         }
 
         private readonly UdpClient _udp_client;
-        private IPEndPoint _remote_sender_socket;
+        private IPEndPoint _remote_sender_end_point;
 
     }
 }

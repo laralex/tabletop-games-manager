@@ -5,11 +5,16 @@ using System.Text;
 using System.Windows.Forms;
 
 using CommonLibrary.Implementation.Crypto;
+using CommonLibrary.Implementation.ServerSide;
 using CommonLibrary.Implementation.ServerSide.Authentication;
 using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+using CommonLibrary.Implementation.Networking.Tcp;
 using GameClient.GUI.Application;
 using GameClient.GUI.Login;
-using GameClient.ServerSide;
+using System.Net.Sockets;
+using System.Threading;
+using CommonLibrary.Model.ServerSide;
+using CommonLibrary.Implementation.Networking.Serializing;
 
 namespace GameClient.Application
 {
@@ -24,7 +29,7 @@ namespace GameClient.Application
         public AuthenticationBackend()
         {
             FrontEndForm = new LoginForm();
-            _head_connection = new HeadServerMessenger();
+            //_head_connection = new HeadServerMessenger();
 
             FrontEndForm.Login += Login;
             FrontEndForm.Signup += Signup;
@@ -33,81 +38,119 @@ namespace GameClient.Application
 
         private void Login(object sender, LoginFormEventArgs e)
         {
+            FrontEndForm.Enabled = false;
             var passw_hash = ShaEncryptor.Encrypt(e.PasswordText);
-            // TODO: get user's hash from DB
             var entry = new UserEntry(e.Username, passw_hash);
-            /*_head_connection.SendMessage(
-                ToHeadServerMessageType.ReqLogIn,
-                entry
-            );
 
-            _head_connection.GetMessage();
-            switch (_head_connection.MessageType)
+            var to_head_client = EntryPoint.InitHeadTcpClient();
+
+            // wait release of socket
+            while (to_head_client.Connected) { }
+
+            using (to_head_client)
             {
-                case ToApplicationClientMessageType.AckLogIn:
-                    _current_login_data = entry;
-                    _frontend.Reset();
-                    _frontend.Close();
-                    break;
-                case ToApplicationClientMessageType.DenyLogIn:
-                    _frontend.FailLogin();
-                    break;
-                // TODO: login, provide user info to app
-                // TODO: pass to a next form
-                
+                try
+                {
+                    to_head_client.Connect(EntryPoint.HeadTcpEndPoint);
+                    if (to_head_client.Connected)
+                    {
+                        to_head_client.Send(ToHeadServerMessageType.ReqLogIn);
+                        while (to_head_client.Available == 0) { Thread.Sleep(100); }
+                        var response = to_head_client.Receive<ToApplicationClientMessageType>();
+                        if (response == null || response != ToApplicationClientMessageType.AckLogInReq)
+                        {
+                            FrontEndForm.FailLogin(LoginError.HeadServerUnavailable);
+                            return;
+                        }
+                        to_head_client.Send(entry);
+                        while (to_head_client.Available == 0) { Thread.Sleep(100); }
+                        response = to_head_client.Receive<ToApplicationClientMessageType>();
+                        if (response == null)
+                        {
+                            FrontEndForm.FailLogin(LoginError.HeadServerUnavailable);
+                            return;
+                        }
+                        switch (response)
+                        {
+                            case ToApplicationClientMessageType.AckLogIn:
+                                FrontEndForm.Reset();
+                                FrontEndForm.Visible = false;
+
+                                _current_login_data = entry;
+                                NextForm = new AppFormDemo(this);
+
+                                NextForm.Show(); ;
+                                break;
+                            case ToApplicationClientMessageType.DenyLogIn:
+                                FrontEndForm.FailLogin(LoginError.WrongEntry);
+                                break;
+                        }
+                    }
+                }
+                catch (SocketException exc)
+                {
+                    MessageBox.Show("Head-server is unavailable");
+                }
             }
-            */
-            FrontEndForm.Reset();
-            FrontEndForm.Visible = false;
-
-            _current_login_data = entry;
-            NextForm = new AppFormDemo(this);
-
-            //FrontEndForm.Close();
-            NextForm.Show();
-
+            FrontEndForm.Enabled = true;
         }
 
         private void Signup(object sender, LoginFormEventArgs e)
         {
-            /*
+            FrontEndForm.Enabled = false;
             var passw_hash = ShaEncryptor.Encrypt(e.PasswordText);
-            // TODO: if user does not exist ...
-            _head_connection.SendMessage(
-               ToHeadServerMessageType.ReqSignUp,
-               null
-            );
-            _head_connection.GetMessage();
             var entry = new UserEntry(e.Username, passw_hash);
-            // TODO: add in DB
-            switch(_head_connection.MessageType)
+
+            var to_head_client = EntryPoint.InitHeadTcpClient();
+            // wait release of socket
+            while (to_head_client.Connected) { }
+
+            using (to_head_client)
             {
-                case ToApplicationClientMessageType.AckSignUp:
-                // TODO: login, provide user info to app
-                    _head_connection.SendMessage(
-                        ToHeadServerMessageType.UseMyData,
-                        entry
-                    );
-                    _head_connection.GetMessage();
-                    if (_head_connection.MessageType == ToApplicationClientMessageType.AckMyData)
+                try
+                {
+                    to_head_client.Connect(EntryPoint.HeadTcpEndPoint);
+                    if (to_head_client.Connected)
                     {
-                        // TODO: login action
-                        Login(this, e);
-                        // TODO: pass to a next form
-                        NextForm.Show();
+                        to_head_client.Send(ToHeadServerMessageType.ReqSignUp);
+                        while (to_head_client.Available == 0) { Thread.Sleep(100); }
+                        var response = to_head_client.Receive<ToApplicationClientMessageType>();
+                        if (response == null || response != ToApplicationClientMessageType.AckSignUpReq)
+                        {
+                            FrontEndForm.FailSignup(SignupError.HeadServerUnavailable);
+                            return;
+                        }
+                        to_head_client.Send(entry);
+                        while (to_head_client.Available == 0) { Thread.Sleep(100); }
+                        var signup_response = to_head_client.Receive<SignUpResult>();
+                        if (signup_response == null)
+                        {
+                            FrontEndForm.FailSignup(SignupError.HeadServerUnavailable);
+                            return;
+                        }
+                        switch (signup_response.Result)
+                        {
+                            case ToApplicationClientMessageType.AckSignUp:
+                                FrontEndForm.Reset();
+                                FrontEndForm.Visible = false;
+
+                                _current_login_data = entry;
+                                NextForm = new AppFormDemo(this);
+
+                                NextForm.Show();
+                                break;
+                            case ToApplicationClientMessageType.DenySignUp:
+                                FrontEndForm.FailSignup(signup_response.WhatWrong);
+                                break;
+                        }
                     }
-                    else
-                    {
-                        _frontend.FainSignup(_head_connection.Message);
-                    }
-                    break;
-                case ToApplicationClientMessageType.DenySignUp:
-                    _frontend.FainSignup(_head_connection.Message);
-                    break;
-                
+                }
+                catch (SocketException exc)
+                {
+                    MessageBox.Show("Head-server is unavailable");
+                }
             }
-            */
-            
+            FrontEndForm.Enabled = true;
         }
 
         public void Logout()
@@ -124,8 +167,6 @@ namespace GameClient.Application
         {
             FrontEndForm?.Show();
         }
-
-        private HeadServerMessenger _head_connection;
 
         private UserEntry _current_login_data;
     }

@@ -144,7 +144,6 @@
             // 
             // btnRegisterConfirm
             // 
-            this.btnRegisterConfirm.Enabled = false;
             this.btnRegisterConfirm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRegisterConfirm.Location = new System.Drawing.Point(84, 110);
             this.btnRegisterConfirm.Name = "btnRegisterConfirm";

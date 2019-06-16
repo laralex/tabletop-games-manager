@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE [dbo].[insert_dice_game_server]
+﻿CREATE OR ALTER  PROCEDURE [dbo].[insert_dice_game_server]
 	@name NVARCHAR(60),
 	@max_players INT,
 	@ip BigInt,

@@ -24,7 +24,7 @@ namespace CommonLibrary.Implementation.Networking.Udp
 
         public UdpMessageListener(int port)
         {
-            reader = UdpNetworkFactory.MakeUdpReader<E>(port);
+            reader = UdpNetworkFactory.MakeUdpReceiver<E>(port);
         }
         private void ThreadProc()
         {
@@ -35,8 +35,8 @@ namespace CommonLibrary.Implementation.Networking.Udp
                     //E massage = reader.Read();
                     var args = new IncommingMessageEventArgs<E>
                     {
-                        Message = reader.Read(),
-                        Sender = reader.RemoteSenderSocket
+                        Message = reader.Receive(),
+                        Sender = reader.RemoteEndPoint
                     };
                     IncomingMessage?.Invoke(this, args);
                 }

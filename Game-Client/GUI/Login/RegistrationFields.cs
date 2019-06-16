@@ -51,15 +51,15 @@ namespace GameClient.GUI.Login
             FieldsFilled = false;
         }
 
+        public void FailSignUp(string msg)
+        {
+            lblErrorMessage.Text = msg;
+        }
+
 
         // Press on "Register" on register form - try to create a user
         private void OnRegisterConfirm(object sender, EventArgs e)
         {
-            // TODO: if user does not exist ...
-
-            // TODO: add in DB
-
-            // TODO: login action 
             Signup?.Invoke(
                 this, 
                 new LoginFormEventArgs(txtRegisterUsername.Text, txtRegisterPassword.Text)
@@ -116,7 +116,7 @@ namespace GameClient.GUI.Login
             }
 
             lblErrorMessage.Text = "";
-            FieldsFilled = false;
+            FieldsFilled = true;
         }
 
         private void OnTextBoxFocus(object sender, EventArgs e)

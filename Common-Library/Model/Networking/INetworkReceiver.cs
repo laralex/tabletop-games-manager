@@ -8,7 +8,7 @@ namespace CommonLibrary.Model.Networking
 {
     public interface INetworkReceiver<E> : IDisposable
     {
-        IPEndPoint RemoteSenderSocket { get; }
-        E Read();
+        IPEndPoint RemoteEndPoint { get; }
+        E Receive();
     }
 }

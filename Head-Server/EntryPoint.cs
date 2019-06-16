@@ -15,18 +15,18 @@ namespace HeadServer
         static void Main(string[] args)
         {
             // Create head
-            HeadServer head = new HeadServer(new IPEndPoint(IPAddress.Loopback, 42077));
+            HeadServer head = new HeadServer(HeadTcpEndPoint);
             head.Initialize();
             HeadServerDebugManager debug_console = new HeadServerDebugManager(head, head.AuthServer);
             head.Start();
-            System.Threading.Thread.Sleep(1000);
-            if (head.AuthServer.TrySignUp(IPAddress.Loopback, new UserEntry("garb2", new byte[] { 0xff, 0xfe })))
+            if (head.AuthServer.TrySignUp(IPAddress.Loopback, new UserEntry("123", CommonLibrary.Implementation.Crypto.ShaEncryptor.Encrypt("123"))) == CommonLibrary.Model.ServerSide.SignupError.AllOk)
                 Console.WriteLine("Signup OK");
-            if (head.AuthServer.TrySignUp(IPAddress.Loopback, new UserEntry("garb3", new byte[] { 0xff, 0xfd })))
+            if (head.AuthServer.TrySignUp(IPAddress.Loopback, new UserEntry("laralex", CommonLibrary.Implementation.Crypto.ShaEncryptor.Encrypt("admin228"))) == CommonLibrary.Model.ServerSide.SignupError.AllOk)
                 Console.WriteLine("Signup OK");
             if (head.AuthServer.TryLogIn(new UserEntry("garb2", new byte[] { 0xff, 0xfe })))
                 Console.WriteLine("Login OK");
-
+            else
+                Console.WriteLine("Login Fail");
             var serv = new DiceGameServerEntry();
             serv.Name = "Alex test";
             serv.DiceNumber = 7;
@@ -41,18 +41,32 @@ namespace HeadServer
                 Console.WriteLine("Server OK");
 
             serv.Name = "DDOS server";
+            serv.MaxPlayers = 30;
+            serv.Socket = new IPEndPoint(new IPAddress(1330981241), 60000);
             if (head.DbServer.InsertDiceGameServer(serv))
                 Console.WriteLine("Server OK");
-            if (head.DbServer.SetServerIsActive(1, false))
-                Console.WriteLine("Server inactive OK");
+            //if (head.DbServer.SetServerIsActive(1, false))
+            //Console.WriteLine("Server inactive OK");
+            serv.Name = "LOL server";
+            serv.MaxPlayers = 100;
+            serv.Socket = new IPEndPoint(new IPAddress(430981241), 60000);
             if (head.DbServer.InsertDiceGameServer(serv))
                 Console.WriteLine("Server OK");
-            var list = head.DbServer.SelectActiveGameServers();
+            //var list = head.DbServer.SelectActiveGameServers();
 
-            Console.ReadLine();
-            head.Dispose();
+            //Console.ReadLine();
+            //head.Dispose();
 
-            debug_console.EndOfProcessMessage();
+            //debug_console.EndOfProcessMessage();
         }
+
+        static EntryPoint()
+        {
+            HeadTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42077);
+            //AuthenticationTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42079);
+            //AuthenticationTcpClient = new TcpClient(AuthenticationTcpEndPoint);
+        }
+        //public static TcpClient AuthenticationTcpClient;
+        public static IPEndPoint HeadTcpEndPoint;
     }
 }

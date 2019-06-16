@@ -8,7 +8,7 @@ namespace CommonLibrary.Model.Networking
 {
     public interface INetworkSender<E> : IDisposable
     {
-        IPEndPoint OwnSocket { get; }
+        IPEndPoint OwnEndPoint { get; }
         void Send(byte[] data);
         void Send(E message);
 

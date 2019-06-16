@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrary.Model.ServerSide;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +34,7 @@ namespace GameClient.GUI.Login
         }
 
         public bool FieldsFilled {
-            get => current_ui_login ? loginSubform.FieldsFilled : registrationSubform.FieldsFilled;
+            get => current_ui_is_login_subform ? loginSubform.FieldsFilled : registrationSubform.FieldsFilled;
         }
 
 
@@ -41,6 +42,7 @@ namespace GameClient.GUI.Login
         {
             loginSubform.Reset();
             registrationSubform.Reset();
+            OnChangeToLoginUi(null, null);
         }
 
         public void SetFont(Font font)
@@ -53,7 +55,7 @@ namespace GameClient.GUI.Login
             registrationSubform.Hide();
             loginSubform.Reset();
             loginSubform.Show();
-            current_ui_login = true;
+            current_ui_is_login_subform = true;
             this.Size = new Size(this.Size.Width, 180);
             this.Text = "Login";
         }
@@ -63,13 +65,50 @@ namespace GameClient.GUI.Login
             loginSubform.Hide();
             registrationSubform.Reset();
             registrationSubform.Show();
-            current_ui_login = false;
+            current_ui_is_login_subform = false;
             this.Size = new Size(this.Size.Width, 215);
             this.Text = "Register User";
         }
 
-        private bool current_ui_login;
+        private bool current_ui_is_login_subform;
 
+        public void FailLogin(LoginError error)
+        {
+            string msg = "";
+            switch (error)
+            {
+                case LoginError.WrongEntry:
+                    msg = "Wrong username / password";
+                    break;
+                case LoginError.HeadServerUnavailable:
+                    msg = "Authentication server denied you";
+                    break;
+            }
+            loginSubform.FailLogin(msg);
+            this.Enabled = true;
+        }
+
+        internal void FailSignup(SignupError error)
+        {
+            string msg = "";
+            switch (error)
+            {
+                case SignupError.UserExists:
+                    msg = "Given user exists";
+                    break;
+                case SignupError.HeadServerUnavailable:
+                    msg = "Authentication server denied you";
+                    break;
+                case SignupError.InvalidPassword:
+                    msg = "Password is invalid to use";
+                    break;
+                case SignupError.InvalidUsername:
+                    msg = "Username is invalid to use";
+                    break;
+            }
+            registrationSubform.FailSignUp(msg);
+            this.Enabled = true;
+        }
     }
 
     public class LoginFormEventArgs : EventArgs

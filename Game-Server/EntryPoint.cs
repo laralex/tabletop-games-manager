@@ -55,10 +55,19 @@ namespace GameServer
             } 
             */
             DiceGameController game = new DiceGameController();
-            var users = new List<CommonLibrary.Model.Application.IUser>();
-            users.Add(new UserEntry("qwert", null));
-            users.Add(new UserEntry("dead", null));
-            users.Add(new UserEntry("best", null));
+            var users = new List<UserSocket>();
+            users.Add(new UserSocket() {
+                User = new UserEntry("qwert", null),
+                Socket = new System.Net.IPEndPoint(19827412, 50000)
+            });
+            users.Add(new UserSocket() {
+                User = new UserEntry("dead", null),
+                Socket = new System.Net.IPEndPoint(10827412, 60000)
+            });
+            users.Add(new UserSocket() {
+                User = new UserEntry("best", null),
+                Socket = new System.Net.IPEndPoint(29827412, 40000)
+            });
             game.StartupGame(game_options, users);
             //game.StartFirstTurn();
         }   

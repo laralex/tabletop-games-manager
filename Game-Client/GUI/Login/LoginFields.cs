@@ -49,6 +49,10 @@ namespace GameClient.GUI.Login
             FieldsFilled = false;
         }
 
+        public void FailLogin(string msg)
+        {
+            lblErrorMessage.Text = msg;
+        }
         // Press on "Login" - try log in 
         private void OnLogin(object sender, EventArgs e)
         {

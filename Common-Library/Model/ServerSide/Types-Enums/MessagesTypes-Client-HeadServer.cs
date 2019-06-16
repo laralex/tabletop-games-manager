@@ -8,23 +8,25 @@ namespace CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer
 
     public enum ToHeadServerMessageType
     {
+        Dummy,
         ReqLogIn, // REQ_LOGIN
         ReqLogOut,
         ReqSignUp,
         ReqServersList,
         UseMyData,
-        Dummy
     }
     public enum ToApplicationClientMessageType                         
     {
+        Dummy,
+        AckLogInReq,
         AckLogIn,
         AckLogOut,
         AckSignUp,
+        AckSignUpReq,
         AckMyData,
         DenyLogIn,
         DenySignUp,
         DenyServerList,
         UseServerList,
-        Dummy
     }
 }
