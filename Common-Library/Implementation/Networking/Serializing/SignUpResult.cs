@@ -1,19 +1,19 @@
-﻿using CommonLibrary.Model.ServerSide;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using CommonLibrary.Model.ServerSide;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// When client tries to sign up,
+    /// error codes are sent by Head Server
+    /// </summary>
     [Serializable]
-    public class SignUpResult
+    public class SignupResult
     {
-        public ToApplicationClientMessageType Result;
+        public HeadServerToClientMessage Result;
         public SignupError WhatWrong;
 
-        public SignUpResult(ToApplicationClientMessageType result, SignupError whatWrong)
+        public SignupResult(HeadServerToClientMessage result, SignupError whatWrong)
         {
             Result = result;
             WhatWrong = whatWrong;

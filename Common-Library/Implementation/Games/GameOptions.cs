@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace CommonLibrary.Implementation.Games
 {
+    /// <summary>
+    /// Common options of some game server
+    /// </summary>
     [Serializable]
     public class GameOptions
     {

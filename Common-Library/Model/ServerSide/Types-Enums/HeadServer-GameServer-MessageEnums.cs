@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CommonLibrary.Model.ServerSide.HeadServerAndGameServer
+﻿namespace CommonLibrary.Model.ServerSide
 {
-    public enum ToHeadServerMessageType
+    /// <summary>
+    /// Codes for messages between GameServer and HeadServer
+    /// </summary>
+    public enum GameToHeadServerMessage
     {
         ReqRegister,
         ReqDetach,
@@ -15,7 +13,7 @@ namespace CommonLibrary.Model.ServerSide.HeadServerAndGameServer
         //UseStatus
     }
 
-    public enum ToGameServerMessageType
+    public enum HeadToGameServerMessage
     {
         AckRegister,
         AckMyData,

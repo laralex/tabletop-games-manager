@@ -1,35 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 using System.Net.Sockets;
 using System.Net;
 
-using System.Collections;
 using System.Timers;
 using System.Threading;
 
-using CommonLibrary.Implementation.Networking;
+using CommonLibrary.Implementation.Common;
 using CommonLibrary.Implementation.Networking.Tcp;
 using CommonLibrary.Implementation.ServerSide;
-using CommonLibrary.Model;
-using CommonLibrary.Model.Common;
-using CommonLibrary.Model.Networking;
 using CommonLibrary.Model.ServerSide;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
-using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
 
 using HeadServer.DB;
-using HeadServer.AuthenticationServer;
-using HeadServer.Debug;
-using AppToHeadMessageType = CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer.ToHeadServerMessageType;
-using HeadToAppMessageType = CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer.ToApplicationClientMessageType;
-using CommonLibrary.Implementation.ServerSide.Authentication;
 
 namespace HeadServer
 {
     
-
+     /// <summary>
+     /// Head server - registers game servers,
+     /// authenticates users, manages main database
+     /// </summary>
     internal class HeadServer : IServer // INetworkSender
     {
         public ServerStatus Status { get; internal set; }
@@ -52,9 +44,6 @@ namespace HeadServer
             Status = ServerStatus.Uninitialized;
             
             RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 30);
-
-            //_listening_to = new IPEndPoint(IPAddress.Any, 42077);
-            //_udp_listener = new UdpClient(_listening_to);
         }
 
         public void Initialize()
@@ -97,18 +86,18 @@ namespace HeadServer
                     _registered_servers = DbServer.SelectActiveGameServers();
                 } */
 
-                var request = client.Receive<AppToHeadMessageType>();
+                var request = client.Receive<ClientToHeadServerMessage>();
                 Thread clientThread = null;
                 switch (request)
                 {
-                    case AppToHeadMessageType.ReqServersList:
+                    case ClientToHeadServerMessage.ReqServersList:
                         var servers_list = DbServer.SelectActiveGameServers();
                         var servers_list_handler = new ServersListConnectionProcessor(client, servers_list);
                         clientThread = new Thread(
                             new ThreadStart(servers_list_handler.ProcessConnection)
                         );
                         break;
-                    case AppToHeadMessageType.ReqLogIn:
+                    case ClientToHeadServerMessage.ReqLogIn:
                         var to_app_message_handler = new AuthenticationConnectionProcessor(
                             client,
                             AuthServer
@@ -117,7 +106,7 @@ namespace HeadServer
                             new ThreadStart(to_app_message_handler.ProcessLogin)
                         );
                         break;
-                    case AppToHeadMessageType.ReqSignUp:
+                    case ClientToHeadServerMessage.ReqSignUp:
                         to_app_message_handler = new AuthenticationConnectionProcessor(
                             client,
                             AuthServer
@@ -128,35 +117,6 @@ namespace HeadServer
                         break;
                 }
                 clientThread?.Start();
-
-                /*OnMessageFromUser?.Invoke(
-                    this, 
-                    new MessageFromUserEventArgs(
-                        new CommonLibrary.Implementation.ServerSide.Authentication.UserEntry("testname", null),
-                        CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer.ToHeadServerMessageType.ReqServersList
-                    )
-                );*/
-
-                /*
-                
-                if (Status == ServerStatus.Uninitialized)
-                {
-                    OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
-                    _main_mre.Set();
-                    _main_mre.Reset();
-                    // Thread termination
-                    return;
-                }
-
-                _tcp_listener
-
-                ParseMessageType();
-                OnThreadStateChange.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
-                Thread.Sleep(800);
-                //while (!_received) Thread.Sleep(500);
-                //_received = false;
-                // TODO: Get Messages
-                */
             }
         }
 
@@ -171,7 +131,7 @@ namespace HeadServer
                 this.AuthServer.Stop();
                 this.DbServer.Stop();
                 this._thread_mre.Reset();
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Stop));
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Stop));
                 this.Status = ServerStatus.Stopped;
             }
         }
@@ -189,8 +149,7 @@ namespace HeadServer
                 _tcp_listener.Start();
                 _network_handling_thread.Start();
 
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
-                //_log_console.NetworkThreadMessage(ThreadStateType.Begin); // d
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Begin));
 
             }
             
@@ -207,8 +166,7 @@ namespace HeadServer
                 this.DbServer.Start();
                 this.AuthServer.Start();
                 this._thread_mre.Set();
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Resume));
-                //_log_console.NetworkThreadMessage(ThreadStateType.Resume); // d
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Resume));
                 this.Status = ServerStatus.Running;
             }
         }
@@ -233,7 +191,6 @@ namespace HeadServer
             Status = ServerStatus.Uninitialized;
 
             OnTermination?.Invoke(this, null);
-            //_log_console.TerminationMessage(); // d
         }
 
         private bool TryRegisterServer(IPAddress who_requests, DiceGameServerEntry new_server)
@@ -245,61 +202,11 @@ namespace HeadServer
             _recent_server_creators_IPs.Enqueue(new TimestampedIP(who_requests, DateTime.UtcNow));
             OnMessageToGameServer?.Invoke(
                 this, 
-                new MessageToGameServerEventArgs(new_server, ToGameServerMessageType.AckRegister)
+                new MessageToGameServerEventArgs(new_server, HeadToGameServerMessage.AckRegister)
             );
-            //_log_console.GameServerMessage(db_server, GameServerMessageType.Registered); // d
             return true;
         }
 
-        // FIXME: anyone can detach server
-        private bool TryDetachServer(GameServerEntry server)
-        {
-            //DbServer.SetServerIsActive(server, false);
-            /*if (_registered_servers == null)
-            {
-                _registered_servers = DbServer.SelectActiveGameServers();
-            }
-            int found_server_idx = _registered_servers.FindIndex(e => e.Name == server.Name);
-            if (found_server_idx >= 0)
-            {
-                OnMessageToGameServer?.Invoke(
-                    this,
-                    new MessageToGameServerEventArgs(_registered_servers[found_server_idx], ToGameServerMessageType.AckRegister)
-                );
-                //_log_console.GameServerMessage(_registered_servers[found_server_idx], GameServerMessageType.Detached); // d
-                _registered_servers.RemoveAt(found_server_idx);
-                return true;
-            }
-            */
-            return false;
-        }
-
-        //TODO del/ private
-
-
-        /*
-        private void FillGameServerFields(DB.GameServer db_server_record, GameServerEntry new_server_enroll)
-        {
-            //DB.GameServer db_server = new DB.GameServer();
-            db_server_record.Name = new_server_enroll.Name;
-            db_server_record.Creator = AuthServer.DatabaseSelectUser(new_server_enroll.CreatorName);
-            db_server_record.RegisterTime = DateTime.UtcNow;
-            db_server_record.IsActive = new_server_enroll.IsActive;
-            db_server_record.Socket = new_server_enroll.Socket;
-        }
-        */
-        /*
-        private DB.GameServer DatabaseSelectOneServer(GameServerEntry server_enroll)
-        {
-            return _db_server.Context.GameServers
-                .Single(e => e.Name == server_enroll.Name);
-        }
-
-        private bool DatabaseIsServerRegistered(GameServerEntry server_enroll)
-        {
-            return DatabaseSelectOneServer(server_enroll) == null;
-        }
-        */
         private void OnTimerIntervalElapsed(object sender, ElapsedEventArgs e)
         {
             // If <now> is older than threshold of first queue item's timestamp
@@ -319,12 +226,8 @@ namespace HeadServer
         private List<GameServerEntry> _registered_servers;
         private Queue<TimestampedIP> _recent_server_creators_IPs;
 
-        // net // TODO:
+        // net
         private TcpListener _tcp_listener; 
-        // private UdpClient _udp_listener;
-        // private IPEndPoint _listening_to;
-        // private bool _received;
-        //private UdpMessageReceiver _udp;
 
         // threading
         private ManualResetEvent _thread_mre;
@@ -332,3 +235,87 @@ namespace HeadServer
         private Thread _network_handling_thread;
     }
 }
+
+
+
+/* Test and Debug
+ * 
+ * 
+ *  
+                /*OnMessageFromUser?.Invoke(
+                    this, 
+                    new MessageFromUserEventArgs(
+                        new CommonLibrary.Implementation.ServerSide.Authentication.UserEntry("testname", null),
+                        CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer.ToHeadServerMessageType.ReqServersList
+                    )
+                );
+
+ /*
+
+ if (Status == ServerStatus.Uninitialized)
+ {
+     OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.End));
+     _main_mre.Set();
+     _main_mre.Reset();
+     // Thread termination
+     return;
+ }
+
+ _tcp_listener
+
+ ParseMessageType();
+ OnThreadStateChange.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
+ Thread.Sleep(800);
+ //while (!_received) Thread.Sleep(500);
+ //_received = false;
+ // TODO: Get Messages
+
+ *
+ * 
+ * 
+        private void FillGameServerFields(DB.GameServer db_server_record, GameServerEntry new_server_enroll)
+        {
+            //DB.GameServer db_server = new DB.GameServer();
+            db_server_record.Name = new_server_enroll.Name;
+            db_server_record.Creator = AuthServer.DatabaseSelectUser(new_server_enroll.CreatorName);
+            db_server_record.RegisterTime = DateTime.UtcNow;
+            db_server_record.IsActive = new_server_enroll.IsActive;
+            db_server_record.Socket = new_server_enroll.Socket;
+        }
+        */
+/*
+private DB.GameServer DatabaseSelectOneServer(GameServerEntry server_enroll)
+{
+    return _db_server.Context.GameServers
+        .Single(e => e.Name == server_enroll.Name);
+}
+
+private bool DatabaseIsServerRegistered(GameServerEntry server_enroll)
+{
+    return DatabaseSelectOneServer(server_enroll) == null;
+}  
+
+            // FIXME: anyone can detach server
+        private bool TryDetachServer(GameServerEntry server)
+        {
+            //DbServer.SetServerIsActive(server, false);
+            /*if (_registered_servers == null)
+            {
+                _registered_servers = DbServer.SelectActiveGameServers();
+            }
+            int found_server_idx = _registered_servers.FindIndex(e => e.Name == server.Name);
+            if (found_server_idx >= 0)
+            {
+                OnMessageToGameServer?.Invoke(
+                    this,
+                    new MessageToGameServerEventArgs(_registered_servers[found_server_idx], ToGameServerMessageType.AckRegister)
+                );
+                //_log_console.GameServerMessage(_registered_servers[found_server_idx], GameServerMessageType.Detached); // d
+                _registered_servers.RemoveAt(found_server_idx);
+                return true;
+            }
+            
+            return false;
+        }
+        */
+

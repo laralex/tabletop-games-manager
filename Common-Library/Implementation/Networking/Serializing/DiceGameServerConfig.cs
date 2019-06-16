@@ -1,11 +1,11 @@
 ﻿using CommonLibrary.Implementation.Games.Dice;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// Players request game server's configuration, and server sends it 
+    /// </summary>
     [Serializable]
     public class DiceGameServerConfig
     {

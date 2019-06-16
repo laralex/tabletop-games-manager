@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 using CommonLibrary.Implementation.Crypto;
-using CommonLibrary.Implementation.ServerSide;
 using CommonLibrary.Implementation.ServerSide.Authentication;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
 using CommonLibrary.Implementation.Networking.Tcp;
 using GameClient.GUI.Application;
 using GameClient.GUI.Login;
@@ -18,6 +12,10 @@ using CommonLibrary.Implementation.Networking.Serializing;
 
 namespace GameClient.Application
 {
+
+    /// <summary>
+    /// Backend class for managing "Login/Signup" form in application
+    /// </summary>
     internal class AuthenticationBackend
     {
 
@@ -29,7 +27,6 @@ namespace GameClient.Application
         public AuthenticationBackend()
         {
             FrontEndForm = new LoginForm();
-            //_head_connection = new HeadServerMessenger();
 
             FrontEndForm.Login += Login;
             FrontEndForm.Signup += Signup;
@@ -54,17 +51,17 @@ namespace GameClient.Application
                     to_head_client.Connect(EntryPoint.HeadTcpEndPoint);
                     if (to_head_client.Connected)
                     {
-                        to_head_client.Send(ToHeadServerMessageType.ReqLogIn);
+                        to_head_client.Send(ClientToHeadServerMessage.ReqLogIn);
                         while (to_head_client.Available == 0) { Thread.Sleep(100); }
-                        var response = to_head_client.Receive<ToApplicationClientMessageType>();
-                        if (response == null || response != ToApplicationClientMessageType.AckLogInReq)
+                        var response = to_head_client.Receive<HeadServerToClientMessage>();
+                        if (response == null || response != HeadServerToClientMessage.AckLogInReq)
                         {
                             FrontEndForm.FailLogin(LoginError.HeadServerUnavailable);
                             return;
                         }
                         to_head_client.Send(entry);
                         while (to_head_client.Available == 0) { Thread.Sleep(100); }
-                        response = to_head_client.Receive<ToApplicationClientMessageType>();
+                        response = to_head_client.Receive<HeadServerToClientMessage>();
                         if (response == null)
                         {
                             FrontEndForm.FailLogin(LoginError.HeadServerUnavailable);
@@ -72,16 +69,16 @@ namespace GameClient.Application
                         }
                         switch (response)
                         {
-                            case ToApplicationClientMessageType.AckLogIn:
+                            case HeadServerToClientMessage.AckLogIn:
                                 FrontEndForm.Reset();
                                 FrontEndForm.Visible = false;
 
                                 _current_login_data = entry;
-                                NextForm = new AppFormDemo(this);
+                                NextForm = new AppForm(this);
 
                                 NextForm.Show(); ;
                                 break;
-                            case ToApplicationClientMessageType.DenyLogIn:
+                            case HeadServerToClientMessage.DenyLogIn:
                                 FrontEndForm.FailLogin(LoginError.WrongEntry);
                                 break;
                         }
@@ -112,17 +109,17 @@ namespace GameClient.Application
                     to_head_client.Connect(EntryPoint.HeadTcpEndPoint);
                     if (to_head_client.Connected)
                     {
-                        to_head_client.Send(ToHeadServerMessageType.ReqSignUp);
+                        to_head_client.Send(ClientToHeadServerMessage.ReqSignUp);
                         while (to_head_client.Available == 0) { Thread.Sleep(100); }
-                        var response = to_head_client.Receive<ToApplicationClientMessageType>();
-                        if (response == null || response != ToApplicationClientMessageType.AckSignUpReq)
+                        var response = to_head_client.Receive<HeadServerToClientMessage>();
+                        if (response == null || response != HeadServerToClientMessage.AckSignUpReq)
                         {
                             FrontEndForm.FailSignup(SignupError.HeadServerUnavailable);
                             return;
                         }
                         to_head_client.Send(entry);
                         while (to_head_client.Available == 0) { Thread.Sleep(100); }
-                        var signup_response = to_head_client.Receive<SignUpResult>();
+                        var signup_response = to_head_client.Receive<SignupResult>();
                         if (signup_response == null)
                         {
                             FrontEndForm.FailSignup(SignupError.HeadServerUnavailable);
@@ -130,16 +127,16 @@ namespace GameClient.Application
                         }
                         switch (signup_response.Result)
                         {
-                            case ToApplicationClientMessageType.AckSignUp:
+                            case HeadServerToClientMessage.AckSignUp:
                                 FrontEndForm.Reset();
                                 FrontEndForm.Visible = false;
 
                                 _current_login_data = entry;
-                                NextForm = new AppFormDemo(this);
+                                NextForm = new AppForm(this);
 
                                 NextForm.Show();
                                 break;
-                            case ToApplicationClientMessageType.DenySignUp:
+                            case HeadServerToClientMessage.DenySignUp:
                                 FrontEndForm.FailSignup(signup_response.WhatWrong);
                                 break;
                         }
@@ -151,16 +148,6 @@ namespace GameClient.Application
                 }
             }
             FrontEndForm.Enabled = true;
-        }
-
-        public void Logout()
-        {
-            /*
-            _head_connection.SendMessage(
-               ToHeadServerMessageType.ReqLogOut,
-               _current_login_data
-            );
-            */
         }
 
         public void Show()

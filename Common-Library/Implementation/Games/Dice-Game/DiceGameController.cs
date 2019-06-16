@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-using CommonLibrary.Implementation.Games.Dice;
-using CommonLibrary.Implementation.Games.Dice.Combos;
 using CommonLibrary.Model.Games;
-using CommonLibrary.Model.Games.Dice;
-using CommonLibrary.Model.Application;
 using CommonLibrary.Implementation.ServerSide.Authentication;
 using System.Timers;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    /// <summary>
+    /// Class controlls "Dice" game from start to finish
+    /// Uses "DiceGameEngine" as tool with useful functions
+    /// for implementing game logic
+    /// </summary>
     public class DiceGameController
     {
         public event EventHandler<TurnSwitchedEventArgs> TurnSwitched;
@@ -21,15 +21,14 @@ namespace CommonLibrary.Implementation.Games.Dice
         public event EventHandler<GameEndedEventArgs> GameEnded;
         public event EventHandler GameShutdowned;
         //public event EventHandler<PlayerStateEventArgs> PlayerJoined;
-        public event EventHandler<PlayerStateEventArgs> PlayerLeaved;
+        public event EventHandler<PlayerStateEventArgs> PlayerLeft;
         public event EventHandler<PlayerStateEventArgs> SpectatorJoined;
-        public event EventHandler<PlayerStateEventArgs> SpectatorLeaved;
+        public event EventHandler<PlayerStateEventArgs> SpectatorLeft;
         public event EventHandler<DiceSelectChangedEventArgs> DiceSelectChanged;
         public event EventHandler<DiceSubmittedEventArgs> DiceSubmitted;
         public event EventHandler<RerollEventArgs> DiceRerolled;
         public event EventHandler<PlayerStateEventArgs> TurnFailure;
 
-        //public List<IUser> ConnectedUsers { get; internal set; }
         public List<IPlayer> Players { get; private set; } 
         public DiceGameEngine DiceEngine { get; }
 
@@ -66,6 +65,8 @@ namespace CommonLibrary.Implementation.Games.Dice
             _timer.AutoReset = true;
             _timer.Enabled = false;
             _timer.Elapsed += OnTimerElapsed;
+
+            _is_game_alive = true;
 
             GameStarted?.Invoke(
                 this,

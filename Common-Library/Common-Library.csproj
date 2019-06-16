@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\Crypto\ShaEncryptor.cs" />
-    <Compile Include="Implementation\Games\Dice-Game\Combos\BaseCombo.cs" />
+    <Compile Include="Model\Games\Dice-Game\ICombo.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\ComboParser.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\ComboMaxResult.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\Flash.cs" />
@@ -57,29 +57,21 @@
     <Compile Include="Implementation\Games\Dice-Game\DiceGamePlayer.cs" />
     <Compile Include="Implementation\Games\GameOptions.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Die.cs" />
-    <Compile Include="Implementation\Networking\Draft\NetworkSender.cs" />
     <Compile Include="Implementation\Networking\Serializing\BinaryMessageFactory.cs" />
-    <Compile Include="Implementation\Networking\Serializing\ClientDiceSelectionMessage.cs" />
+    <Compile Include="Implementation\Networking\Serializing\DiceOfPlayer.cs" />
     <Compile Include="Implementation\Networking\Serializing\DiceList.cs" />
     <Compile Include="Implementation\Networking\Serializing\DiceGameServerConfig.cs" />
     <Compile Include="Implementation\Networking\Serializing\GameServerPlayer.cs" />
     <Compile Include="Implementation\Networking\Serializing\GameServerPlayers.cs" />
     <Compile Include="Implementation\Networking\Serializing\GameServerStatus.cs" />
     <Compile Include="Implementation\Networking\Serializing\GameServerSubmittedDice.cs" />
-    <Compile Include="Implementation\Networking\Draft\TcpConnectedClient.cs" />
-    <Compile Include="Implementation\Networking\Serializing\ServersListMessage.cs" />
-    <Compile Include="Implementation\Networking\Serializing\SignUpResult.cs" />
+    <Compile Include="Implementation\Networking\Serializing\AllServersList.cs" />
+    <Compile Include="Implementation\Networking\Serializing\SignupResult.cs" />
     <Compile Include="Implementation\Networking\SocketExtensions.cs" />
     <Compile Include="Implementation\Networking\Tcp\TcpClientExtensions.cs" />
-    <Compile Include="Implementation\Networking\Draft\TcpMessageListener.cs" />
-    <Compile Include="Implementation\Networking\Draft\TcpMessageReceiver.cs" />
-    <Compile Include="Implementation\Networking\Draft\TcpConnectedClient2.cs" />
     <Compile Include="Implementation\Networking\Tcp\TcpMessenger.cs" />
     <Compile Include="Implementation\Networking\Tcp\TcpNetworkFactory.cs" />
-    <Compile Include="Implementation\Networking\Draft\TcpReceiver.cs" />
-    <Compile Include="Implementation\Networking\Draft\TcpSender.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpMessageListener.cs" />
-    <Compile Include="Implementation\Networking\Draft\UdpMessageReceiver.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpNetworkFactory.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpReceiver.cs" />
     <Compile Include="Implementation\Networking\Udp\UdpSender.cs" />
@@ -87,16 +79,13 @@
     <Compile Include="Implementation\ServerSide\Authentication\UserSocket.cs" />
     <Compile Include="Implementation\ServerSide\Games\DiceGameServerEntry.cs" />
     <Compile Include="Implementation\ServerSide\GameServerEntry.cs" />
-    <Compile Include="Implementation\ServerSide\Games\DiceGameServer.cs" />
     <Compile Include="Model\Application\IUser.cs" />
-    <Compile Include="Model\Application\IUserValidator.cs" />
     <Compile Include="Model\Common\IFieldsOwner.cs" />
     <Compile Include="Model\Common\IResetable.cs" />
     <Compile Include="Implementation\Crypto\BaseEncryptor.cs" />
-    <Compile Include="Model\Common\ThreadStateEventArgs.cs" />
-    <Compile Include="Model\Common\ThreadStateType.cs" />
+    <Compile Include="Implementation\Common\ThreadStateEventArgs.cs" />
+    <Compile Include="Model\Common\ThreadStateEnum.cs" />
     <Compile Include="Implementation\Games\Dice-Game\DiceGameEngine.cs" />
-    <Compile Include="Model\Games\Dice-Game\IDiceView.cs" />
     <Compile Include="Model\Games\IPlayer.cs" />
     <Compile Include="Model\Games\IGame.cs" />
     <Compile Include="Model\Games\ITurnBasedGame.cs" />
@@ -105,18 +94,16 @@
     <Compile Include="Model\Networking\INetworkSender.cs" />
     <Compile Include="Model\ServerSide\GameServerEventArgs.cs" />
     <Compile Include="Model\ServerSide\GameType.cs" />
-    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-AuthenticationError.cs" />
-    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-HeadServer-GameServer.cs" />
-    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-Client-GameServer.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\AuthenticationErrorsEnums.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\HeadServer-GameServer-MessageEnums.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\Client-GameServer-MessageEnums.cs" />
     <Compile Include="Model\ServerSide\IGameServer.cs" />
-    <Compile Include="Model\ServerSide\Types-Enums\MessagesTypes-Client-HeadServer.cs" />
+    <Compile Include="Model\ServerSide\Types-Enums\Client-HeadServer-MessageEnums.cs" />
     <Compile Include="Model\ServerSide\IServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Implementation\App\" />
-    <Folder Include="Model\Crypto\" />
-    <Folder Include="Model\ServerSide\DiceGame\" />
+    <Folder Include="Implementation\Application\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\Games\Dice-Game\Combos\Single.cs" />

@@ -29,8 +29,6 @@ namespace GameClient
         {
             ClientTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42078);
             HeadTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42077);
-            //AuthenticationTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42079);
-            //AuthenticationTcpClient = new TcpClient(AuthenticationTcpEndPoint);
         }
         public static TcpClient InitHeadTcpClient()
         {
@@ -38,9 +36,7 @@ namespace GameClient
         }
         public static IPEndPoint ClientTcpEndPoint;
         public static TcpClient HeadTcpClient;
-        //public static TcpClient AuthenticationTcpClient;
         public static IPEndPoint HeadTcpEndPoint;
-        //public static IPEndPoint AuthenticationTcpEndPoint;
 
     }
 }

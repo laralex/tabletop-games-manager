@@ -1,13 +1,13 @@
-﻿using CommonLibrary.Implementation.Networking.Serializing;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net.Sockets;
-using System.Text;
+using CommonLibrary.Implementation.Networking.Serializing;
 
 namespace CommonLibrary.Implementation.Networking.Tcp
 {
+    /// <summary>
+    /// "TcpClient" convenient functions for sending and receiving 
+    /// some serializable types
+    /// </summary>
     public static class TcpClientExtensions
     {
         static public E Receive<E>(this TcpClient client)

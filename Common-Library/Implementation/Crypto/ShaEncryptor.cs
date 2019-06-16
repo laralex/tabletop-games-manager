@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Security.Cryptography;
 
 using System.Data.Linq;
 
 namespace CommonLibrary.Implementation.Crypto
 {
+    // With this encryptor we send and store users' passwords
+    // It's weak secutity hash, but better than plain text 
     public sealed class ShaEncryptor : BaseEncryptor
     {
         static new public byte[] Encrypt(string str)

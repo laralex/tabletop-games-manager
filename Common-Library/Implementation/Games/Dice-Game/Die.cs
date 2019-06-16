@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using CommonLibrary.Model;
-
+﻿
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    /// <summary>
+    /// One die - has side (1-6 or JOKER) and keeps game state (Selected/Unselected)
+    /// </summary>
     public enum DieSide { ONE, TWO, THREE, FOUR, FIVE, SIX, JOKER }
     public class Die
     {

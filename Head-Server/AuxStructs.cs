@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Net;
 
 namespace HeadServer
 {
+    /// <summary>
+    /// IP + timestamp, for storing them on server and prevent DDoS
+    /// if one IP tries to flood database requests
+    /// </summary>
     internal struct TimestampedIP
     {
         public IPAddress IP { get; set; }

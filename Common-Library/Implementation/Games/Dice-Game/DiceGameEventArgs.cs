@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using CommonLibrary.Model.Games;
-using CommonLibrary.Model.Games.Dice;
-
-using CommonLibrary.Implementation.Games.Dice;
 using CommonLibrary.Implementation.Games.Dice.Combos;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    /// <summary>
+    /// Many EventArgs for game events
+    /// </summary>
+
     public class DiceGameTurnSubmittedEventArgs : TurnSubmittedEventArgs
     {
         public int ScoreGained { get; }

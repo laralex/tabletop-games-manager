@@ -39,6 +39,8 @@ namespace GameClient.GUI.DiceGame
 
             Die die, prototype_die = CreateDie();
 
+            if (tblDiceBoard == null) return;
+
             tblDiceBoard.Controls.Clear();
 
             for (int i = 0; i < dice.Length; ++i)

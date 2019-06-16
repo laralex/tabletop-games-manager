@@ -1,15 +1,17 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using CommonLibrary.Model.Games.Dice;
+using CommonLibrary.Model.Games.Dice.Combos;
 
 namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
-    public class Single : Combo
+    /// <summary>
+    /// Single combo - single 1 gives 10 score
+    /// single 5 gives 5 score
+    /// </summary>
+    public class Single : ICombo
     {
-        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
+        public ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             List<Die> dice_copy = dice;
             byte[] found_combo_sides = new byte[6];

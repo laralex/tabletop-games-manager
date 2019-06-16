@@ -1,18 +1,19 @@
-﻿using CommonLibrary.Implementation.Games.Dice;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using CommonLibrary.Implementation.Games.Dice;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// Players select some Dice and server sends message to other players about it
+    /// </summary>
     [Serializable]
-    class ClientDiceSelectionMessage
+    class DiceOfPlayer
     {
         public DiceGamePlayer Player { get; set; }
         public List<Die> Dice { get; set; }
 
-        public ClientDiceSelectionMessage(DiceGamePlayer player, List<Die> dice)
+        public DiceOfPlayer(DiceGamePlayer player, List<Die> dice)
         {
             Player = player;
             Dice = dice;

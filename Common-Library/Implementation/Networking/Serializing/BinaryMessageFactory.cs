@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// Serializes and Deserializes some class E
+    /// </summary>
     public static class BinaryMessageFactory
     {
         static BinaryMessageFactory()

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace CommonLibrary.Implementation.ServerSide.Authentication
 {
+    /// <summary>
+    /// Data of user - Safe to network send 
+    /// </summary>
     [Serializable]
     public class UserEntry : IUser
     {

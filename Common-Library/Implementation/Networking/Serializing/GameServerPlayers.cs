@@ -1,11 +1,12 @@
 ﻿using CommonLibrary.Model.Games;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// Before start, server sends information about all connected players
+    /// </summary>
     [Serializable]
     public class GameServerPlayers
     {

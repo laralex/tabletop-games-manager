@@ -51,12 +51,11 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusLobby = new System.Windows.Forms.StatusStrip();
             this.statusLobbyUser = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusLobbyBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tabLobby = new System.Windows.Forms.TabPage();
+            this.lobbyServersList = new GameClient.GUI.ServerManager.ServersList();
             this.tabsControl = new System.Windows.Forms.TabControl();
-            this.serversList1 = new GameClient.GUI.ServerManager.ServersList();
             this.tabGame = new System.Windows.Forms.TabPage();
-            this.diceGame1 = new GameClient.GUI.DiceGame.DiceGameControl();
+            this.diceGameTab = new GameClient.GUI.DiceGame.DiceGameControl();
             this.contextMenu.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.statusLobby.SuspendLayout();
@@ -124,12 +123,14 @@
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
             this.logOutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.logOutToolStripMenuItem.Text = "&Log Out";
+            this.logOutToolStripMenuItem.Click += new System.EventHandler(this.OnLogOut);
             // 
             // seversToolStripMenuItem
             // 
             this.seversToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.currentServerToolStripMenuItem,
             this.connectedServersToolStripMenuItem});
+            this.seversToolStripMenuItem.Enabled = false;
             this.seversToolStripMenuItem.Name = "seversToolStripMenuItem";
             this.seversToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.seversToolStripMenuItem.Text = "&Servers";
@@ -175,6 +176,7 @@
             this.applicationFeaturesToolStripMenuItem,
             this.toolStripSeparator2,
             this.diceRulesToolStripMenuItem});
+            this.helpToolStripMenuItem.Enabled = false;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
@@ -206,8 +208,7 @@
             // statusLobby
             // 
             this.statusLobby.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLobbyUser,
-            this.statusLobbyBar});
+            this.statusLobbyUser});
             this.statusLobby.Location = new System.Drawing.Point(0, 473);
             this.statusLobby.Name = "statusLobby";
             this.statusLobby.Size = new System.Drawing.Size(764, 22);
@@ -220,14 +221,9 @@
             this.statusLobbyUser.Size = new System.Drawing.Size(102, 17);
             this.statusLobbyUser.Text = "User: USER_NAME";
             // 
-            // statusLobbyBar
-            // 
-            this.statusLobbyBar.Name = "statusLobbyBar";
-            this.statusLobbyBar.Size = new System.Drawing.Size(100, 16);
-            // 
             // tabLobby
             // 
-            this.tabLobby.Controls.Add(this.serversList1);
+            this.tabLobby.Controls.Add(this.lobbyServersList);
             this.tabLobby.Location = new System.Drawing.Point(4, 22);
             this.tabLobby.Name = "tabLobby";
             this.tabLobby.Padding = new System.Windows.Forms.Padding(3);
@@ -235,6 +231,15 @@
             this.tabLobby.TabIndex = 0;
             this.tabLobby.Text = "Lobby";
             this.tabLobby.UseVisualStyleBackColor = true;
+            // 
+            // lobbyServersList
+            // 
+            this.lobbyServersList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.lobbyServersList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lobbyServersList.Location = new System.Drawing.Point(3, 3);
+            this.lobbyServersList.Name = "lobbyServersList";
+            this.lobbyServersList.Size = new System.Drawing.Size(750, 417);
+            this.lobbyServersList.TabIndex = 0;
             // 
             // tabsControl
             // 
@@ -250,18 +255,9 @@
             this.tabsControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabsControl.TabIndex = 4;
             // 
-            // serversList1
-            // 
-            this.serversList1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.serversList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.serversList1.Location = new System.Drawing.Point(3, 3);
-            this.serversList1.Name = "serversList1";
-            this.serversList1.Size = new System.Drawing.Size(750, 417);
-            this.serversList1.TabIndex = 0;
-            // 
             // tabGame
             // 
-            this.tabGame.Controls.Add(this.diceGame1);
+            this.tabGame.Controls.Add(this.diceGameTab);
             this.tabGame.Location = new System.Drawing.Point(4, 22);
             this.tabGame.Name = "tabGame";
             this.tabGame.Padding = new System.Windows.Forms.Padding(3);
@@ -270,16 +266,16 @@
             this.tabGame.Text = "[Dice] Laralex";
             this.tabGame.UseVisualStyleBackColor = true;
             // 
-            // diceGame1
+            // diceGameTab
             // 
-            this.diceGame1.AutoSize = true;
-            this.diceGame1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.diceGame1.Location = new System.Drawing.Point(3, 3);
-            this.diceGame1.Name = "diceGame1";
-            this.diceGame1.Size = new System.Drawing.Size(750, 417);
-            this.diceGame1.TabIndex = 0;
+            this.diceGameTab.AutoSize = true;
+            this.diceGameTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.diceGameTab.Location = new System.Drawing.Point(3, 3);
+            this.diceGameTab.Name = "diceGameTab";
+            this.diceGameTab.Size = new System.Drawing.Size(750, 417);
+            this.diceGameTab.TabIndex = 0;
             // 
-            // AppForm
+            // AppFormDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -292,8 +288,8 @@
             this.HelpButton = true;
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(430, 400);
-            this.Name = "AppForm";
-            this.Text = "Lar.Alex Games";
+            this.Name = "AppFormDemo";
+            this.Text = "Lar Game Manager";
             this.contextMenu.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -332,11 +328,10 @@
         private System.Windows.Forms.ToolStripMenuItem disconnectFromServerToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusLobby;
         private System.Windows.Forms.ToolStripStatusLabel statusLobbyUser;
-        private System.Windows.Forms.ToolStripProgressBar statusLobbyBar;
         private System.Windows.Forms.TabPage tabLobby;
-        private ServerManager.ServersList serversList1;
+        private ServerManager.ServersList lobbyServersList;
         private System.Windows.Forms.TabControl tabsControl;
         private System.Windows.Forms.TabPage tabGame;
-        private DiceGame.DiceGameControl diceGame1;
+        private DiceGame.DiceGameControl diceGameTab;
     }
 }

@@ -1,9 +1,6 @@
 ﻿using CommonLibrary.Model.Networking;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 
 namespace CommonLibrary.Implementation.Networking.Udp
@@ -14,6 +11,11 @@ namespace CommonLibrary.Implementation.Networking.Udp
 
         public IPEndPoint Sender { get; internal set; }
     }
+
+    /// <summary>
+    /// UDP client, listening local port in separate thread
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
     public class UdpMessageListener<E> : IDisposable
     {
         private bool exit;
@@ -32,7 +34,6 @@ namespace CommonLibrary.Implementation.Networking.Udp
             {
                 try
                 {
-                    //E massage = reader.Read();
                     var args = new IncommingMessageEventArgs<E>
                     {
                         Message = reader.Receive(),

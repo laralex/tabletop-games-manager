@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using CommonLibrary.Model.ServerSide;
-
 using CommonLibrary.Model.Common;
-using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
-using ToHeadServerMessageType = CommonLibrary.Model.ServerSide.HeadServerAndGameServer.ToHeadServerMessageType;
-
+using CommonLibrary.Implementation.Common;
 
 namespace HeadServer.Debug
 {
-
+    /// <summary>
+    /// Wrapper of debugging console
+    /// It listens to events on head server and prints log in console
+    /// </summary>
     internal class HeadServerConsole
     {
         public HeadServerConsole(HeadServer server)
@@ -51,65 +47,65 @@ namespace HeadServer.Debug
         }
 
 
-        private string StringifyType(ThreadStateType type)
+        private string StringifyType(ThreadState type)
         {
             switch (type)
             {
-                case ThreadStateType.Begin:
+                case ThreadState.Begin:
                     return "BEGIN";
-                case ThreadStateType.End:
+                case ThreadState.End:
                     return "END";
-                case ThreadStateType.Resume:
+                case ThreadState.Resume:
                     return "RESUME";
-                case ThreadStateType.Stop:
+                case ThreadState.Stop:
                     return "STOP";
-                case ThreadStateType.Dummy:
+                case ThreadState.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ToHeadServerMessageType type)
+        private string StringifyType(GameToHeadServerMessage type)
         {
             switch (type)
             {
-                case ToHeadServerMessageType.ReqDetach:
+                case GameToHeadServerMessage.ReqDetach:
                     return "REQUEST REGISTER";
-                case ToHeadServerMessageType.ReqRegister:
+                case GameToHeadServerMessage.ReqRegister:
                     return "REQUEST DETACH";
-                case ToHeadServerMessageType.ReqStatusUpdate:
+                case GameToHeadServerMessage.ReqStatusUpdate:
                     return "REQUEST STATUS CHANGE";
-                case ToHeadServerMessageType.UseMyData:
+                case GameToHeadServerMessage.UseMyData:
                     return "USE MY CONFIG";
-                case ToHeadServerMessageType.Dummy:
+                case GameToHeadServerMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ToGameServerMessageType type)
+        private string StringifyType(HeadToGameServerMessage type)
         {
             switch (type)
             {
-                case ToGameServerMessageType.AckDetach:
+                case HeadToGameServerMessage.AckDetach:
                     return "PERMIT DETACH";
-                case ToGameServerMessageType.AckRegister:
+                case HeadToGameServerMessage.AckRegister:
                     return "PERMIT REGISTER";
-                case ToGameServerMessageType.AckStatusUpdate:
+                case HeadToGameServerMessage.AckStatusUpdate:
                     return "PERMIT STATUS UPDATE";
-                case ToGameServerMessageType.AckMyData:
+                case HeadToGameServerMessage.AckMyData:
                     return "APPLIED YOUR CONFIG";
-                case ToGameServerMessageType.AckStatusData:
+                case HeadToGameServerMessage.AckStatusData:
                     return "APPLIED YOUR STATUS";
-                case ToGameServerMessageType.DenyRegister:
+                case HeadToGameServerMessage.DenyRegister:
                     return "DENY REGISTER";
-                case ToGameServerMessageType.DenyStatusUpdate:
+                case HeadToGameServerMessage.DenyStatusUpdate:
                     return "DENY STATUS UPDATE";
-                case ToGameServerMessageType.DenyMyData:
+                case HeadToGameServerMessage.DenyMyData:
                     return "DENY YOUR CONFIG";
-                case ToGameServerMessageType.DenyStatusData:
+                case HeadToGameServerMessage.DenyStatusData:
                     return "DENY YOUR STATUS";
-                case ToGameServerMessageType.Dummy:
+                case HeadToGameServerMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;

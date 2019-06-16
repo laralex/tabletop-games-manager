@@ -11,12 +11,20 @@ using System.Text;
 
 namespace GameServer
 {
-    /// <summary>
-    /// The main entry point for the application.
-    /// </summary>
     class EntryPoint
     {
-        // "DICE testServer 5 90 1000 5 0"
+        /// <summary>
+        /// Dice server now uses CLI arguments, 
+        /// e.g. "DICE testServer 5 90 1000 5 0"
+        /// Pass:
+        /// 1) game_type = "DICE"
+        /// 2) server_name = "testServer"
+        /// 3) max_players_to_connect = 5
+        /// 4) time_of_one_turn_in_sec = 90
+        /// 5) score_goal = 1000
+        /// 6) dice_number = 5
+        /// 7) is_joker_allowed = 0 (only 0 supported)
+        /// </summary>
         static void Main(string[] args)
         {
             string GameType = args[0];
@@ -29,7 +37,7 @@ namespace GameServer
 
             GameOptions game_options = null;
            
-            //IGameServer server = null;
+            IGameServer server = null;
             switch (GameType) {
                 case "DICE":
                     var d_game_options = new DiceGameOptions();
@@ -41,19 +49,25 @@ namespace GameServer
 
                     game_options = d_game_options;
 
-                    //server = new DiceGameServer(d_game_options, Name);
+                    server = new DiceGameServer(d_game_options, Name);
                     break;
                 default:
                     break;
             }
-            /*if (server != null)
+            if (server != null)
             {
                 server.Initialize();
                 GameServerConsole debug_console = new GameServerConsole(server);
                 server.Start();
                 server.Dispose();
             } 
-            */
+        }   
+    }
+}
+
+
+
+/*   Debug code:       
             DiceGameController game = new DiceGameController();
             var users = new List<UserSocket>();
             users.Add(new UserSocket() {
@@ -70,6 +84,4 @@ namespace GameServer
             });
             game.StartupGame(game_options, users);
             //game.StartFirstTurn();
-        }   
-    }
-}
+ */

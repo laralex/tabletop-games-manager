@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 
 namespace CommonLibrary.Implementation.Networking
 {
+
+    /// <summary>
+    /// Convenient Socket extension methods for sending strings and 
+    /// bufferized send/receive of big binary data
+    /// </summary>
     static class SocketExtentions
     {
         public static byte[] ReceiveAllData(this Socket socket)

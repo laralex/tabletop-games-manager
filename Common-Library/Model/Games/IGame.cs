@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using CommonLibrary.Implementation.Games;
 
 namespace CommonLibrary.Model.Games
 {
+    /// <summary>
+    /// The game minimal functionality (Start / Shutdown / Manage players)
+    /// </summary>
     public interface IGame
     {
         event EventHandler<GameStartedEventArgs> GameStarted;

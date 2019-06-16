@@ -1,15 +1,18 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using CommonLibrary.Model.Games.Dice;
+using CommonLibrary.Model.Games.Dice.Combos;
 
 namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
-    public class Street : Combo
+    /// <summary>
+    /// Street combo - 5 dice in order.
+    /// e.g. 1,2,3,4,5 => Score=100,
+    /// e.g. 2,3,4,5,6 => Score=200
+    /// </summary>
+    public class Street : ICombo
     {
-        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
+        public ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             List<Die> dice_copy = dice;
 

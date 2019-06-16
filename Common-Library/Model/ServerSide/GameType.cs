@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CommonLibrary.Model.ServerSide
+﻿namespace CommonLibrary.Model.ServerSide
 {
+    /// <summary>
+    /// Type of game played on Game Server
+    /// </summary>
     public enum GameType
     {
         Dice,
-        TicTacToe,
-        WorldOfWarcraft
+        WorldOfWarcraft,
+        Chess
     }
 }

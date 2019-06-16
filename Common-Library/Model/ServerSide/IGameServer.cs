@@ -1,16 +1,16 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
-using System.Text;
-
 using CommonLibrary.Implementation.Games;
 using CommonLibrary.Model.Application;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndGameServer;
 
 namespace CommonLibrary.Model.ServerSide
 {
+    /// <summary>
+    /// Game Server minimal functionality
+    /// - Managing users connections
+    /// - Managing game state
+    /// - Events on this
+    /// </summary>
     public interface IGameServer : IServer
     {
         GameType GameType { get; }

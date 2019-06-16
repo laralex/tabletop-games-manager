@@ -46,13 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\AuthenticationBackend.cs" />
-    <Compile Include="Application\DiceGameView.cs" />
     <Compile Include="Application\LobbyBackend.cs" />
-    <Compile Include="GUI\Application\AppFormDemo.cs">
+    <Compile Include="GUI\Application\AppForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Application\AppFormDemo.Designer.cs">
-      <DependentUpon>AppFormDemo.cs</DependentUpon>
+    <Compile Include="GUI\Application\AppForm.Designer.cs">
+      <DependentUpon>AppForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Application\AboutBox.cs">
       <SubType>Form</SubType>
@@ -60,11 +59,11 @@
     <Compile Include="GUI\Application\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Application\AppForm.cs">
+    <Compile Include="GUI\Application\AppFormDemo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Application\AppForm.Designer.cs">
-      <DependentUpon>AppForm.cs</DependentUpon>
+    <Compile Include="GUI\Application\AppFormDemo.Designer.cs">
+      <DependentUpon>AppFormDemo.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Debug\Test.cs">
       <SubType>Form</SubType>
@@ -77,6 +76,12 @@
     </Compile>
     <Compile Include="GUI\DiceGame\Die.Designer.cs">
       <DependentUpon>Die.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DiceGame\GameDemo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DiceGame\GameDemo.Designer.cs">
+      <DependentUpon>GameDemo.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\DiceGame\Game.cs">
       <SubType>UserControl</SubType>
@@ -134,6 +139,12 @@
     <Compile Include="GUI\ServerManager\ServerCreator\ServerCreationForm.Designer.cs">
       <DependentUpon>ServerCreationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ServerManager\ServersListDemo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ServerManager\ServersListDemo.Designer.cs">
+      <DependentUpon>ServersListDemo.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ServerManager\ServersList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,17 +155,20 @@
     <EmbeddedResource Include="GUI\Application\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Application\AppFormDemo.resx">
-      <DependentUpon>AppFormDemo.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Application\AppForm.resx">
       <DependentUpon>AppForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Application\AppFormDemo.resx">
+      <DependentUpon>AppFormDemo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Debug\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DiceGame\Die.resx">
       <DependentUpon>Die.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DiceGame\GameDemo.resx">
+      <DependentUpon>GameDemo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DiceGame\Game.resx">
       <DependentUpon>Game.cs</DependentUpon>
@@ -185,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ServerManager\ServerCreator\ServerCreationForm.resx">
       <DependentUpon>ServerCreationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ServerManager\ServersListDemo.resx">
+      <DependentUpon>ServersListDemo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ServerManager\ServersList.resx">
       <DependentUpon>ServersList.cs</DependentUpon>
@@ -264,8 +281,6 @@
       <Name>Game-Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Server-Side\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

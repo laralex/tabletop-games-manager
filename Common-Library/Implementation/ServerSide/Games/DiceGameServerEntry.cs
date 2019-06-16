@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace CommonLibrary.Implementation.ServerSide
 {
+
+    // ! Unused now
+
+    /// <summary>
+    /// Registration data of Dice Game Server 
+    /// </summary>
     public class DiceGameServerEntry : GameServerEntry
     {
         public int? TurnTimeSec { get; set; }

@@ -1,15 +1,20 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using CommonLibrary.Model.Games.Dice;
+using CommonLibrary.Model.Games.Dice.Combos;
 
 namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
-    public class Quad : Combo
+    /// <summary>
+    /// Quad combo - 4 dice with same value.
+    /// Score = 20 * dice value
+    /// e.g. quad 6, 6, 6, 6 => Score=20*6
+    /// except for quad of ones: Score=200 
+    /// </summary>
+    public class Quad : ICombo
     {
-        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
+        public ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             if (dice == null)
             {

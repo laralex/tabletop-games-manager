@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using HeadServer.DB;
-using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
 using CommonLibrary.Model.ServerSide;
-using CommonLibrary.Model.Common;
 using CommonLibrary.Implementation.ServerSide;
 
 namespace HeadServer
 {
 
-
+    /// <summary>
+    /// These Event args are attached to events on head server
+    /// when game server interconnection orrurs
+    /// </summary>
     internal class MessageFromGameServerEventArgs : EventArgs
     {
 
-        public ToHeadServerMessageType MessageType { get; }
+        public GameToHeadServerMessage MessageType { get; }
         public GameServerEntry Server { get; }
-        public MessageFromGameServerEventArgs(GameServerEntry server, ToHeadServerMessageType type)
+        public MessageFromGameServerEventArgs(GameServerEntry server, GameToHeadServerMessage type)
         {
             Server = server;
             MessageType = type;
@@ -28,9 +24,9 @@ namespace HeadServer
 
     internal class MessageToGameServerEventArgs : EventArgs
     {
-        public ToGameServerMessageType MessageType { get; }
+        public HeadToGameServerMessage MessageType { get; }
         public GameServerEntry Server { get; }
-        public MessageToGameServerEventArgs(GameServerEntry server, ToGameServerMessageType type)
+        public MessageToGameServerEventArgs(GameServerEntry server, HeadToGameServerMessage type)
         {
             Server = server;
             MessageType = type;

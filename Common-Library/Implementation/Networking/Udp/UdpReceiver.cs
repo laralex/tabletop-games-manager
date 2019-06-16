@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using CommonLibrary.Model.Networking;
 
 using CommonLibrary.Implementation.Networking.Serializing;
 
 namespace CommonLibrary.Implementation.Networking.Udp
 {
+    /// <summary>
+    /// UdpClient connected to local UDP port to receive datagrams
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
     public class UdpReceiver<E> : INetworkReceiver<E>
     {
         

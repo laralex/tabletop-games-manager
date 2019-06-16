@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
+
 using CommonLibrary.Implementation.Games;
 using CommonLibrary.Implementation.Games.Dice;
 using CommonLibrary.Model.Application;
 using CommonLibrary.Model.ServerSide;
 
 using CommonLibrary.Model.Common;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndGameServer;
-using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
-using GameServer.Debug;
 using CommonLibrary.Implementation.ServerSide.Authentication;
+using CommonLibrary.Implementation.Common;
 
 namespace GameServer.Games.Dice
 {
+    /// <summary>
+    /// "Dice" Game server implementation
+    /// </summary>
     internal class DiceGameServer : IGameServer
     {
         public GameType GameType { get => GameType.Dice; }
@@ -91,8 +92,7 @@ namespace GameServer.Games.Dice
 
                 //_network_handling_thread.Start();
 
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
-                //_log_console.NetworkThreadMessage(ThreadStateType.Begin); // d
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadState.Begin));
 
             }
         }
@@ -119,7 +119,7 @@ namespace GameServer.Games.Dice
             if (this.Status == ServerStatus.Stopped || this.Status == ServerStatus.Initialized)
             {
                 //this._thread_mre.Set();
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Resume));
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadState.Resume));
                 //_log_console.NetworkThreadMessage(ThreadStateType.Resume); // d
                 this.Status = ServerStatus.Running;
             }

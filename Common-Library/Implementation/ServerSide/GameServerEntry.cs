@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Net;
 
 namespace CommonLibrary.Implementation.ServerSide
 {
+    /// <summary>
+    /// Game Server registration data for Head Server
+    /// </summary>
     [Serializable]
     public class GameServerEntry
     {

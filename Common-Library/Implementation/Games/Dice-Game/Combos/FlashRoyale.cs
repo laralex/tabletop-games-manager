@@ -1,15 +1,17 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using CommonLibrary.Model.Games.Dice;
+using CommonLibrary.Model.Games.Dice.Combos;
 
 namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
-    public class FlashRoyale : Combo
+    /// <summary>
+    /// Flash Royale combo - 5 dice with same value ONE.
+    /// Score = 350  
+    /// </summary>
+    public class FlashRoyale : ICombo
     {
-        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
+        public ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             if (dice == null)
             {

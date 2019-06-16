@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace CommonLibrary.Model.Networking
 {
+    /// <summary>
+    /// Entity is able to send and receive some class instance by network
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
     public interface INetworkMessenger<E> : INetworkReceiver<E>, INetworkSender<E>
     {
 

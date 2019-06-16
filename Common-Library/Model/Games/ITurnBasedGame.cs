@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommonLibrary.Model.Games
 {
+    /// <summary>
+    /// The game with turns mechanic (like chess, checkers, dice, poker)
+    /// </summary>
     public interface ITurnBasedGame : IGame
     {
         event EventHandler<TurnSwitchedEventArgs> TurnSwitched;

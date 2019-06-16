@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer
+﻿namespace CommonLibrary.Model.ServerSide
 {
-
-    public enum ToHeadServerMessageType
+    /// <summary>
+    /// Codes for messages between HeadServer and Client
+    /// </summary>
+    public enum ClientToHeadServerMessage
     {
         Dummy,
         ReqLogIn, // REQ_LOGIN
@@ -15,7 +12,7 @@ namespace CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer
         ReqServersList,
         UseMyData,
     }
-    public enum ToApplicationClientMessageType                         
+    public enum HeadServerToClientMessage                         
     {
         Dummy,
         AckLogInReq,

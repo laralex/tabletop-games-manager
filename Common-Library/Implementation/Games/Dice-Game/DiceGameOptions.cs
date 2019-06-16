@@ -1,8 +1,10 @@
-﻿using CommonLibrary.Implementation.Games;
-using System;
+﻿using System;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    /// <summary>
+    /// Initial game Options, specific for "Dice" game
+    /// </summary>
     [Serializable]
     public class DiceGameOptions : GameOptions
     {

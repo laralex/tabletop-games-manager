@@ -1,11 +1,11 @@
-﻿using CommonLibrary.Model.Games;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using CommonLibrary.Model.Games;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    /// <summary>
+    /// Player of game "Dice" - has name and current score
+    /// </summary>
     [Serializable]
     public class DiceGamePlayer : IPlayer
     {

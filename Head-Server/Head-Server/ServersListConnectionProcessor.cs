@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 using CommonLibrary.Implementation.Networking.Serializing;
 using CommonLibrary.Implementation.Networking.Tcp;
 using CommonLibrary.Implementation.ServerSide;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+using CommonLibrary.Model.ServerSide;
 
 namespace HeadServer
 {
+    /// <summary>
+    /// When head server receives TCP connection with request to give list of servers
+    /// This class's method should be opened in new THREAD
+    /// Class will send data asynchronously
+    /// </summary>
     internal class ServersListConnectionProcessor
     {
         private TcpClient _client;
@@ -23,7 +28,7 @@ namespace HeadServer
 
         public void ProcessConnection()
         {
-            _client.Send(new ServersListMessage(_servers_list));
+            _client.Send(new AllServersList(_servers_list));
             _client.Close();
             return;
         }

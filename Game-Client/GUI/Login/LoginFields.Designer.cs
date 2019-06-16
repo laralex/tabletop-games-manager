@@ -31,6 +31,7 @@
             System.Windows.Forms.Button btnRegister;
             System.Windows.Forms.Label lblLoginUsername;
             System.Windows.Forms.Label lblLoginPassword;
+            System.Windows.Forms.Button btnShowGuiDemo;
             this.lblErrorMessage = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtLoginUsername = new System.Windows.Forms.TextBox();
@@ -38,6 +39,7 @@
             btnRegister = new System.Windows.Forms.Button();
             lblLoginUsername = new System.Windows.Forms.Label();
             lblLoginPassword = new System.Windows.Forms.Label();
+            btnShowGuiDemo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnRegister
@@ -77,6 +79,16 @@
             lblLoginPassword.Size = new System.Drawing.Size(64, 17);
             lblLoginPassword.TabIndex = 13;
             lblLoginPassword.Text = "Password";
+            // 
+            // btnShowGuiDemo
+            // 
+            btnShowGuiDemo.Location = new System.Drawing.Point(7, 117);
+            btnShowGuiDemo.Name = "btnShowGuiDemo";
+            btnShowGuiDemo.Size = new System.Drawing.Size(96, 21);
+            btnShowGuiDemo.TabIndex = 18;
+            btnShowGuiDemo.Text = "Show GUI Demo";
+            btnShowGuiDemo.UseVisualStyleBackColor = true;
+            btnShowGuiDemo.Click += new System.EventHandler(this.OnGuiDemoClick);
             // 
             // lblErrorMessage
             // 
@@ -133,6 +145,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(btnShowGuiDemo);
             this.Controls.Add(this.lblErrorMessage);
             this.Controls.Add(btnRegister);
             this.Controls.Add(lblLoginUsername);

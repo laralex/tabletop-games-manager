@@ -1,12 +1,11 @@
 ﻿using CommonLibrary.Model.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace CommonLibrary.Implementation.ServerSide.Authentication
 {
+    /// <summary>
+    /// Name of user + IP + port of sender client
+    /// </summary>
     public struct UserSocket
     {
         public UserSocket(IUser user, IPEndPoint socket) : this()

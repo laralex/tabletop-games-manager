@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using CommonLibrary.Model.ServerSide;
-
 using CommonLibrary.Model.Common;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndGameServer;
-using ToHeadServerMessageType = CommonLibrary.Model.ServerSide.HeadServerAndGameServer.ToHeadServerMessageType;
-using ToGameServerFromHead = CommonLibrary.Model.ServerSide.HeadServerAndGameServer.ToGameServerMessageType;
+using CommonLibrary.Implementation.Common;
 
 namespace GameServer.Debug
 {
 
+    /// <summary>
+    /// Wrapper of debugging console
+    /// It listens to events on game server and prints log in console
+    /// </summary>
 
     internal class GameServerConsole
     {
@@ -89,125 +86,125 @@ namespace GameServer.Debug
             }
         }
 
-        private string StringifyType(ToGameServerMessageType type)
+        private string StringifyType(ClientToGameServerMessage type)
         {
             switch (type)
             {
-                case ToGameServerMessageType.ReqConnect:
+                case ClientToGameServerMessage.ReqConnect:
                     return "REQUEST CONNECT";
-                case ToGameServerMessageType.ReqConfig:
+                case ClientToGameServerMessage.ReqConfig:
                     return "REQUEST CONFIG";
-                case ToGameServerMessageType.ReqDisconnect:
+                case ClientToGameServerMessage.ReqDisconnect:
                     return "REQUEST DISCONNECT";
-                case ToGameServerMessageType.SelectDie:
+                case ClientToGameServerMessage.SelectDie:
                     return "REQUEST SELECT DIE";
-                case ToGameServerMessageType.GetScoreOfSelection:
+                case ClientToGameServerMessage.GetScoreOfSelection:
                     return "CALCULATE SCORE OF SELECTED";
-                case ToGameServerMessageType.SubmitDice:
+                case ClientToGameServerMessage.SubmitDice:
                     return "SUBMIT DICE";
-                case ToGameServerMessageType.EndTurn:
+                case ClientToGameServerMessage.EndTurn:
                     return "END OF TURN";
-                case ToGameServerMessageType.Dummy:
+                case ClientToGameServerMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ThreadStateType type)
+        private string StringifyType(ThreadState type)
         {
             switch (type)
             {
-                case ThreadStateType.Begin:
+                case ThreadState.Begin:
                     return "BEGIN";
-                case ThreadStateType.End:
+                case ThreadState.End:
                     return "END";
-                case ThreadStateType.Resume:
+                case ThreadState.Resume:
                     return "RESUME";
-                case ThreadStateType.Stop:
+                case ThreadState.Stop:
                     return "STOP";
-                case ThreadStateType.Dummy:
+                case ThreadState.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ToApplicationClientMessageType type)
+        private string StringifyType(GameServerToClientMessage type)
         {
             switch (type)
             {
-                case ToApplicationClientMessageType.ReqDisconnect:
+                case GameServerToClientMessage.ReqDisconnect:
                     return "REQUEST DISCONNECT";
-                case ToApplicationClientMessageType.UseConfig:
+                case GameServerToClientMessage.UseConfig:
                     return "USE THIS CONFIG";
-                case ToApplicationClientMessageType.AckConnect:
+                case GameServerToClientMessage.AckConnect:
                     return "I CONNECT YOU";
-                case ToApplicationClientMessageType.TurnSwitch:
+                case GameServerToClientMessage.TurnSwitch:
                     return "TURN SWITCH";
-                case ToApplicationClientMessageType.Reroll:
+                case GameServerToClientMessage.Reroll:
                     return "REROLL";
-                case ToApplicationClientMessageType.YourTurn:
+                case GameServerToClientMessage.YourTurn:
                     return "YOUR TURN";
-                case ToApplicationClientMessageType.Failure:
+                case GameServerToClientMessage.Failure:
                     return "FAILURE OF TURN";
-                case ToApplicationClientMessageType.PlayerKicked:
+                case GameServerToClientMessage.PlayerKicked:
                     return "PLAYER KICKED";
-                case ToApplicationClientMessageType.GameEnd:
+                case GameServerToClientMessage.GameEnd:
                     return "GAME ENDED";
-                case ToApplicationClientMessageType.GameStart:
+                case GameServerToClientMessage.GameStart:
                     return "GAME STARTED";
-                case ToApplicationClientMessageType.GameShutdown:
+                case GameServerToClientMessage.GameShutdown:
                     return "GAME SHUTDOWN";
-                case ToApplicationClientMessageType.UseScoreOfSelection:
+                case GameServerToClientMessage.UseScoreOfSelection:
                     return "USE SCORE OF SELECTION";
-                case ToApplicationClientMessageType.DiceSubmitted:
+                case GameServerToClientMessage.DiceSubmitted:
                     return "DICE SUBMITTED";
-                case ToApplicationClientMessageType.Dummy:
+                case GameServerToClientMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ToGameServerFromHead type)
+        private string StringifyType(HeadToGameServerMessage type)
         {
             switch (type)
             {
-                case ToGameServerFromHead.AckRegister:
+                case HeadToGameServerMessage.AckRegister:
                     return "ACK YOUR REGISTER";
-                case ToGameServerFromHead.AckMyData:
+                case HeadToGameServerMessage.AckMyData:
                     return "ACK YOUR DATA";
-                case ToGameServerFromHead.AckDetach:
+                case HeadToGameServerMessage.AckDetach:
                     return "ACK YOUR DETACH";
-                case ToGameServerFromHead.AckStatusUpdate:
+                case HeadToGameServerMessage.AckStatusUpdate:
                     return "ACK STATUS UPD REQ";
-                case ToGameServerFromHead.AckStatusData:
+                case HeadToGameServerMessage.AckStatusData:
                     return "ACK STATUS UPD DATA";
-                case ToGameServerFromHead.DenyRegister:
+                case HeadToGameServerMessage.DenyRegister:
                     return "DENY YOUR REGISTER";
-                case ToGameServerFromHead.DenyMyData:
+                case HeadToGameServerMessage.DenyMyData:
                     return "DENY YOUR DATA";
-                case ToGameServerFromHead.DenyStatusUpdate:
+                case HeadToGameServerMessage.DenyStatusUpdate:
                     return "DENY STATUS UPD REQ";
-                case ToGameServerFromHead.DenyStatusData:
+                case HeadToGameServerMessage.DenyStatusData:
                     return "DENY STATUS UPD DATA";
-                case ToGameServerFromHead.Dummy:
+                case HeadToGameServerMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ToHeadServerMessageType type)
+        private string StringifyType(GameToHeadServerMessage type)
         {
             switch (type)
             {
-                case ToHeadServerMessageType.ReqRegister:
+                case GameToHeadServerMessage.ReqRegister:
                     return "REQ MY REGISTER";
-                case ToHeadServerMessageType.ReqDetach:
+                case GameToHeadServerMessage.ReqDetach:
                     return "REQ MY DETACH";
-                case ToHeadServerMessageType.ReqStatusUpdate:
+                case GameToHeadServerMessage.ReqStatusUpdate:
                     return "REQ STATUS UPD";
-                case ToHeadServerMessageType.UseMyData:
+                case GameToHeadServerMessage.UseMyData:
                     return "REQ USE MY DATA";
-                case ToHeadServerMessageType.Dummy:
+                case GameToHeadServerMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;

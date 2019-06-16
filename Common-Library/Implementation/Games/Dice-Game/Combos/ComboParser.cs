@@ -4,14 +4,19 @@ using System.Linq;
 using System.Text;
 
 using CommonLibrary.Model.Games.Dice;
+using CommonLibrary.Model.Games.Dice.Combos;
 
 namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
+    /// <summary>
+    /// Class is a "Facade" for calculating best possible combos 
+    /// in given dice and maximum score, that may be given 
+    /// </summary>
     public class ComboParser
     {
         static ComboParser()
         {
-            _combos = new Combo[] {
+            _combos = new ICombo[] {
                 new Combos.Single(),
                 new Combos.Street(),
                 new Combos.Set(),
@@ -40,7 +45,7 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
             {
                 best_result = null;
                 int max_score = int.MinValue;
-                foreach (Combo combo_type in _combos)
+                foreach (ICombo combo_type in _combos)
                 {
                     cur_result = combo_type.GetMaxCombo(dice_copy, true);
                     if (cur_result?.Score > max_score)
@@ -64,9 +69,13 @@ namespace CommonLibrary.Implementation.Games.Dice.Combos
             return new AllCombosInDice(accum, accum_score);     
         }
 
-        private static Combo[] _combos; 
+        private static ICombo[] _combos; 
     }
 
+    /// <summary>
+    /// The result of parsing - maximum score 
+    /// given by dice and appropriate combos 
+    /// </summary>
     public class AllCombosInDice
     {
         public int TotalScore { get; }

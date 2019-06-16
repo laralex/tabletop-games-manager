@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Net;
 using System.Timers;
 using CommonLibrary.Model.ServerSide;
-
-using CommonLibrary.Implementation.Networking;
-using CommonLibrary.Implementation.Networking.Tcp;
-
-using HeadServer;
 using HeadServer.DB;
-using HeadServer.Debug;
 using System.Threading;
-using CommonLibrary.Model.Common;
-
 using CommonLibrary.Implementation.ServerSide.Authentication;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
 using System.Net.Sockets;
+using CommonLibrary.Implementation.Common;
 
 namespace HeadServer.AuthenticationServer
 {
+    /// <summary>
+    /// Server is using database to add new users in DB, and select user data
+    /// from it to provide authentication
+    /// </summary>
     internal class AuthenticationServer : IServer     
     {
 
@@ -40,7 +34,7 @@ namespace HeadServer.AuthenticationServer
         public AuthenticationServer(TcpListener listener, DatabaseServer db)
         {
             Status = ServerStatus.Uninitialized;
-            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 10);
+            RecentIPsUpdateRate = new TimeSpan(hours: 0, minutes: 0, seconds: 15);
 
             Socket = null;
             _tcp_listener = listener;
@@ -80,7 +74,7 @@ namespace HeadServer.AuthenticationServer
             {
                 _thread_mre.Reset();
 
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Stop));
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Stop));
                 //_log_console.AuthNetworkThreadMessage(ThreadStateType.Stop);  // d
                 this.Status = ServerStatus.Stopped;
             }
@@ -97,7 +91,7 @@ namespace HeadServer.AuthenticationServer
                 //_tcp_listener.Start();
                 _network_handling_thread.Start();
 
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Begin));
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Begin));
                 //_log_console.AuthNetworkThreadMessage(ThreadStateType.Begin); // d
             }
             
@@ -113,7 +107,7 @@ namespace HeadServer.AuthenticationServer
             {
                 _thread_mre.Set();
 
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Resume));
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Resume));
                 //_log_console.AuthNetworkThreadMessage(ThreadStateType.Resume); // d
                 this.Status = ServerStatus.Running;
             }
@@ -136,7 +130,7 @@ namespace HeadServer.AuthenticationServer
             while (true)
             {
                 // TODO: collect messages
-                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(ThreadStateType.Dummy));
+                OnThreadStateChange?.Invoke(this, new ThreadStateEventArgs(CommonLibrary.Model.Common.ThreadState.Dummy));
                 Thread.Sleep(2000);
             }
         }

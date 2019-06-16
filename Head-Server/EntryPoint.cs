@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using HeadServer.Debug;
+﻿using HeadServer.Debug;
 using System.Net;
-using CommonLibrary.Implementation.ServerSide.Authentication;
-using CommonLibrary.Implementation.ServerSide;
 
 namespace HeadServer
 {
+    /// <summary>
+    /// Main entry point of Head server project
+    /// </summary>
     class EntryPoint
     {
         static void Main(string[] args)
@@ -19,6 +15,19 @@ namespace HeadServer
             head.Initialize();
             HeadServerDebugManager debug_console = new HeadServerDebugManager(head, head.AuthServer);
             head.Start();
+        }
+
+        static EntryPoint()
+        {
+            HeadTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42077);
+        }
+        public static IPEndPoint HeadTcpEndPoint;
+    }
+}
+
+
+/*  Debug 
+     head.Start();
             if (head.AuthServer.TrySignUp(IPAddress.Loopback, new UserEntry("123", CommonLibrary.Implementation.Crypto.ShaEncryptor.Encrypt("123"))) == CommonLibrary.Model.ServerSide.SignupError.AllOk)
                 Console.WriteLine("Signup OK");
             if (head.AuthServer.TrySignUp(IPAddress.Loopback, new UserEntry("laralex", CommonLibrary.Implementation.Crypto.ShaEncryptor.Encrypt("admin228"))) == CommonLibrary.Model.ServerSide.SignupError.AllOk)
@@ -58,15 +67,4 @@ namespace HeadServer
             //head.Dispose();
 
             //debug_console.EndOfProcessMessage();
-        }
-
-        static EntryPoint()
-        {
-            HeadTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42077);
-            //AuthenticationTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42079);
-            //AuthenticationTcpClient = new TcpClient(AuthenticationTcpEndPoint);
-        }
-        //public static TcpClient AuthenticationTcpClient;
-        public static IPEndPoint HeadTcpEndPoint;
-    }
-}
+     */

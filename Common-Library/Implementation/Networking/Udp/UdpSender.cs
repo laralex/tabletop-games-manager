@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using CommonLibrary.Model.Networking;
 using CommonLibrary.Implementation.Networking.Serializing;
 
 namespace CommonLibrary.Implementation.Networking.Udp
 {
+    /// <summary>
+    /// UdpClient connected to remote host to send datagrams
+    /// </summary>
     class UdpSender<E> : INetworkSender<E>
     {
         public IPEndPoint OwnEndPoint { get; private set; }

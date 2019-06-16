@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CommonLibrary.Model.ServerSide.ApplicationClientAndGameServer
+﻿namespace CommonLibrary.Model.ServerSide
 {
-    public enum ToGameServerMessageType
+    /// <summary>
+    /// Codes for messages between GameServer and Client
+    /// </summary>
+    public enum ClientToGameServerMessage
     {
         ReqConnect,
         ReqConfig,
@@ -17,7 +15,7 @@ namespace CommonLibrary.Model.ServerSide.ApplicationClientAndGameServer
         Dummy
     }
 
-    public enum ToApplicationClientMessageType
+    public enum GameServerToClientMessage
     {
         ReqDisconnect,
         UseConfig,

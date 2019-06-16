@@ -1,15 +1,17 @@
 ﻿using CommonLibrary.Implementation.Networking.Serializing;
 using CommonLibrary.Model.Networking;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Tcp
 {
+    /// <summary>
+    /// Facade of TcpClient's NetworkStream for more
+    /// convenient Send and Receive
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
     public class TcpMessenger<E> : INetworkMessenger<E>
     {
         public IPEndPoint RemoteEndPoint => throw new NotImplementedException();

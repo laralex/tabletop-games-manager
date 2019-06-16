@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using HeadServer.AuthenticationServer;
-//using CommonLibrary.Model.ServerSide;
+using CommonLibrary.Implementation.Common;
 using CommonLibrary.Model.Common;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
-//using CommonLibrary.Model.ServerSide.HeadServerAndGameServer;
-using ToHeadServerMessageType = CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer.ToHeadServerMessageType;
+using CommonLibrary.Model.ServerSide;
 
 namespace HeadServer.Debug
 {
 
-
+    /// <summary>
+    /// Wrapper of debugging console
+    /// It listens to events on authentication server and prints log in console
+    /// </summary>
     internal class AuthenticationServerConsole
     {
         public AuthenticationServerConsole(AuthenticationServer.AuthenticationServer server)
@@ -56,65 +51,65 @@ namespace HeadServer.Debug
             Console.WriteLine("\tAuth server: TERMINATE");
         }
 
-        private string StringifyType(ToHeadServerMessageType type)
+        private string StringifyType(ClientToHeadServerMessage type)
         {
             switch (type)
             {
-                case ToHeadServerMessageType.ReqLogIn:
+                case ClientToHeadServerMessage.ReqLogIn:
                     return "REQUEST LOG IN";
-                case ToHeadServerMessageType.ReqLogOut:
+                case ClientToHeadServerMessage.ReqLogOut:
                     return "REQUEST LOG OUT";
-                case ToHeadServerMessageType.ReqSignUp:
+                case ClientToHeadServerMessage.ReqSignUp:
                     return "REQUEST SIGN UP";
-                case ToHeadServerMessageType.ReqServersList:
+                case ClientToHeadServerMessage.ReqServersList:
                     return "REQUEST SERVERS LIST";
-                case ToHeadServerMessageType.UseMyData:
+                case ClientToHeadServerMessage.UseMyData:
                     return "USE MY ACCOUNT DATA";
-                case ToHeadServerMessageType.Dummy:
+                case ClientToHeadServerMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ThreadStateType type)
+        private string StringifyType(ThreadState type)
         {
             switch (type)
             {
-                case ThreadStateType.Begin:
+                case ThreadState.Begin:
                     return "BEGIN";
-                case ThreadStateType.End:
+                case ThreadState.End:
                     return "END";
-                case ThreadStateType.Resume:
+                case ThreadState.Resume:
                     return "RESUME";
-                case ThreadStateType.Stop:
+                case ThreadState.Stop:
                     return "STOP";
-                case ThreadStateType.Dummy:
+                case ThreadState.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;
         }
 
-        private string StringifyType(ToApplicationClientMessageType type)
+        private string StringifyType(HeadServerToClientMessage type)
         {
             switch (type)
             {
-                case ToApplicationClientMessageType.AckLogIn:
+                case HeadServerToClientMessage.AckLogIn:
                     return "PERMIT DETACH";
-                case ToApplicationClientMessageType.AckLogOut:
+                case HeadServerToClientMessage.AckLogOut:
                     return "PERMIT REGISTER";
-                case ToApplicationClientMessageType.AckSignUp:
+                case HeadServerToClientMessage.AckSignUp:
                     return "PERMIT STATUS UPDATE";
-                case ToApplicationClientMessageType.AckMyData:
+                case HeadServerToClientMessage.AckMyData:
                     return "APPLIED YOUR CONFIG";
-                case ToApplicationClientMessageType.DenyLogIn:
+                case HeadServerToClientMessage.DenyLogIn:
                     return "APPLIED YOUR STATUS";
-                case ToApplicationClientMessageType.DenyServerList:
+                case HeadServerToClientMessage.DenyServerList:
                     return "DENY REGISTER";
-                case ToApplicationClientMessageType.DenySignUp:
+                case HeadServerToClientMessage.DenySignUp:
                     return "DENY STATUS UPDATE";
-                case ToApplicationClientMessageType.UseServerList:
+                case HeadServerToClientMessage.UseServerList:
                     return "TAKE THIS SERVER LIST";
-                case ToApplicationClientMessageType.Dummy:
+                case HeadServerToClientMessage.Dummy:
                     return "<DEBUG MSG>";
             }
             return null;

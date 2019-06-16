@@ -1,13 +1,13 @@
 ﻿using CommonLibrary.Model.Networking;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Udp
 {
+    /// <summary>
+    /// Static creation of UdpReceiver, UdpSender with immediate init 
+    /// </summary>
     public static class UdpNetworkFactory
     {
         public static INetworkReceiver<TE> MakeUdpReceiver<TE>(int port)
@@ -39,14 +39,5 @@ namespace CommonLibrary.Implementation.Networking.Udp
             return null;
         }
 
-        /*
-        public static INetworkSender<TE> MakeBroadcast<TE>(int port)
-        {
-            UdpClient client = new UdpClient { EnableBroadcast = true };
-            // TODO
-            client.Connect(IPAddress.Loopback, port);
-            return new UdpSender<TE>(client);
-        }
-        */
     }
 }

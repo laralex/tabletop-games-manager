@@ -1,14 +1,20 @@
-﻿using System;
+﻿using CommonLibrary.Model.Games.Dice.Combos;
+using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Games.Dice.Combos
 {
-    public class Set : Combo
-    {
 
-        public override ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
+    /// <summary>
+    /// Set combo - 3 dice with same value.
+    /// Score = 10 * dice value
+    /// e.g. quad 5, 5, 5, 5 => Score=10*5 
+    /// except for set of ones: Score=100 
+    /// </summary>
+    public class Set : ICombo
+    {
+        public ComboMaxResult GetMaxCombo(List<Die> dice, bool is_sorted)
         {
             if (dice == null)
             {

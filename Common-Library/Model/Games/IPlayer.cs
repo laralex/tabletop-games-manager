@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CommonLibrary.Model.Games
 {
+    /// <summary>
+    /// Minimal representation for a player (name)
+    /// </summary>
     public interface IPlayer
     {
         string Name { get; }

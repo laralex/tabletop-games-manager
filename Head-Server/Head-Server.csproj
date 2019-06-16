@@ -63,21 +63,21 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Head-Server\HeadServer.cs" />
     <Compile Include="Head-Server\AuthenticationConnectionProcessor.cs" />
-    <Compile Include="Head-Server\WithGameServerEventArgs.cs" />
+    <Compile Include="Head-Server\GameServerConnectionEventArgs.cs" />
     <Compile Include="Head-Server\ServersListConnectionProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authentication-Server\AuthenticationServer.cs" />
-    <Compile Include="Head-Server\WithUserEventArgs.cs" />
+    <Compile Include="Head-Server\UserConnectionEventArgs.cs" />
     <Compile Include="Debug\AuthenticationServerConsole.cs" />
     <Compile Include="Debug\HeadServerConsole.cs" />
     <Compile Include="Debug\HeadServerDebugManager.cs" />
     <Compile Include="Database-Server\DatabaseServer.cs" />
     <Content Include="Database-Server\SQL-Server-Classic\HeadDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Database-Server\SQL-Server-Classic\HeadDB_log.ldf">
       <DependentUpon>HeadDB.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Windows.Forms;
+
 using CommonLibrary.Implementation.Networking.Serializing;
 using CommonLibrary.Implementation.Networking.Tcp;
 using CommonLibrary.Implementation.ServerSide;
-using CommonLibrary.Model.ServerSide.ApplicationClientAndHeadServer;
+using CommonLibrary.Model.ServerSide;
 
 using GameClient.GUI.ServerManager;
+
 namespace GameClient.Application
 {
+    /// <summary>
+    /// Backend class for managing "Lobby" tab in application
+    /// </summary>
     internal class LobbyBackend
     {
         public List<GameServerEntry> KnownActiveGameServers { get; private set; }
@@ -43,8 +45,8 @@ namespace GameClient.Application
             
             if (to_head_client.Connected)
             {
-                to_head_client.Send(ToHeadServerMessageType.ReqServersList);
-                var response = to_head_client.Receive<ServersListMessage>();
+                to_head_client.Send(ClientToHeadServerMessage.ReqServersList);
+                var response = to_head_client.Receive<AllServersList>();
                 if (response != null)
                 {
                     if (response.ServersList.Count == 0)

@@ -1,11 +1,13 @@
 ﻿using CommonLibrary.Implementation.Games.Dice;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// When players submit combo, they gain score.
+    /// Server notifies other players about changes in scores
+    /// </summary>
     [Serializable]
     public class GameServerSubmittedDice
     {

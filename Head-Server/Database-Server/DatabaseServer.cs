@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-//using HeadServer.DB.Context;
-using CommonLibrary.Model.ServerSide;
 using System.Net;
-using CommonLibrary.Model.Common;
+using System.IO;
+using CommonLibrary.Model.ServerSide;
 using CommonLibrary.Implementation.ServerSide.Authentication;
 using CommonLibrary.Implementation.ServerSide;
-using System.IO;
+using CommonLibrary.Implementation.Common;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace HeadServer.DB
 {
+    /// <summary>
+    /// Server initiates and remains connection to database
+    /// Allows database operations (insert user/server, check if server is not dublicate, 
+    /// selects list of all active servers)
+    /// </summary>
     internal class DatabaseServer : IServer
     {
         public ServerStatus Status { get; internal set; }

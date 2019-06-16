@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-using CommonLibrary.Implementation.Games.Dice;
 using CommonLibrary.Implementation.Games.Dice.Combos;
 using CommonLibrary.Model.Games;
-using CommonLibrary.Model.Games.Dice;
 
 namespace CommonLibrary.Implementation.Games.Dice
 {
+    /// <summary>
+    /// Holds dice and active players
+    /// Has functions for controlling them, 
+    /// but it doesn't implement actual game logic
+    /// </summary>
     public class DiceGameEngine //: ITurnBasedGame
     {
         public bool IsTimeLimitedTurn { get; protected set; }

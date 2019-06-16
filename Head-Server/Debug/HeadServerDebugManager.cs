@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using HeadServer.AuthenticationServer;
 
 namespace HeadServer.Debug
-{
+{   /// <summary>
+    /// Manages debugging console facilities (consoles for Head server and 
+    /// Authentication server)
+    /// </summary>
     internal class HeadServerDebugManager
     {
         public HeadServerConsole HeadDebugConsole { get; }

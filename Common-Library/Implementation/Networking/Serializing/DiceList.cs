@@ -1,11 +1,12 @@
 ﻿using CommonLibrary.Implementation.Games.Dice;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// Game Engine rerolls some dice and server sends new values of dice
+    /// </summary>
     [Serializable]
     public class DiceList
     {

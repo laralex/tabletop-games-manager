@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CommonLibrary.Implementation.Crypto
+﻿namespace CommonLibrary.Implementation.Crypto
 {
+    // ! Interface cannot have static members
     public abstract class BaseEncryptor
     {
         public static byte[] Encrypt(string str)

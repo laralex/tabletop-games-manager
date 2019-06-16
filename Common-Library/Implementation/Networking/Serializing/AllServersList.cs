@@ -6,12 +6,15 @@ using System.Text;
 
 namespace CommonLibrary.Implementation.Networking.Serializing
 {
+    /// <summary>
+    /// Users request a servers list from Head server
+    /// </summary>
     [Serializable]
-    public class ServersListMessage
+    public class AllServersList
     {
         public List<GameServerEntry> ServersList { get; set; }
 
-        public ServersListMessage(List<GameServerEntry> serversList)
+        public AllServersList(List<GameServerEntry> serversList)
         {
             ServersList = serversList;
         }

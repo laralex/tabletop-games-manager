@@ -78,6 +78,11 @@ namespace GameClient.GUI.Login
         }
 
         private bool fields_filled;
+
+        private void OnGuiDemoClick(object sender, EventArgs e)
+        {
+            new Application.AppFormDemo().Show();
+        }
     }
 
 }

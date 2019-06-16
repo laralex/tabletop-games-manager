@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CommonLibrary.Model.Application
 {
+    /// <summary>
+    /// Minimal data about connected user
+    /// </summary>
     public interface IUser
     {
         string Name { get; }

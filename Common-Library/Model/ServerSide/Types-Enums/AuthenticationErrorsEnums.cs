@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CommonLibrary.Model.ServerSide
+﻿namespace CommonLibrary.Model.ServerSide
 {
+    /// <summary>
+    /// Error codes for login or signup try by client
+    /// </summary>
     public enum LoginError
     {
         AllOk,
