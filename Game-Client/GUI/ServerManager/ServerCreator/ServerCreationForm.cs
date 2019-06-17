@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommonLibrary.Implementation.Games.Dice;
+using CommonLibrary.Implementation.ServerSide;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,27 +17,28 @@ namespace GameClient.GUI.ServerManager.ServerCreator
         
         public bool FieldsFilled => serverSubform.FieldsFilled && dicegameSubform.FieldsFilled;
 
+        public event EventHandler<ServerCreationEventArgs> OptionsSubmitted;
         public ServerCreationForm()
         {
             InitializeComponent();
 
-            serverFormFilled = serverSubform.FieldsFilled;
-            diceFormFilled = dicegameSubform.FieldsFilled;
+            _server_form_filled = serverSubform.FieldsFilled;
+            _dice_form_filled = dicegameSubform.FieldsFilled;
 
             serverSubform.FieldsFilledEvent += (object sender, EventArgs e) => {
-                serverFormFilled = true;
-                btnOK.Enabled = diceFormFilled;
-            }; ;
+                _server_form_filled = true;
+                btnOK.Enabled = _dice_form_filled;
+            };
             dicegameSubform.FieldsFilledEvent += (object sender, EventArgs e) => {
-                diceFormFilled = true;
-                btnOK.Enabled = serverFormFilled; 
+                _dice_form_filled = true;
+                btnOK.Enabled = _server_form_filled; 
             };
 
             serverSubform.FieldsNotFilledEvent += (object sender, EventArgs e) => {
-                serverFormFilled = btnOK.Enabled = false;
+                _server_form_filled = btnOK.Enabled = false;
             };
             dicegameSubform.FieldsNotFilledEvent += (object sender, EventArgs e) => {
-                diceFormFilled = btnOK.Enabled = false;
+                _dice_form_filled = btnOK.Enabled = false;
             };
         }
 
@@ -52,14 +55,32 @@ namespace GameClient.GUI.ServerManager.ServerCreator
 
         private void OnServerCreation(object sender, EventArgs e)
         {
-            // TODO: db check
-
-            // TODO: add in db
-
-            // TODO: close dialog, add server in servers list
+            var options = new DiceGameServerEntry()
+            {
+                Name = serverSubform.txtName.Text,
+                MaxPlayers = (int)serverSubform.numMaxPlayers.Value,
+                TurnTimeSec = (int)dicegameSubform.numTurnTime.Value,
+                ScoreGoal = (int)dicegameSubform.numScoreGoal.Value,
+                IsJokerAllowed = dicegameSubform.chkIncludedJoker.Checked,
+                DiceNumber = (int)dicegameSubform.numDiceNumber.Value
+            };
+            OptionsSubmitted?.Invoke(
+                this,
+                new ServerCreationEventArgs(options)
+            );
             this.Close();
         }
 
-        private bool serverFormFilled, diceFormFilled;
+        private bool _server_form_filled, _dice_form_filled;
+    }
+
+    public class ServerCreationEventArgs : EventArgs
+    {
+        public GameServerEntry Options;
+
+        public ServerCreationEventArgs(GameServerEntry options)
+        {
+            Options = options;
+        }
     }
 }

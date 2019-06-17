@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.Implementation.Games;
 using CommonLibrary.Implementation.Games.Dice;
+using CommonLibrary.Implementation.ServerSide;
 using CommonLibrary.Implementation.ServerSide.Authentication;
 using CommonLibrary.Model.ServerSide;
 using GameServer.Debug;
@@ -11,7 +12,7 @@ using System.Text;
 
 namespace GameServer
 {
-    class EntryPoint
+    public class EntryPoint
     {
         /// <summary>
         /// Dice server now uses CLI arguments, 
@@ -25,7 +26,7 @@ namespace GameServer
         /// 6) dice_number = 5
         /// 7) is_joker_allowed = 0 (only 0 supported)
         /// </summary>
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             string GameType = args[0];
             string Name = args[1];
@@ -61,7 +62,12 @@ namespace GameServer
                 server.Start();
                 server.Dispose();
             } 
-        }   
+        } 
+        
+        public static StartWithOptions(GameServerEntry options)
+        {
+
+        }
     }
 }
 
