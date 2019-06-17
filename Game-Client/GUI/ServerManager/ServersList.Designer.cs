@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.tblServersList = new System.Windows.Forms.DataGridView();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPlayers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblAllServers = new System.Windows.Forms.Label();
             this.btnJoin = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnCreateServer = new System.Windows.Forms.Button();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPlayers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tblServersList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,13 +61,29 @@
             this.tblServersList.TabIndex = 0;
             this.tblServersList.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.OnSortCompare);
             // 
+            // colName
+            // 
+            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colName.HeaderText = "Server";
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            // 
+            // colPlayers
+            // 
+            this.colPlayers.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colPlayers.FillWeight = 58.40708F;
+            this.colPlayers.HeaderText = "Players";
+            this.colPlayers.Name = "colPlayers";
+            this.colPlayers.ReadOnly = true;
+            this.colPlayers.Width = 66;
+            // 
             // lblAllServers
             // 
             this.lblAllServers.AutoSize = true;
             this.lblAllServers.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblAllServers.Location = new System.Drawing.Point(26, 10);
             this.lblAllServers.Name = "lblAllServers";
-            this.lblAllServers.Size = new System.Drawing.Size(88, 21);
+            this.lblAllServers.Size = new System.Drawing.Size(87, 21);
             this.lblAllServers.TabIndex = 1;
             this.lblAllServers.Text = "All Servers";
             // 
@@ -94,7 +110,6 @@
             // btnCreateServer
             // 
             this.btnCreateServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCreateServer.Enabled = false;
             this.btnCreateServer.Location = new System.Drawing.Point(324, 8);
             this.btnCreateServer.Name = "btnCreateServer";
             this.btnCreateServer.Size = new System.Drawing.Size(88, 23);
@@ -102,22 +117,6 @@
             this.btnCreateServer.Text = "New Server";
             this.btnCreateServer.UseVisualStyleBackColor = true;
             this.btnCreateServer.Click += new System.EventHandler(this.OnNewServer);
-            // 
-            // colName
-            // 
-            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colName.HeaderText = "Server";
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            // 
-            // colPlayers
-            // 
-            this.colPlayers.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.colPlayers.FillWeight = 58.40708F;
-            this.colPlayers.HeaderText = "Players";
-            this.colPlayers.Name = "colPlayers";
-            this.colPlayers.ReadOnly = true;
-            this.colPlayers.Width = 66;
             // 
             // ServersList
             // 

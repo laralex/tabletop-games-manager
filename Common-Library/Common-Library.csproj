@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\Crypto\ShaEncryptor.cs" />
+    <Compile Include="Implementation\Networking\Uitlities\HostConfigRetriever.cs" />
     <Compile Include="Model\Games\Dice-Game\ICombo.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\ComboParser.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\ComboMaxResult.cs" />

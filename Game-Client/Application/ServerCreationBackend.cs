@@ -30,7 +30,7 @@ namespace GameClient.Application
             int game_server_port = new Random().Next(40000, 65000);
             e.Options.Socket = new IPEndPoint(my_ip, game_server_port);
 
-            using (GameServer)
+            GameServer.EntryPoint.Main(nu)
 
         }
 

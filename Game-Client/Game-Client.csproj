@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\AuthenticationBackend.cs" />
+    <Compile Include="Application\IGameOptionsGenerator.cs" />
     <Compile Include="Application\LobbyBackend.cs" />
+    <Compile Include="Application\ServerCreationBackend.cs" />
     <Compile Include="GUI\Application\AppForm.cs">
       <SubType>Form</SubType>
     </Compile>
