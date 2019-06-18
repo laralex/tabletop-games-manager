@@ -64,10 +64,6 @@ namespace GameServer
             } 
         } 
         
-        public static StartWithOptions(GameServerEntry options)
-        {
-
-        }
     }
 }
 

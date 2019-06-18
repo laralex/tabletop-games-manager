@@ -30,7 +30,7 @@ namespace HeadServer
         public void ProcessLogin()
         {
             _client.Send(HeadServerToClientMessage.AckLogInReq);
-            while (_client.Available == 0) { Thread.Sleep(100); }
+            while (_client.Available == 0) { Thread.Sleep(50); }
             var request_data = _client.Receive<UserEntry>();
             bool result = _auth.TryLogIn(request_data);
             _client.Send(result ? HeadServerToClientMessage.AckLogIn : HeadServerToClientMessage.DenyLogIn);
@@ -41,7 +41,7 @@ namespace HeadServer
         public void ProcessSignup()
         {
             _client.Send(HeadServerToClientMessage.AckSignUpReq);
-            while (_client.Available == 0) { Thread.Sleep(100); }
+            while (_client.Available == 0) { Thread.Sleep(50); }
             var request_data = _client.Receive<UserEntry>();
             // FIX ME
             SignupError result = _auth.TrySignUp(IPAddress.Loopback,request_data);

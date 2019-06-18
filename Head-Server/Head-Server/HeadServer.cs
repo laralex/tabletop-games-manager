@@ -77,46 +77,13 @@ namespace HeadServer
         }
         public void ServerLoop()
         {
+            var dispatcher = new IncommingTcpDispatcher(this);
             while (true)
             {
                 _thread_mre.WaitOne();
+                // Accept connetion and process it
                 TcpClient client = _tcp_listener.AcceptTcpClient();
-                /*if (_registered_servers == null || _registered_servers.Count == 0)
-                {
-                    _registered_servers = DbServer.SelectActiveGameServers();
-                } */
-
-                var request = client.Receive<ClientToHeadServerMessage>();
-                Thread clientThread = null;
-                switch (request)
-                {
-                    case ClientToHeadServerMessage.ReqServersList:
-                        var servers_list = DbServer.SelectActiveGameServers();
-                        var servers_list_handler = new ServersListConnectionProcessor(client, servers_list);
-                        clientThread = new Thread(
-                            new ThreadStart(servers_list_handler.ProcessConnection)
-                        );
-                        break;
-                    case ClientToHeadServerMessage.ReqLogIn:
-                        var to_app_message_handler = new AuthenticationConnectionProcessor(
-                            client,
-                            AuthServer
-                        );
-                        clientThread = new Thread(
-                            new ThreadStart(to_app_message_handler.ProcessLogin)
-                        );
-                        break;
-                    case ClientToHeadServerMessage.ReqSignUp:
-                        to_app_message_handler = new AuthenticationConnectionProcessor(
-                            client,
-                            AuthServer
-                        );
-                        clientThread = new Thread(
-                            new ThreadStart(to_app_message_handler.ProcessSignup)
-                        );
-                        break;
-                }
-                clientThread?.Start();
+                dispatcher.DispatchClient(client);
             }
         }
 
@@ -193,16 +160,21 @@ namespace HeadServer
             OnTermination?.Invoke(this, null);
         }
 
-        private bool TryRegisterServer(IPAddress who_requests, DiceGameServerEntry new_server)
+        public bool TryRegisterServer(IPAddress who_requests, GameServerEntry server_options)
         {
-            if (IsRecentIp(who_requests) || !DbServer.InsertDiceGameServer(new_server))
+            if (IsRecentIp(who_requests))
+            {
+                return false;
+            }
+            int insert_result = server_options.ExecuteInsertCommand(DbServer.Connection);
+            if (insert_result != 0)
             {
                 return false;
             }
             _recent_server_creators_IPs.Enqueue(new TimestampedIP(who_requests, DateTime.UtcNow));
             OnMessageToGameServer?.Invoke(
                 this, 
-                new MessageToGameServerEventArgs(new_server, HeadToGameServerMessage.AckRegister)
+                new MessageToGameServerEventArgs(server_options, HeadToGameServerMessage.AckRegister)
             );
             return true;
         }

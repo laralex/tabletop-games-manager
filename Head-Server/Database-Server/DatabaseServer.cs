@@ -22,6 +22,7 @@ namespace HeadServer.DB
         public ServerStatus Status { get; internal set; }
 
         public IPEndPoint Socket { get; internal set; }
+        public SqlConnection Connection { get; private set; }
 
         public DatabaseServer()
         {
@@ -35,9 +36,9 @@ namespace HeadServer.DB
         public void Initialize()
         {
             _connection_string = GetConnectionString();
-            _connection = new SqlConnection(_connection_string);
+            Connection = new SqlConnection(_connection_string);
 
-            _connection.Open(); //exceptions
+            Connection.Open(); //exceptions
             Status = ServerStatus.Initialized;
         }
 
@@ -65,8 +66,8 @@ namespace HeadServer.DB
 
         public void Dispose()
         {
-            _connection.Close();
-            _connection.Dispose();
+            Connection.Close();
+            Connection.Dispose();
             Socket = null;
 
             Status = ServerStatus.Uninitialized;
@@ -79,8 +80,8 @@ namespace HeadServer.DB
 
         public bool InsertUser(UserEntry new_user)
         {
-            using (SqlTransaction trans = _connection.BeginTransaction())
-            using (SqlCommand insert_command = new SqlCommand("insert_user", _connection, trans) { CommandType = CommandType.StoredProcedure })
+            using (SqlTransaction trans = Connection.BeginTransaction())
+            using (SqlCommand insert_command = new SqlCommand("insert_user", Connection, trans) { CommandType = CommandType.StoredProcedure })
             {
                 insert_command.Parameters.Add("@name", SqlDbType.NVarChar).Value = new_user.LoginName;
                 insert_command.Parameters.Add("@passhash", SqlDbType.Binary).Value = new_user.PasswordHash;
@@ -105,46 +106,10 @@ namespace HeadServer.DB
             }
         }
 
-        public bool InsertDiceGameServer(DiceGameServerEntry new_server)
-        {
-            using (SqlTransaction trans = _connection.BeginTransaction())
-            using (SqlCommand insert_command = new SqlCommand("insert_dice_game_server", _connection, trans) { CommandType = CommandType.StoredProcedure })
-            {
-                insert_command.Parameters.Add("@name", SqlDbType.NVarChar).Value = new_server.Name;
-                insert_command.Parameters.Add("@max_players", SqlDbType.Int).Value = new_server.MaxPlayers;
-                insert_command.Parameters.Add("@ip", SqlDbType.BigInt).Value = new_server.Socket.Address.Address;
-                insert_command.Parameters.Add("@port", SqlDbType.Int).Value = new_server.Socket.Port;
-                insert_command.Parameters.Add("@creator_name", SqlDbType.NVarChar).Value = new_server.CreatorName; //TODO
-                insert_command.Parameters.Add("@enroll_time", SqlDbType.DateTime).Value = DateTime.UtcNow;
-                insert_command.Parameters.Add("@turn_time_sec", SqlDbType.SmallInt).Value = new_server.TurnTimeSec;
-                insert_command.Parameters.Add("@score_goal", SqlDbType.Int).Value = new_server.ScoreGoal;
-                insert_command.Parameters.Add("@dice_number", SqlDbType.Int).Value = new_server.DiceNumber;
-                insert_command.Parameters.Add("@is_joker_allowed", SqlDbType.Bit).Value = new_server.IsJokerAllowed ? 1 : 0;
-                insert_command.Parameters.Add("@is_active", SqlDbType.Bit).Value = new_server.IsActive ? 1 : 0;
-
-                insert_command.Parameters.Add("@is_inserted", SqlDbType.Int).Direction = ParameterDirection.Output;
-
-                int result_count = insert_command.ExecuteNonQuery();
-                if (result_count == 0)
-                {
-                    trans.Rollback();
-                    return false;
-                }
-
-                int is_ok = Convert.ToInt32(insert_command.Parameters["@is_inserted"].Value);
-                if (is_ok == 1)
-                {
-                    trans.Commit();
-                    return true;
-                } 
-                trans.Rollback();
-                return false;
-            }
-        }
         public bool CheckUserLogin(string name, byte[] password_hash)
         {
             string command = "get_user_hash";
-            using (SqlCommand cmd = new SqlCommand(command, _connection) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand cmd = new SqlCommand(command, Connection) { CommandType = CommandType.StoredProcedure })
             {
                 cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = name;
 
@@ -205,7 +170,7 @@ namespace HeadServer.DB
         public List<GameServerEntry> SelectActiveGameServers()
         {
             string command = "SELECT * FROM game_servers WHERE is_active = 1";
-            using (SqlCommand cmd = new SqlCommand(command, _connection))
+            using (SqlCommand cmd = new SqlCommand(command, Connection))
             {
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -232,8 +197,8 @@ namespace HeadServer.DB
         public bool SetServerIsActive(int server_id, bool is_active)
         {
             string command = "UPDATE game_servers SET is_active = " + (is_active ? 1 : 0) + " WHERE id = " + server_id;
-            using (SqlTransaction trans = _connection.BeginTransaction())
-            using (SqlCommand cmd = new SqlCommand(command, _connection, trans))
+            using (SqlTransaction trans = Connection.BeginTransaction())
+            using (SqlCommand cmd = new SqlCommand(command, Connection, trans))
             {
                 int result = cmd.ExecuteNonQuery();
                 if (result > 0)
@@ -261,6 +226,5 @@ namespace HeadServer.DB
         }
 
         private string _connection_string;
-        private SqlConnection _connection;
     }
 }

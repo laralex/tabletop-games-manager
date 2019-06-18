@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
-
+using CommonLibrary.Model.ServerSide;
 using GameClient.Application;
 
 namespace GameClient
@@ -29,15 +29,16 @@ namespace GameClient
         {
             ClientTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42078);
             HeadTcpEndPoint = new IPEndPoint(IPAddress.Loopback, 42077);
+            ProjectIdentifier = new GameClientIdentifier();
         }
         public static TcpClient InitHeadTcpClient()
         {
             return HeadTcpClient = new TcpClient(ClientTcpEndPoint);
         }
-        public static IPEndPoint ClientTcpEndPoint;
-        public static TcpClient HeadTcpClient;
-        public static IPEndPoint HeadTcpEndPoint;
-
+        public static IPEndPoint ClientTcpEndPoint { get; }
+        public static TcpClient HeadTcpClient { get; private set; }
+        public static IPEndPoint HeadTcpEndPoint { get; }
+        public static SubsystemIdentifier ProjectIdentifier { get; }
     }
 }
 

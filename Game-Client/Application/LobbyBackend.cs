@@ -32,7 +32,11 @@ namespace GameClient.Application
         {
 
             var to_head_client = EntryPoint.InitHeadTcpClient();
-            while (to_head_client.Connected) { }
+            ConnectionProtocolUtility.SendGreetings(
+                to_head_client, 
+                EntryPoint.HeadTcpEndPoint, 
+                EntryPoint.ProjectIdentifier
+            );
 
             try
             {

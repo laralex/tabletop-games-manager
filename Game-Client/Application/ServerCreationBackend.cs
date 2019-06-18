@@ -24,22 +24,23 @@ namespace GameClient.Application
         private void OnOptionsSubmitted(object sender, ServerCreationEventArgs e)
         {
             // create server
-            e.Options.CreatorName = _creator.LoginName;
+            /*e.Options.CreatorName = _creator.LoginName;
             e.Options.IsActive = true;
             IPAddress my_ip = HostConfigRetriever.GetLocalOutsideIP();
             int game_server_port = new Random().Next(40000, 65000);
             e.Options.Socket = new IPEndPoint(my_ip, game_server_port);
 
             GameServer.EntryPoint.Main(nu)
-
+              */
         }
 
         public GameServerEntry GetOptions()
         {
-            if (_frontend.FieldsFilled)
+            /*if (_frontend.FieldsFilled)
             {
                 _frontend
-            }
+            } */
+            return null;
         }
         private ServerCreationForm _frontend;
         private UserEntry _creator;

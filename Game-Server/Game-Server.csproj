@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Debug\GameServerConsole.cs" />
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="GameServerIdentifier.cs" />
     <Compile Include="Games\Dice\DiceGameServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

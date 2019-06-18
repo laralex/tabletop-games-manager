@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Implementation\Crypto\ShaEncryptor.cs" />
     <Compile Include="Implementation\Networking\Uitlities\HostConfigRetriever.cs" />
+    <Compile Include="Implementation\ServerSide\ConnectionProtocolUtility.cs" />
     <Compile Include="Model\Games\Dice-Game\ICombo.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\ComboParser.cs" />
     <Compile Include="Implementation\Games\Dice-Game\Combos\ComboMaxResult.cs" />
@@ -95,6 +96,8 @@
     <Compile Include="Model\Networking\INetworkSender.cs" />
     <Compile Include="Model\ServerSide\GameServerEventArgs.cs" />
     <Compile Include="Model\ServerSide\GameType.cs" />
+    <Compile Include="Model\ServerSide\IConnectionProcessor.cs" />
+    <Compile Include="Implementation\ServerSide\SubsystemIdentifier.cs" />
     <Compile Include="Model\ServerSide\Types-Enums\AuthenticationErrorsEnums.cs" />
     <Compile Include="Model\ServerSide\Types-Enums\HeadServer-GameServer-MessageEnums.cs" />
     <Compile Include="Model\ServerSide\Types-Enums\Client-GameServer-MessageEnums.cs" />
